@@ -1,0 +1,26 @@
+/* require('lib/blueprint/screen') */
+
+.indicator16-ok {
+    display:none;
+}
+
+.indicator16-failed {
+    display:inline;
+    background-image: url(/static/icons/circular/no.png);
+}
+
+.indicator16-loading {
+    display:inline;
+    background-image: url(/static/ajax-loader.gif);
+}
+
+.state-ok {
+}
+
+.state-failed {
+    background-image: url(/static/icons/circular/no.png) !important;
+}
+
+.state-loading {
+    background-image: url(/static/ajax-loader.gif) !important;
+}

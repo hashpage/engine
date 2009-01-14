@@ -1,0 +1,179 @@
+/* require('lib/blueprint/screen') */
+
+.popeye {
+    overflow:       auto;   /* fallback popeye is scrolling! */
+    height:         180px;  /* set to max height of fallback popeye */
+}
+.popeye ul,               /* reset browser list styles */
+.popeye li {              
+    list-style:     none; 
+    margin:         0;
+    padding:        0;
+}
+.popeye-tools-wrap,
+.popeye-tools {
+    overflow:       hidden;
+}
+.popeye-stage {
+    background:     transparent no-repeat center center;  
+}
+.popeye-cap {
+    overflow:       auto;   /* if height is set, caption will scroll */
+}
+/*=========================================================================
+|
+|   file:    styling.css
+|   descr:   Individual Styling of jQuery.popeye-Boxes
+|   version: 1.1.1 - 2008/11/11 11:11
+|
+|   ------------------------------------------------------------------------
+|
+|   author:   Christoph Schuessler
+|   aut. url: http://herr-schuessler.de
+|
+================================================================================*/
+
+.popeye-stagewrap {
+    background-color:#333;
+}
+.popeye-stage {
+    border:         1px solid #d2d2d2;
+    border-bottom:  1px solid #ffffff;
+    border-right:   1px solid #ffffff;
+    cursor:         pointer;
+    margin: auto;
+}
+.popeye-tools-wrap {
+    font-size:      11px;
+    color:          #767676;
+    padding: 4px 16px;
+}
+
+.popeye-tools {
+    margin: auto;
+}
+
+.popeye-cap {
+    margin:         10px auto;
+    clear:          both;
+    line-height:    1.1em;
+}
+.popeye-hasjs {
+/*    padding:        10px !important;*/
+}
+.popeye-isloading {
+    background:     #333 url(#{ENGINE_URL}/static/loading.gif) no-repeat center;
+}
+.popeye-haspopped {
+    border:         1px solid #333 !important;
+    background:     #000 !important;
+}
+.popeye-haspopped .popeye-stage {
+    border:         1px solid #333;
+    background:     #333;
+}
+
+/* style 1 */
+#popeye1 {
+    background:     #f0f0f0;
+    border:         1px solid #bababa;
+    border-bottom:  1px solid #d8d8d8;
+    border-right:   1px solid #d8d8d8;
+}
+#popeye1 .popeye-tools {
+    padding:        10px 0;
+    border-bottom:   1px solid#d8d8d8;
+}
+#popeye1 .popeye-tools span{
+    float:          left;
+    line-height:    18px;
+}
+#popeye1 .popeye-tools a {
+    display:        block;
+    float:          left;
+    height:         20px;
+    line-height:    18px;
+    color:          #266e80;
+    text-decoration:none;
+    text-align:     center;
+}
+#popeye1 .popeye-tools a:hover {
+    color:          #8f8f8f;
+}
+#popeye1 .popeye-prev {
+    background:     url(#{ENGINE_URL}/static/prev-1.png) no-repeat;
+    width:          44px;
+    padding:        0 4px 0 12px;
+}
+#popeye1 .popeye-next {
+    float:          right !important;
+    text-align:     ri ght; 
+    background:     url(#{ENGINE_URL}/static/next-1.png) no-repeat;
+    width:          44px;
+    padding:        0 12px 0 4px;
+}
+#popeye1 .popeye-enlarge {
+    background:     url(#{ENGINE_URL}/static/enlarge-1.png) no-repeat;
+    margin:         0 0 0 10px;
+    width:          46px;
+    padding:        0 4px 0 16px;
+
+}
+#popeye1 .popeye-count {
+    margin:         0 0 0 10px;
+}
+
+/* style 2 */
+#popeye2 {
+    float:          right;
+    background:     #f0f0f0;
+    border:         1px solid #bababa;
+    border-bottom:  1px solid #d8d8d8;
+    border-right:   1px solid #d8d8d8;
+}
+#popeye2 .popeye-tools {
+    margin:         10px 0 0 0;
+    padding:        6px;
+    background:     #e9e9e9;
+    border:         1px solid #FFF;
+    border-bottom:  1px solid #bababa;
+    border-right:   1px solid #bababa;
+}
+#popeye2 .popeye-tools span,
+#popeye2 .popeye-tools a {
+    display:        block;
+    float:          left;
+    height:         22px;
+    line-height:    22px;
+}
+#popeye2 .popeye-tools a {
+    height:         0px !important;
+    padding-top:    22px;
+    width:          22px;
+    border:         1px solid #e9e9e9;
+    overflow:       hidden;
+}
+#popeye2 .popeye-tools a:hover {
+    background-color:#f0f0f0;
+    border:         1px solid #bababa;
+    border-bottom:  1px solid #d8d8d8;
+    border-right:   1px solid #d8d8d8;
+}
+#popeye2 .popeye-prev {
+    background:     url(#{ENGINE_URL}/static/prev-2.png) no-repeat center;
+}
+#popeye2 .popeye-next {
+    float:          right !important;
+    background:     url(#{ENGINE_URL}/static/next-2.png) no-repeat center;
+}
+#popeye2 .popeye-enlarge {
+    background:     url(#{ENGINE_URL}/static/enlarge-2.png) no-repeat center center;
+    margin:         0 0 0 10px;
+}
+#popeye2 .popeye-count {
+    background:     url(#{ENGINE_URL}/static/count-2.png) no-repeat left center;
+    padding:        0 0 0 20px;
+}
+#popeye2 .popeye-count {
+    margin:         0 0 0 10px;
+}

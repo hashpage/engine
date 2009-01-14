@@ -1,0 +1,49 @@
+/* require('lib/blueprint/screen') */
+
+html {
+    height: 100%;
+    padding-bottom: 1px;
+}
+
+.pb-widget dd {
+    overflow: hidden;
+}
+
+.pb-widget dt div {
+    white-space: nowrap;
+}
+
+.pb-widget dt .pb-widget-thumbnail { 
+    display: none;
+}
+
+.pb-widget dd { 
+    margin: 0; 
+}
+
+.pb-widget {
+    position: relative;
+    min-height: 20px;
+    min-width: 20px;
+}
+
+.pb-container {
+    position: relative;
+}
+
+.pb-open-container {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.pb-schema {
+    display: none;
+}
+
+.pb-widget.pb-collapsed dt .pb-widget-toolbar {
+    display: none;
+}
+
+.pb-widget.pb-expanded dt .pb-widget-toolbar { 
+    display: none;
+}

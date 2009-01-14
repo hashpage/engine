@@ -1,0 +1,179 @@
+/* require('engine') */
+
+.activity .info {
+    font-size: 8pt !important;
+}
+
+.activity .comments .comment, 
+.activity .body .summary {
+    white-space: normal !important;
+}
+
+.logo {
+    display:none !important;
+}
+
+.header {
+    background: none !important;
+	display: none !important;
+}
+
+.header div.inner {
+    background: none !important;
+}
+
+a:link {
+  color: #1030cc;
+}
+
+a:visited {
+  color: #551a8b;
+}
+
+a:active {
+  color: #cc0000;
+}
+
+div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+img {
+  border: 0px;
+}
+
+.header {
+  background-color: #a7c5ea;
+  position: relative;
+}
+
+.header div.inner {
+  padding: 3px;
+  padding-left: 4px;
+}
+
+.header img.logo {
+  width: 120px;
+  height: 26px;
+  vertical-align: middle;
+}
+
+.header .message {
+  position: absolute;
+  top: 8px;
+  left: 138px;
+  font-weight: bold;
+}
+
+.activity {
+  clear: left;
+  margin-bottom: 1.25em;
+}
+
+.child {
+  margin-left: 23px;
+}
+
+.activity div.icon {
+  float: left;
+}
+
+.activity .body {
+  margin-left: 23px;
+}
+
+.activity .comments .comment,
+.activity .body .summary {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.activity .body .link {
+  margin-top:0.3em;
+}
+
+.activity .body a.friend:visited {
+  color: #1030cc;
+}
+
+.activity .info {
+  color: gray;
+  font-size: 9pt;
+  margin-top: 3px;
+}
+
+.activity .media {
+  margin-top: 0.6em;
+}
+
+.activity .media img {
+  padding: 3px;
+  border: 0px solid #d0d0d0;
+  vertical-align: middle;
+}
+
+.media-container.video {
+  margin-right: 10px;
+}
+
+.activity .comments .comment,
+.activity .likes {
+  margin-top: 0.4em;
+  color: gray;
+  padding-left: 32px;
+}
+
+.activity .comments .comment {
+  background: url("/static/img/shared/quote.png") 14px 2px no-repeat; 
+}
+
+.activity .likes {
+  background: url("/static/img/shared/smile.png") 12px 0px no-repeat; 
+}
+
+.activity .comments .comment a.friend {
+  font-style: normal;
+}
+
+.activity .comments .comment a:link,
+.activity .comments .comment a.friend:visited,
+.activity .comments .more a,
+.activity .comments .more a:visited,
+.activity .likes a:link,
+.activity .likes a:visited {
+  color: #7777cc;
+}
+
+.activity,
+.more {
+  margin-top: 0.3em;
+}
+
+.more a:visited {
+  color: #1030cc;
+}
+
+.playb {
+    position: absolute;
+    cursor: pointer;
+    background-image: url("/static/img/shared/playbutton.png");
+}
+
+.playing .playb {
+    background-image: url("/static/img/shared/stopbutton.png");
+}
+
+.media-container {
+    position: relative;
+}
+
+.blogpost h2 {
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.blogpost > div {
+    margin-top: 10px;
+}
