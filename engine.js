@@ -10,6 +10,7 @@
 (function($) {
 
     $.extend(PB, {
+        serverMode: 0,
         visibleWidgets: [],
         templates: [],
         widgets: {},
