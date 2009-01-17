@@ -106,6 +106,12 @@ dl.sort dt.pb-loading-indicator {
     padding-top: 6px;
     width: 64px;
 }
+
+.pb-tabs-nav .pb-add-tab a span {
+    width: 20px !important;
+    font-weight: bold !important;
+}
+
 * > .pb-tabs-nav a span {
     height: auto;
     width: auto;
