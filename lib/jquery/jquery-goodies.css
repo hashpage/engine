@@ -6,21 +6,21 @@
 
 .indicator16-failed {
     display:inline;
-    background-image: url(/static/icons/circular/no.png);
+    background-image: url(#{BASE_URL}/static/icons/circular/no.png);
 }
 
 .indicator16-loading {
     display:inline;
-    background-image: url(/static/ajax-loader.gif);
+    background-image: url(#{BASE_URL}/static/ajax-loader.gif);
 }
 
 .state-ok {
 }
 
 .state-failed {
-    background-image: url(/static/icons/circular/no.png) !important;
+    background-image: url(#{BASE_URL}/static/icons/circular/no.png) !important;
 }
 
 .state-loading {
-    background-image: url(/static/ajax-loader.gif) !important;
+    background-image: url(#{BASE_URL}/static/ajax-loader.gif) !important;
 }
