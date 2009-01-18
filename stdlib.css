@@ -126,11 +126,11 @@ img {
 }
 
 .activity .comments .comment {
-  background: url("#{SYSTEM_URL}/static/img/shared/quote.png") 14px 2px no-repeat; 
+  background: url("#{BASE_URL}/static/quote.png") 14px 2px no-repeat; 
 }
 
 .activity .likes {
-  background: url("#{SYSTEM_URL}/static/img/shared/smile.png") 12px 0px no-repeat; 
+  background: url("#{BASE_URL}/static/smile.png") 12px 0px no-repeat; 
 }
 
 .activity .comments .comment a.friend {
@@ -158,11 +158,11 @@ img {
 .playb {
     position: absolute;
     cursor: pointer;
-    background-image: url("#{SYSTEM_URL}/static/img/shared/playbutton.png");
+    background-image: url("#{BASE_URL}/static/playbutton.png");
 }
 
 .playing .playb {
-    background-image: url("#{SYSTEM_URL}/static/img/shared/stopbutton.png");
+    background-image: url("#{BASE_URL}/static/stopbutton.png");
 }
 
 .media-container {

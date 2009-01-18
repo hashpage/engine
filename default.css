@@ -3,13 +3,13 @@
 .pb-loading-indicator {
     width: 16px;
     height: 16px;
-    background: transparent url(#{ENGINE_URL}/static/ajax-loader.gif) no-repeat scroll left top;
+    background: transparent url(#{BASE_URL}/static/ajax-loader.gif) no-repeat scroll left top;
     position: absolute;
     z-index: 10000;
 }
 
 dl.sort dt.pb-loading-indicator {
-    background: transparent url(#{ENGINE_URL}/static/ajax-loader.gif) no-repeat scroll left top;
+    background: transparent url(#{BASE_URL}/static/ajax-loader.gif) no-repeat scroll left top;
     width: 20px;
     height: 20px;
     position: absolute;
@@ -74,7 +74,7 @@ dl.sort dt.pb-loading-indicator {
 }
 
 .pb-tabs-nav a, .pb-tabs-nav a span {
-    background: transparent url(#{ENGINE_URL}/static/tab.png) no-repeat scroll 0 0;
+    background: transparent url(#{BASE_URL}/static/tab.png) no-repeat scroll 0 0;
     display: block;
     padding: 0 10px;
 }
@@ -142,7 +142,7 @@ dl.sort dt.pb-loading-indicator {
     filter: alpha(opacity=40);
 }
 .pb-tabs-loading em {
-    background: transparent url(#{ENGINE_URL}/static/loading.gif) no-repeat scroll 0 50%;
+    background: transparent url(#{BASE_URL}/static/loading.gif) no-repeat scroll 0 50%;
     padding: 0 0 0 20px;
 }
 * html .pb-tabs-nav {

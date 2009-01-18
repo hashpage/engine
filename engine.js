@@ -39,7 +39,10 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         widgetUrl: function(name) {
             if (name.substring(0,4)=="http") return name; // absolute url specified
-            return "http://widgets.pagebout.local/"+name; // relative url specified
+            if (!this.serverMode) return "http://widgets.pagebout.com/"+name; // relative url specified and in production
+            if (this.serverMode==1) return "http://localhost:9876/widgets/"+name; // relative url specified and in development
+            if (this.serverMode==2) return "http://widgets.pagebout.local/"+name; // relative url specified and in simulation
+            console.error("Unknown serverMode");
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         parseGuidFromId: function(id) {

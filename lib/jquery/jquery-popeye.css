@@ -62,7 +62,7 @@
 /*    padding:        10px !important;*/
 }
 .popeye-isloading {
-    background:     #333 url(#{ENGINE_URL}/static/loading.gif) no-repeat center;
+    background:     #333 url(#{BASE_URL}/static/loading.gif) no-repeat center;
 }
 .popeye-haspopped {
     border:         1px solid #333 !important;
@@ -101,19 +101,19 @@
     color:          #8f8f8f;
 }
 #popeye1 .popeye-prev {
-    background:     url(#{ENGINE_URL}/static/prev-1.png) no-repeat;
+    background:     url(#{BASE_URL}/static/prev-1.png) no-repeat;
     width:          44px;
     padding:        0 4px 0 12px;
 }
 #popeye1 .popeye-next {
     float:          right !important;
     text-align:     ri ght; 
-    background:     url(#{ENGINE_URL}/static/next-1.png) no-repeat;
+    background:     url(#{BASE_URL}/static/next-1.png) no-repeat;
     width:          44px;
     padding:        0 12px 0 4px;
 }
 #popeye1 .popeye-enlarge {
-    background:     url(#{ENGINE_URL}/static/enlarge-1.png) no-repeat;
+    background:     url(#{BASE_URL}/static/enlarge-1.png) no-repeat;
     margin:         0 0 0 10px;
     width:          46px;
     padding:        0 4px 0 16px;
@@ -160,18 +160,18 @@
     border-right:   1px solid #d8d8d8;
 }
 #popeye2 .popeye-prev {
-    background:     url(#{ENGINE_URL}/static/prev-2.png) no-repeat center;
+    background:     url(#{BASE_URL}/static/prev-2.png) no-repeat center;
 }
 #popeye2 .popeye-next {
     float:          right !important;
-    background:     url(#{ENGINE_URL}/static/next-2.png) no-repeat center;
+    background:     url(#{BASE_URL}/static/next-2.png) no-repeat center;
 }
 #popeye2 .popeye-enlarge {
-    background:     url(#{ENGINE_URL}/static/enlarge-2.png) no-repeat center center;
+    background:     url(#{BASE_URL}/static/enlarge-2.png) no-repeat center center;
     margin:         0 0 0 10px;
 }
 #popeye2 .popeye-count {
-    background:     url(#{ENGINE_URL}/static/count-2.png) no-repeat left center;
+    background:     url(#{BASE_URL}/static/count-2.png) no-repeat left center;
     padding:        0 0 0 20px;
 }
 #popeye2 .popeye-count {
