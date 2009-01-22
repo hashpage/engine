@@ -1,10 +1,10 @@
 // require('lib/firebugx')
 // require('lib/sha1')
 // require('lib/jquery/jquery')
-// require('lib/jquery/ui/core')
-// require('lib/jquery/ui/sortable')
-// require('lib/jquery/ui/draggable')
-// require('lib/jquery/ui/droppable')
+// require('lib/jquery/ui/ui.core')
+// require('lib/jquery/ui/ui.sortable')
+// require('lib/jquery/ui/ui.draggable')
+// require('lib/jquery/ui/ui.droppable')
 // require('base')
 
 (function($) {

@@ -27,12 +27,12 @@
             this.requestedWidgets[url] = true;
             this.pendingRequests++;
             var that = this;
-            var js_url = url+'/index.js';
+            var js_url = url+'/index.js?'+PB.cacheSeed;
             $.ajax({
                 type: 'GET',
                 url: js_url, 
                 dataType: "script",
-                //cache: true,
+                cache: true,
                 success: function() {
                     callback();
                     that.pendingRequests--;
