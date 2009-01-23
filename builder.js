@@ -1,4 +1,4 @@
-// require('bootstrap')
+// require('boot')
 
 (function($) {
     
