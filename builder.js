@@ -1,6 +1,7 @@
 // require('boot')
 
 (function($) {
+    PB.logBuilder = false;
     
     /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.parseSpan = function() {
@@ -87,28 +88,42 @@
             var wclass = parts[parts.length-2]+"-"+parts[parts.length-1]; // HACK for devel mode
         else
             var wclass = parts[parts.length-3]+"-"+parts[parts.length-2];
-        var widget = $('<dl id="'+id+'" class="pb-widget sort pb-expanded '+wclass+'" widget="'+data.widget+'"></dl>');
+        var widget = $('<dl id="'+id+'" class="pb-widget sort pb-pinned '+wclass+'" widget="'+data.widget+'"></dl>');
         var iconUrl = PB.widgetUrl(data.widget) + "/icon.png";
         var thumbUrl = PB.widgetUrl(data.widget) + "/thumbnail.png";
         var widgetTemplate = [];
         widgetTemplate.push('<dt>');
         widgetTemplate.push('<div class="pb-widget-toolbar">');
-        widgetTemplate.push('<img class="pb-widget-icon" src="'+iconUrl+'" title="'+data.widget+'">');
-        widgetTemplate.push('<span class="pb-widget-title">'+data.widget+'</span>');
-        widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'collapse\')" title="collapse widget and show it\'s icon instead">iconize</a>');
-        widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'settings\')" title="open widget configuration">settings</a>');
+        // widgetTemplate.push('<img class="pb-widget-icon" src="'+iconUrl+'" title="'+data.widget+'">');
+        // widgetTemplate.push('<span class="pb-widget-title">'+data.widget+'</span>');
+        // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'collapse\')" title="collapse widget and show it\'s icon instead">iconize</a>');
+        // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'settings\')" title="open widget configuration">settings</a>');
         widgetTemplate.push('</div>');
         widgetTemplate.push('<div class="pb-widget-thumbnail">');
         widgetTemplate.push('<img width="64" height="48" src="'+thumbUrl+'" title="'+data.widget+'">');
-        widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'expand\')" title="expand widget with content">preview</a>');
-        widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'settings\')" title="open widget configuration">settings</a>');
+        // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'expand\')" title="expand widget with content">preview</a>');
+        // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'settings\')" title="open widget configuration">settings</a>');
+        widgetTemplate.push('<div>'+wclass.split("-")[1]+'</div>');
+        widgetTemplate.push('<div>'+wclass.split("-")[0]+'</div>');
         widgetTemplate.push('</div>');
         widgetTemplate.push('</dt>');
         widgetTemplate.push('<dd>');
         widgetTemplate.push('<div class="pb-widget-body"></div>');
         widgetTemplate.push('</dd>');
         widget.attr('innerHTML', widgetTemplate.join(''));
-        console.log("Loading widget: ", data.widget);
+        if (data.state) {
+            if (data.state=="expanded") {
+                setTimeout(function() { // widget jeste neni v DOMu a nezafungovalo by memoize
+                    widget.widgetAction("expand");
+                }, 500);
+            }
+            if (data.state=="collapsed") {
+                setTimeout(function() {
+                    widget.widgetAction("collapse");
+                }, 500);
+            }
+        }
+        if (PB.logBuilder) console.log("Loading widget: ", data.widget);
         PB.loader.loadWidget(data.widget, function() {
             PB.initWidgetInstance(widget);
         });
@@ -120,6 +135,7 @@
             var data = {};
             data.widget = schema.attr('data-widget');
             data.id = schema.attr('data-id');
+            data.state = schema.attr('data-state');
             data.config = {};
             var attrs = schema.dataAttrs();
             for (a in attrs) {
@@ -184,7 +200,7 @@
     };
     /////////////////////////////////////////////////////////////////////////////////////////
     function serializeContainer(el) {
-        console.log("Serializing container ", el.get(0));
+        if (PB.logBuilder) console.log("Serializing container ", el.get(0));
         var result = $('<div></div>');
         var id = el.attr('id');
         var span = el.parseSpan();
@@ -196,7 +212,7 @@
     }
     /////////////////////////////////////////////////////////////////////////////////////////
     function serializeWidget(el) {
-        console.log("Serializing widget ", el.get(0));
+        if (PB.logBuilder) console.log("Serializing widget ", el.get(0));
         var result = $('<div></div>');
         var widget = PB.getWidgetInstance(el);
         if (!widget) {

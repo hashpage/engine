@@ -4,6 +4,7 @@ jQuery(document).ready(function($){
     PB.applyStyle();
     
     PB.loader = new PB.Loader();
+    PB.notifier = new PB.Notifier();
     
     // add known services
     PB.addService(new PB.ActivityService());

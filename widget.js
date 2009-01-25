@@ -56,7 +56,7 @@
         applyTemplate: function(el, templateName, options) {
             var template = this.templates[templateName];
             if (!template) {
-                console.error('missing template: %s', templateName);
+                console.error('Missing template: %s', templateName);
                 return false;
             }
             el.setTemplate(template, PB.stdlib.templates(), options);

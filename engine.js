@@ -18,6 +18,8 @@
         services: {},
         instanceConfigs: {},
         dependencyManager: {},
+        layoutChangesGuard: 0,
+        dependenciesGuard: 0,
         /////////////////////////////////////////////////////////////////////////////////////////
         applyStyle: function() {
             var style = $('<style>'+PB.css+'</style>');
@@ -72,28 +74,28 @@
             var widgetElement = $(el);
             var widgetName = widgetElement.attr("widget");
             if (!widgetName) {
-                console.log('No widget specified for ', widgetElement);
+                console.error('No widget specified for ', widgetElement);
                 return;
             }
             console.log("Initializing widget:", widgetName);
             var guid = PB.parseGuidFromId(widgetElement.attr("id"));
             if (!guid) {
-                console.log('No guid specified for ', widgetElement);
+                console.error('No guid specified for ', widgetElement);
                 return;
             }
             var widgetClass = PB.getWidget(widgetName);
             if (!widgetClass) {
-                console.log('Unable to resolve class specified for %s (%o)', widgetName, widgetElement);
+                console.error('Unable to resolve class specified for %s (%o)', widgetName, widgetElement);
                 return;
             }
             var instance = new widgetClass();
             if (!instance) {
-                console.log('Unable to instantiate widget specified for %s (%o)', widgetName, widgetElement);
+                console.error('Unable to instantiate widget specified for %s (%o)', widgetName, widgetElement);
                 return;
             }
             var contentElement = el.find('div.pb-widget-body');
             if (contentElement.length!=1) {
-                console.log('Bad widget markup structure for %s (%o)', widgetName, widgetElement);
+                console.error('Bad widget markup structure for %s (%o)', widgetName, widgetElement);
                 return;
             }
             var staticHtml = instance.staticHtml;
@@ -108,7 +110,7 @@
             if (typeof guid_or_el != "string") {
                 guid_or_el = PB.parseGuidFromId($(guid_or_el).attr("id"));
                 if (!guid_or_el) {
-                    console.log('No guid specified for ', guid_or_el);
+                    console.error('No guid specified for ', guid_or_el);
                     return;
                 }
             }
@@ -118,6 +120,18 @@
         deserialize: function() {
             var roots = $('.pagebout');
             roots.buildStructure();
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        pauseDependencyNotifications: function() {
+            this.dependenciesGuard++;
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        resumeDependencyNotifications: function() {
+            this.dependenciesGuard--;
+            if (this.layoutChangesGuard<0) {
+                console.error("Inconsitent pause/resume on layout changes");
+                console.trace();
+            }
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         declareDependency: function(who, what) {
@@ -147,7 +161,24 @@
             return true;
         },
         /////////////////////////////////////////////////////////////////////////////////////////
+        pauseLayoutChanges: function() {
+            this.layoutChangesGuard++;
+            this.layoutChangesDirty = false;
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        resumeLayoutChanges: function() {
+            this.layoutChangesGuard--;
+            if (this.layoutChangesGuard<0) {
+                console.error("Inconsitent pause/resume on layout changes");
+                console.trace();
+            }
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
         possibleLayoutChange: function(id) {
+            if (this.layoutChangesGuard) {
+                this.layoutChangesDirty = true;
+                return; // changes are paused
+            }
             if (this.mode!="edit") return; // renormalize only in edit mode
             var el = id;
             if (!el) {
@@ -156,12 +187,13 @@
                 if (typeof el == "string") el = $(el);
                 el = el.parentsAndMe('.pagebout');
             }
-            console.log('layout-change', el.get(0));
+            console.log('Layouting', el.get(0));
             el.normalize().enlarge();
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         notifyDependants: function(what, kind, params) {
             // TODO: tady to bude chtit nejake cachovani a odfiltrovani duplicit
+            if (this.dependenciesGuard) return; // dependencies are paused
             var args = $.makeArray(arguments);
             console.log("%s (%o)", kind, what, args.splice(2));
             if (typeof what != "string") {
@@ -170,7 +202,7 @@
             if (!what) return;
         
             if (kind=="widget.draggedin" || kind=="widget.draggedout" || kind=="widget.resized" ||
-                kind=="widget.collapsed" || kind=="widget.expanded" || kind=="widget.changed" || 
+                kind=="widget.collapsed" || kind=="widget.expanded" || kind=="widget.changed" || kind=="widget.hidden" || 
                 kind.match(/^container\.split/)) {
                 this.possibleLayoutChange(what);
                 this.refreshSelectedContainer();
@@ -180,7 +212,7 @@
             if (!records) return;
             for (var i=0; i < records.length; i++) {
                 var record = records[i];
-                console.log("notifying %o", record, arguments);
+                console.log("Notifying %o", record, arguments);
                 record.onDependencyChanged.apply(record, arguments);
             }
         },
