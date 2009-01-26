@@ -175,6 +175,7 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         possibleLayoutChange: function(id) {
+            if (this.disableLayouting) return;
             if (this.layoutChangesGuard) {
                 this.layoutChangesDirty = true;
                 return; // changes are paused
@@ -195,17 +196,23 @@
             // TODO: tady to bude chtit nejake cachovani a odfiltrovani duplicit
             if (this.dependenciesGuard) return; // dependencies are paused
             var args = $.makeArray(arguments);
-            console.log("%s (%o)", kind, what, args.splice(2));
+            console.log("Notification: %s (%o)", kind, what, args.splice(2));
             if (typeof what != "string") {
                 what = '#'+$(what).attr("id");
             }
             if (!what) return;
-        
-            if (kind=="widget.draggedin" || kind=="widget.draggedout" || kind=="widget.resized" ||
-                kind=="widget.collapsed" || kind=="widget.expanded" || kind=="widget.changed" || kind=="widget.hidden" || 
-                kind.match(/^container\.split/)) {
+
+            // do some generic editor updates TODO: editor should use dependency manager like others
+            var isWidgetNotification = kind.match(/^widget\./);
+            var isContainerSplit = kind.match(/^container\.split/);
+            if (isWidgetNotification) {
+                // what contains selector of widget's parent container
+                $(what).updateContainerState();
+            }
+            if (isWidgetNotification || isContainerSplit) {
                 this.possibleLayoutChange(what);
                 this.refreshSelectedContainer();
+                $('.pb-open-container:solid').sortable("refresh");
             }
         
             var records = this.dependencyManager[what];

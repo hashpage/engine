@@ -3,6 +3,14 @@
 (function($) {
     PB.logBuilder = false;
     
+    $.extend($.expr[":"], { 
+        solid: function(el) {
+            var el = $(el);
+            if (el.hasClass("ui-sortable-helper")) return false;
+            return el.is(':reallyvisible');
+        }
+    });
+    
     /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.parseSpan = function() {
         var container = $(this.get(0));
@@ -32,16 +40,55 @@
         return res;
     };
     /////////////////////////////////////////////////////////////////////////////////////////
+    $.fn.applyOpenContainerMask = function() {
+        return this.each(function() {
+            var el = $(this);
+            var applied = el.children('.pb-open-container-mask');
+            if (applied.length) return;
+            var mask = $('<div class="pb-open-container-mask"></div>');
+            el.prepend(mask);
+        });
+    };
+    /////////////////////////////////////////////////////////////////////////////////////////
+    $.fn.removeOpenContainerMask = function() {
+        return this.each(function() {
+            var el = $(this);
+            el.children('.pb-open-container-mask').remove();
+        });
+    };
+    /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.updateOpenContainers = function() {
         return this.each(function() {
             var el = $(this);
-            if (el.find('.pb-container').length>0) {
+            if (el.children('.pb-widget:solid').length) el.removeClass("pb-empty"); else el.addClass("pb-empty");
+            if (el.find('.pb-container').length) { // closed container
+                if (!el.hasClass('pb-open-container')) return; // nothing to do
                 if (el.hasClass('pb-container-reordering-area')) return; // HACK
                 if (PB.destroySortable) PB.destroySortable(el); // TODO: cleanup
                 el.removeClass('pb-open-container');
-            } else {
+                el.removeOpenContainerMask();
+            } else { // open container
+                if (el.hasClass('pb-open-container')) return; // nothing to do
                 el.addClass('pb-open-container');
+                el.applyOpenContainerMask();
                 if (PB.applySortable) PB.applySortable(el); // TODO: cleanup
+                el.bind("mouseover.pb", function(e) {
+                    var reltg = (e.relatedTarget) ? e.relatedTarget : e.toElement;
+                    if (!reltg) return;
+                    if (reltg.prefix=="xul") return; // firebug hack
+                    var rt = $(reltg);
+                    if (rt.parentsAndMe('.pb-widget').length==0 && rt.parentsAndMe('.pb-open-container-hovered').length>0) return;
+                    $(this).hoverContainer(e);
+                });
+                el.bind("mouseout.pb", function(e) {
+                    var reltg = (e.relatedTarget) ? e.relatedTarget : e.toElement;
+                    if (!reltg) return;
+                    try {
+                        if (reltg.prefix=="xul") return; // firebug hack
+                        if ($(reltg).parentsAndMe('.pb-open-container-hovered').length>0) return;
+                    } catch (e) {} // nekdy na FF odjedu kurzorem na firebug a hazi to divne hlasky o access denied k reltagu
+                    $(this).unhoverContainer(e);
+                });
             }
         });
     };
@@ -49,9 +96,8 @@
     $.fn.updateLastContainers = function() {
         return this.each(function() {
             var el = $(this);
-            if (el.attr('widget')) return;
             var parent = $(this.parentNode);
-            if (!this.parentNode || el.parseSpan() == parent.parseSpan() || el.nextAll('.pb-container').length==0) {
+            if (!this.parentNode || el.parseSpan() == parent.parseSpan() || el.nextAll('.pb-container:solid').length==0) {
                 el.addClass('last');
             } else {
                 el.removeClass('last');
@@ -73,7 +119,7 @@
         var id = data.id || PB.generateGuid();
         var span = " ";
         if (data.span) span += "span-"+data.span;
-        var container = $('<div id="'+id+'" class="pb-container pb-open-container container'+span+'"></div>');
+        var container = $('<div id="'+id+'" class="pb-container container'+span+'"></div>');
         if (data.title) {
             container.attr('title', data.title);
         }
