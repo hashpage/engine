@@ -9,11 +9,7 @@ html {
     overflow: hidden;
 }
 
-.pb-widget dt div {
-    white-space: nowrap;
-}
-
-.pb-widget dt .pb-widget-thumbnail { 
+.pb-widget .pb-widget-thumbnail { 
     display: none;
 }
 
@@ -26,12 +22,10 @@ html {
     position: relative;
     min-height: 20px;
     min-width: 20px;
-    overflow: visible;
 }
 
 .pb-container {
     position: relative;
-    overflow: visible;
 }
 
 .pb-open-container {
@@ -43,18 +37,10 @@ html {
     display: none;
 }
 
-.pb-widget.pb-collapsed dt .pb-widget-toolbar {
-    display: none;
-}
-
-.pb-widget.pb-expanded dt .pb-widget-toolbar { 
-    display: none;
-}
-
 .pb-last-container {
   margin-right: 0px !important;
 }
 
-.pb-last-widget {
+.pb-widget.pb-expanded.pb-last-widget {
   margin-bottom: 0px;
 }
