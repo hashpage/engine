@@ -5,7 +5,7 @@ html {
     padding-bottom: 1px;
 }
 
-.pb-widget dd {
+.pb-widget .pb-widget-panel {
     overflow: hidden;
 }
 
@@ -44,4 +44,8 @@ html {
 .pb-widget.pb-expanded.pb-last-widget,
 .pb-widget.pb-pinned.pb-last-widget {
   margin-bottom: 0px;
+}
+
+.pagebout {
+  display: table !important;
 }

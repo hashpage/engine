@@ -32,15 +32,14 @@ jQuery(document).ready(function($){
         PB.ready = true;
         PB.readyToGo();
     };
+    finish();
 
-    if (PB.loader.pendingRequests) {
-        PB.loader.on('completed', function() {
-            PB.loader.un('completed');
-            console.log("Initial widget loading complete");
-            finish();
-        });
-    } else {
-        console.log("Initial widget loading finished");
-        finish();
-    }
+    // if (PB.loader.pendingRequests) {
+    //     PB.loader.on('completed', function() {
+    //         PB.loader.un('completed');
+    //         console.log("Initial widget loading complete");
+    //     });
+    // } else {
+    //     console.log("Initial widget loading finished");
+    // }
 });

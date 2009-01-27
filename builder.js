@@ -147,25 +147,25 @@
             var wclass = parts[parts.length-2]+"-"+parts[parts.length-1]; // HACK for devel mode
         else
             var wclass = parts[parts.length-3]+"-"+parts[parts.length-2];
-        var widget = $('<dl id="'+id+'" class="pb-widget sort pb-pinned '+wclass+'" widget="'+data.widget+'"></dl>');
+        var widget = $('<div id="'+id+'" class="pb-widget sort pb-pinned '+wclass+'" widget="'+data.widget+'"></div>');
         var iconUrl = PB.widgetUrl(data.widget) + "/icon.png";
         var thumbUrl = PB.widgetUrl(data.widget) + "/thumbnail.png";
         var widgetTemplate = [];
-        widgetTemplate.push('<dt class="pb-widget-thumbnail">');
+        widgetTemplate.push('<div class="pb-widget-thumbnail">');
         widgetTemplate.push('<img width="64" height="48" src="'+thumbUrl+'" title="'+data.widget+'">');
         // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'expand\')" title="expand widget with content">preview</a>');
         // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'settings\')" title="open widget configuration">settings</a>');
         widgetTemplate.push('<div>'+wclass.split("-")[1]+'</div>');
         widgetTemplate.push('<div>'+wclass.split("-")[0]+'</div>');
-        widgetTemplate.push('</dt>');
-        widgetTemplate.push('<dd>');
+        widgetTemplate.push('</div>');
+        widgetTemplate.push('<div class="pb-widget-panel">');
         widgetTemplate.push('<div class="pb-widget-body"></div>');
-        widgetTemplate.push('</dd>');
+        widgetTemplate.push('</div>');
         widget.html(widgetTemplate.join(''));
         widget.children('.pb-widget-thumbnail').dblclick(function(){
             PB.widgetAction(widget, 'expand');
         });
-        widget.children('dd').dblclick(function(){
+        widget.children('.pb-widget-panel').dblclick(function(){
             PB.widgetAction(widget, 'collapse');
         });
         if (data.state) {

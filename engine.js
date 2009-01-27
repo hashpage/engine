@@ -186,10 +186,10 @@
                 el = $('.pagebout');
             } else {
                 if (typeof el == "string") el = $(el);
-                var parent = el.parentContainer();
-                if (parent) el = parent;
+                el = el.parents('.pagebout');
             }
             console.log('Layouting '+(noAnim?"":"with animation"), el);
+            //el.tableize();
             el.normalize().enlarge(!noAnim);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
