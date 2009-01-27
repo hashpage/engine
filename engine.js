@@ -174,7 +174,7 @@
             }
         },
         /////////////////////////////////////////////////////////////////////////////////////////
-        possibleLayoutChange: function(id) {
+        possibleLayoutChange: function(id, noAnim) {
             if (this.disableLayouting) return;
             if (this.layoutChangesGuard) {
                 this.layoutChangesDirty = true;
@@ -188,8 +188,8 @@
                 if (typeof el == "string") el = $(el);
                 el = el.parentsAndMe('.pagebout');
             }
-            console.log('Layouting', el.get(0));
-            el.normalize().enlarge();
+            console.log('Layouting '+(noAnim?"":"with animation"), el.get(0));
+            el.normalize().enlarge(!noAnim);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         notifyDependants: function(what, kind, params) {
@@ -205,14 +205,14 @@
             // do some generic editor updates TODO: editor should use dependency manager like others
             var isWidgetNotification = kind.match(/^widget\./);
             var isContainerSplit = kind.match(/^container\.split/);
-            if (isWidgetNotification) {
-                // what contains selector of widget's parent container
-                $(what).updateContainerState();
-            }
             if (isWidgetNotification || isContainerSplit) {
                 this.possibleLayoutChange(what);
                 this.refreshSelectedContainer();
                 $('.pb-open-container:solid').sortable("refresh");
+            }
+            if (isWidgetNotification) {
+                // what contains selector of widget's parent container
+                $(what).updateContainerState();
             }
         
             var records = this.dependencyManager[what];

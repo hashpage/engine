@@ -60,7 +60,7 @@
     $.fn.updateOpenContainers = function() {
         return this.each(function() {
             var el = $(this);
-            if (el.children('.pb-widget:solid').length) el.removeClass("pb-empty"); else el.addClass("pb-empty");
+            if (el.children('.pb-widget:solid').length || el.children('.pb-widget-sorting-placeholder').length) el.removeClass("pb-empty"); else el.addClass("pb-empty");
             if (el.find('.pb-container').length) { // closed container
                 if (!el.hasClass('pb-open-container')) return; // nothing to do
                 if (el.hasClass('pb-container-reordering-area')) return; // HACK
@@ -150,25 +150,23 @@
         var iconUrl = PB.widgetUrl(data.widget) + "/icon.png";
         var thumbUrl = PB.widgetUrl(data.widget) + "/thumbnail.png";
         var widgetTemplate = [];
-        widgetTemplate.push('<dt>');
-        widgetTemplate.push('<div class="pb-widget-toolbar">');
-        // widgetTemplate.push('<img class="pb-widget-icon" src="'+iconUrl+'" title="'+data.widget+'">');
-        // widgetTemplate.push('<span class="pb-widget-title">'+data.widget+'</span>');
-        // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'collapse\')" title="collapse widget and show it\'s icon instead">iconize</a>');
-        // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'settings\')" title="open widget configuration">settings</a>');
-        widgetTemplate.push('</div>');
-        widgetTemplate.push('<div class="pb-widget-thumbnail">');
+        widgetTemplate.push('<dt class="pb-widget-thumbnail">');
         widgetTemplate.push('<img width="64" height="48" src="'+thumbUrl+'" title="'+data.widget+'">');
         // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'expand\')" title="expand widget with content">preview</a>');
         // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'settings\')" title="open widget configuration">settings</a>');
         widgetTemplate.push('<div>'+wclass.split("-")[1]+'</div>');
         widgetTemplate.push('<div>'+wclass.split("-")[0]+'</div>');
-        widgetTemplate.push('</div>');
         widgetTemplate.push('</dt>');
         widgetTemplate.push('<dd>');
         widgetTemplate.push('<div class="pb-widget-body"></div>');
         widgetTemplate.push('</dd>');
-        widget.attr('innerHTML', widgetTemplate.join(''));
+        widget.html(widgetTemplate.join(''));
+        widget.children('.pb-widget-thumbnail').dblclick(function(){
+            PB.widgetAction(widget, 'expand');
+        });
+        widget.children('dd').dblclick(function(){
+            PB.widgetAction(widget, 'collapse');
+        });
         if (data.state) {
             if (data.state=="expanded") {
                 setTimeout(function() { // widget jeste neni v DOMu a nezafungovalo by memoize
@@ -230,7 +228,7 @@
             
             return container;
         }
-    /////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////
         function sanitize(result) {
             result.children('.pb-widget').remove(); // kdyby dal nekdo widgety na root uroven
             if (result.children('.pb-container').length==0) {

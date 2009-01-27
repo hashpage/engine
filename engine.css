@@ -26,10 +26,12 @@ html {
     position: relative;
     min-height: 20px;
     min-width: 20px;
+    overflow: visible;
 }
 
 .pb-container {
     position: relative;
+    overflow: visible;
 }
 
 .pb-open-container {
