@@ -17,8 +17,9 @@ html {
     display: none;
 }
 
-.pb-widget dd { 
-    margin: 0; 
+.pb-widget { 
+    margin-top: 0; 
+    margin-bottom: 4px;
 }
 
 .pb-widget {
@@ -46,4 +47,12 @@ html {
 
 .pb-widget.pb-expanded dt .pb-widget-toolbar { 
     display: none;
+}
+
+.pb-last-container {
+  margin-right: 0px !important;
+}
+
+.pb-last-widget {
+  margin-bottom: 0px;
 }

@@ -98,11 +98,22 @@
             var el = $(this);
             var parent = $(this.parentNode);
             if (!this.parentNode || el.parseSpan() == parent.parseSpan() || el.nextAll('.pb-container:solid').length==0) {
-                el.addClass('last');
+                el.addClass('pb-last-container');
             } else {
-                el.removeClass('last');
+                el.removeClass('pb-last-container');
             }
             el.children('.pb-container').updateLastContainers();
+        });
+    };
+    /////////////////////////////////////////////////////////////////////////////////////////
+    $.fn.updateLastWidgets = function() {
+        return this.each(function() {
+            var el = $(this);
+            if (el.nextAll('.pb-widget:solid').length) {
+                el.removeClass('pb-last-widget');
+            } else {
+                el.addClass('pb-last-widget');
+            }
         });
     };
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -112,11 +123,12 @@
             el.updateLastContainers();
             el.updateOpenContainers();
             if (el.addDragBars) el.addDragBars(); // TODO: cleanup
+            if (el.hasClass('pb-open-container')) el.children('.pb-widget').updateLastWidgets();
         });
     };
     /////////////////////////////////////////////////////////////////////////////////////////
     PB.createContainer = function(data) {
-        var id = data.id || PB.generateGuid();
+        var id = data.id || PB.pickUniqueName();
         var span = " ";
         if (data.span) span += "span-"+data.span;
         var container = $('<div id="'+id+'" class="pb-container container'+span+'"></div>');
@@ -127,7 +139,7 @@
     };
     /////////////////////////////////////////////////////////////////////////////////////////
     PB.createWidget = function(data) {
-        var id = data.id || PB.generateGuid();
+        var id = data.id || PB.pickUniqueName();
         PB.setWidgetConfig(id, data.config||{});
         var parts = data.widget.split("/");
         if (parts[parts.length-3]=="widgets")
