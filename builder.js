@@ -7,6 +7,7 @@
         solid: function(el) {
             var el = $(el);
             if (el.hasClass("ui-sortable-helper")) return false;
+            if (el.hasClass("pb-hidden")) return false;
             return el.is(':reallyvisible');
         }
     });

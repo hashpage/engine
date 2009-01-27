@@ -41,6 +41,7 @@ html {
   margin-right: 0px !important;
 }
 
-.pb-widget.pb-expanded.pb-last-widget {
+.pb-widget.pb-expanded.pb-last-widget,
+.pb-widget.pb-pinned.pb-last-widget {
   margin-bottom: 0px;
 }

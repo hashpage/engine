@@ -186,9 +186,10 @@
                 el = $('.pagebout');
             } else {
                 if (typeof el == "string") el = $(el);
-                el = el.parentsAndMe('.pagebout');
+                var parent = el.parentContainer();
+                if (parent) el = parent;
             }
-            console.log('Layouting '+(noAnim?"":"with animation"), el.get(0));
+            console.log('Layouting '+(noAnim?"":"with animation"), el);
             el.normalize().enlarge(!noAnim);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
@@ -203,16 +204,17 @@
             if (!what) return;
 
             // do some generic editor updates TODO: editor should use dependency manager like others
-            var isWidgetNotification = kind.match(/^widget\./);
+            var isWidgetNotification = kind.match(/^widget\.(received|expanded|collapsed|pinned|hidden)/);
+            var isWidgetChanged = kind.match(/^widget\.(changed)/);
             var isContainerSplit = kind.match(/^container\.split/);
-            if (isWidgetNotification || isContainerSplit) {
-                this.possibleLayoutChange(what);
-                this.refreshSelectedContainer();
-                $('.pb-open-container:solid').sortable("refresh");
-            }
-            if (isWidgetNotification) {
+            if (isWidgetNotification || isWidgetChanged) {
                 // what contains selector of widget's parent container
                 $(what).updateContainerState();
+            }
+            if (isWidgetNotification || isWidgetChanged || isContainerSplit) {
+                this.possibleLayoutChange($(what).parentsAndMe('.pagebout').eq(0), true);
+                this.refreshSelectedContainer();
+//                $('.pb-open-container:solid').sortable("refresh");
             }
         
             var records = this.dependencyManager[what];
