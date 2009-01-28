@@ -132,7 +132,7 @@
         var id = data.id || PB.pickUniqueName();
         var span = " ";
         if (data.span) span += "span-"+data.span;
-        var container = $('<div id="'+id+'" class="pb-container container'+span+'"></div>');
+        var container = $('<div id="'+id+'" class="pb-container'+span+'"></div>');
         if (data.title) {
             container.attr('title', data.title);
         }
@@ -147,14 +147,12 @@
             var wclass = parts[parts.length-2]+"-"+parts[parts.length-1]; // HACK for devel mode
         else
             var wclass = parts[parts.length-3]+"-"+parts[parts.length-2];
-        var widget = $('<div id="'+id+'" class="pb-widget sort pb-pinned '+wclass+'" widget="'+data.widget+'"></div>');
+        var widget = $('<div id="'+id+'" class="pb-widget pb-pinned '+wclass+'" widget="'+data.widget+'"></div>');
         var iconUrl = PB.widgetUrl(data.widget) + "/icon.png";
         var thumbUrl = PB.widgetUrl(data.widget) + "/thumbnail.png";
         var widgetTemplate = [];
         widgetTemplate.push('<div class="pb-widget-thumbnail">');
         widgetTemplate.push('<img width="64" height="48" src="'+thumbUrl+'" title="'+data.widget+'">');
-        // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'expand\')" title="expand widget with content">preview</a>');
-        // widgetTemplate.push('<a class="pb-action" href="javascript:void(0)" onclick="PB.widgetAction(this, \'settings\')" title="open widget configuration">settings</a>');
         widgetTemplate.push('<div>'+wclass.split("-")[1]+'</div>');
         widgetTemplate.push('<div>'+wclass.split("-")[0]+'</div>');
         widgetTemplate.push('</div>');
@@ -183,6 +181,7 @@
         if (PB.logBuilder) console.log("Loading widget: ", data.widget);
         PB.loader.loadWidget(data.widget, function() {
             PB.initWidgetInstance(widget);
+            PB.widgetsVisibilityChanged();
         });
         return widget;
     }; 

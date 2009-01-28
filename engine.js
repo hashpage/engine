@@ -174,7 +174,7 @@
             }
         },
         /////////////////////////////////////////////////////////////////////////////////////////
-        possibleLayoutChange: function(id, noAnim) {
+        possibleLayoutChange: function(id, noAnim, reason) {
             if (this.disableLayouting) return;
             if (this.layoutChangesGuard) {
                 this.layoutChangesDirty = true;
@@ -186,11 +186,23 @@
                 el = $('.pagebout');
             } else {
                 if (typeof el == "string") el = $(el);
-                el = el.parents('.pagebout');
+                el = el.parentsAndMe('.pagebout');
             }
-            console.log('Layouting '+(noAnim?"":"with animation"), el);
-            //el.tableize();
+            if (!reason) reason = ""; else reason = " ("+reason+")";
+            console.log('Layouting'+reason+(noAnim?"":" with animation"), el);
+            if (PB.layoutingInProgress) {
+                console.log(" --- skipped because previous layouting is in progress");
+                return;
+            }
+            if (noAnim) return el.normalize().enlarge(!noAnim);
+            // case with animation
+            PB.layoutingInProgress = true;
+            PB.freezeTime();
+            setTimeout(function() {
+                PB.layoutingInProgress = false;
+            }, 500);
             el.normalize().enlarge(!noAnim);
+            PB.unfreezeTime();
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         notifyDependants: function(what, kind, params) {
@@ -202,21 +214,6 @@
                 what = '#'+$(what).attr("id");
             }
             if (!what) return;
-
-            // do some generic editor updates TODO: editor should use dependency manager like others
-            var isWidgetNotification = kind.match(/^widget\.(received|expanded|collapsed|pinned|hidden)/);
-            var isWidgetChanged = kind.match(/^widget\.(changed)/);
-            var isContainerSplit = kind.match(/^container\.split/);
-            if (isWidgetNotification || isWidgetChanged) {
-                // what contains selector of widget's parent container
-                $(what).updateContainerState();
-            }
-            if (isWidgetNotification || isWidgetChanged || isContainerSplit) {
-                this.possibleLayoutChange($(what).parentsAndMe('.pagebout').eq(0), true);
-                this.refreshSelectedContainer();
-//                $('.pb-open-container:solid').sortable("refresh");
-            }
-        
             var records = this.dependencyManager[what];
             if (!records) return;
             for (var i=0; i < records.length; i++) {

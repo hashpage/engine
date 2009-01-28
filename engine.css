@@ -5,23 +5,20 @@ html {
     padding-bottom: 1px;
 }
 
+.pb-widget {
+    position: relative;
+    margin-top: 0; 
+    margin-bottom: 4px;
+    min-height: 20px;
+    min-width: 20px;
+}
+
 .pb-widget .pb-widget-panel {
     overflow: hidden;
 }
 
 .pb-widget .pb-widget-thumbnail { 
     display: none;
-}
-
-.pb-widget { 
-    margin-top: 0; 
-    margin-bottom: 4px;
-}
-
-.pb-widget {
-    position: relative;
-    min-height: 20px;
-    min-width: 20px;
 }
 
 .pb-container {
@@ -38,14 +35,10 @@ html {
 }
 
 .pb-last-container {
-  margin-right: 0px !important;
+    margin-right: 0px !important;
 }
 
 .pb-widget.pb-expanded.pb-last-widget,
 .pb-widget.pb-pinned.pb-last-widget {
-  margin-bottom: 0px;
-}
-
-.pagebout {
-  display: table !important;
+    margin-bottom: 0px;
 }

@@ -1,6 +1,11 @@
 // require('engine')
 
 jQuery(document).ready(function($){
+    $.now = function() {
+        if (PB.nowValue) return PB.nowValue;
+        return +new Date;
+    };
+    
     PB.applyStyle();
     
     PB.loader = new PB.Loader();
@@ -25,21 +30,9 @@ jQuery(document).ready(function($){
     };
     PB.deserialize();
     
-    var finish = function() {
-        if (PB.e) {
-            PB.bootstrapEditor();
-        } 
-        PB.ready = true;
-        PB.readyToGo();
-    };
-    finish();
-
-    // if (PB.loader.pendingRequests) {
-    //     PB.loader.on('completed', function() {
-    //         PB.loader.un('completed');
-    //         console.log("Initial widget loading complete");
-    //     });
-    // } else {
-    //     console.log("Initial widget loading finished");
-    // }
+    if (PB.e) {
+        PB.bootstrapEditor();
+    } 
+    PB.ready = true;
+    PB.readyToGo();
 });

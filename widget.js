@@ -64,6 +64,14 @@
             el.setParam('self', "PB.getWidgetInstance('"+this.guid+"')");
         },
         /////////////////////////////////////////////////////////////////////////////////////////
+        renderTemplate: function(el, data) {
+            el.processTemplate(data);
+            el.unbind("onload.pb").bind("onload.pb", function() {
+                console.log("loadded", arguments);
+            });
+            PB.possibleLayoutChange(el, true, "widget render");
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
         startLoadingIndicator: function() {
             this.el.prepend($('<div class="pb-loading-indicator">&nbsp;</div>'));
         },

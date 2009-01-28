@@ -1,6 +1,8 @@
 (function($) {
 
     $.extend(PB, {
+        frozenTimeCounter: 0,
+        
         /////////////////////////////////////////////////////////////////////////////////////////
         // class-based inheritancy system taken from ExtJS
         extend : function(){
@@ -65,6 +67,29 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         safeId: function(s) {
             return s.replace(/[a-zA-Z0-9]/g, "_");
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        freezeTime: function() {
+            if (this.nowValue) {
+                return this.frozenTimeCounter++;
+            }
+            this.nowValue = +new Date;
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        stepTime: function() {
+            if (!this.nowValue) {
+                console.error("stepTime called before freezeTime");
+                return;
+            }
+            this.nowValue++;
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        unfreezeTime: function() {
+            if (this.frozenTimeCounter) {
+                this.frozenTimeCounter--;
+                return;
+            }
+            delete this.nowValue;
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         urlEncode: function(o){
