@@ -199,20 +199,29 @@
                 el = el.parentsAndMe('.pagebout');
             }
             if (!reason) reason = ""; else reason = " ("+reason+")";
+            var layoutingWorker = function() {
+                if (noAnim) return el.normalize().enlarge(!noAnim);
+                // case with animation
+                PB.layoutingInProgress = true;
+                PB.freezeTime();
+                setTimeout(function() {
+                    PB.layoutingInProgress = false;
+                    if (PB.layoutQueued) {
+                        var worker = PB.layoutQueued;
+                        PB.layoutQueued = undefined;
+                        worker();
+                    }
+                }, 500);
+                el.normalize().enlarge(!noAnim);
+                PB.unfreezeTime();
+            }
             console.log('Layouting'+reason+(noAnim?"":" with animation"), el);
             if (PB.layoutingInProgress) {
-                console.log(" --- skipped because previous layouting is in progress");
+                console.log(" --- queued because previous layouting is in progress");
+                PB.layoutQueued = layoutingWorker;
                 return;
             }
-            if (noAnim) return el.normalize().enlarge(!noAnim);
-            // case with animation
-            PB.layoutingInProgress = true;
-            PB.freezeTime();
-            setTimeout(function() {
-                PB.layoutingInProgress = false;
-            }, 500);
-            el.normalize().enlarge(!noAnim);
-            PB.unfreezeTime();
+            layoutingWorker();
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         notifyDependants: function(what, kind, params) {
