@@ -150,8 +150,10 @@
         var widgetTemplate = [];
         widgetTemplate.push('<div class="pb-widget-thumbnail">');
         widgetTemplate.push('<img width="64" height="48" src="'+thumbUrl+'" title="'+data.widget+'">');
-        widgetTemplate.push('<div>'+info.name+'</div>');
-        widgetTemplate.push('<div>'+info.author+'</div>');
+        widgetTemplate.push('<div class="pb-widget-thumbnail-ident">');
+        widgetTemplate.push('<div class="pb-widget-thumbnail-name">'+info.name+'</div>');
+        widgetTemplate.push('<div class="pb-widget-thumbnail-author">'+info.author+'</div>');
+        widgetTemplate.push('</div>');
         widgetTemplate.push('</div>');
         widgetTemplate.push('<div class="pb-widget-panel">');
         widgetTemplate.push('<div class="pb-widget-body"></div>');

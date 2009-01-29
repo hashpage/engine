@@ -9,6 +9,9 @@ html {
     position: relative;
     margin-top: 0; 
     margin-bottom: 4px;
+}
+
+.pb-widget-panel {
     min-height: 26px;
     min-width: 26px;
 }

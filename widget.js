@@ -7,9 +7,10 @@
 
     PB.extend(PB.Widget, PB.Observable, {
         /////////////////////////////////////////////////////////////////////////////////////////
-        init: function(guid, el) {
+        init: function(guid, el, info) {
             this.guid = guid;
             this.el = $(el);
+            this.info = info;
             this.root = this.el.parents('.pb-widget').eq(0);
             this.defaultConfig = this.defaultConfig || {};
             this.config = $.extend({}, this.defaultConfig, PB.getWidgetConfig(this.guid));
@@ -31,6 +32,10 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         getConfig: function() {
             return this.config || this.defaultConfig;
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        updateConfig: function(newConfig) {
+            this.onConfigUpdate(newConfig);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         pause: function() {

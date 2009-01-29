@@ -102,7 +102,8 @@
             if (staticHtml) {
                 contentElement.attr('innerHTML', staticHtml);
             }
-            instance.init(guid, contentElement);
+            var info = this.parseWidgetName(widgetName);
+            instance.init(guid, contentElement, info);
             PB.instances[guid] = instance;
         },
         /////////////////////////////////////////////////////////////////////////////////////////

@@ -5,7 +5,8 @@
     PB.Notifier = function(config) {
         $.extend(this, config);
         this.addEvents(
-            'widgets-enter-mixed'
+            'widgets-enter-mixed',
+            'show-widget-properties'
         );
         PB.Notifier.superclass.constructor.call(this);
     };
