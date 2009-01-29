@@ -61,7 +61,7 @@
     $.fn.updateOpenContainers = function() {
         return this.each(function() {
             var el = $(this);
-            if (el.children('.pb-widget:solid').length || el.children('.pb-widget-sorting-placeholder').length) el.removeClass("pb-empty"); else el.addClass("pb-empty");
+            if (el.children('.pb-widget:solid').length || el.children('.pb-widget-reordering-placeholder').length) el.removeClass("pb-empty"); else el.addClass("pb-empty");
             if (el.find('.pb-container').length) { // closed container
                 if (!el.hasClass('pb-open-container')) return; // nothing to do
                 if (el.hasClass('pb-container-reordering-area')) return; // HACK
@@ -142,19 +142,16 @@
     PB.createWidget = function(data) {
         var id = data.id || PB.pickUniqueName();
         PB.setWidgetConfig(id, data.config||{});
-        var parts = data.widget.split("/");
-        if (parts[parts.length-3]=="widgets")
-            var wclass = parts[parts.length-2]+"-"+parts[parts.length-1]; // HACK for devel mode
-        else
-            var wclass = parts[parts.length-3]+"-"+parts[parts.length-2];
+        var info = PB.parseWidgetName(data.widget);
+        var wclass = info.author+"-"+info.name;
         var widget = $('<div id="'+id+'" class="pb-widget pb-pinned '+wclass+'" widget="'+data.widget+'"></div>');
         var iconUrl = PB.widgetUrl(data.widget) + "/icon.png";
         var thumbUrl = PB.widgetUrl(data.widget) + "/thumbnail.png";
         var widgetTemplate = [];
         widgetTemplate.push('<div class="pb-widget-thumbnail">');
         widgetTemplate.push('<img width="64" height="48" src="'+thumbUrl+'" title="'+data.widget+'">');
-        widgetTemplate.push('<div>'+wclass.split("-")[1]+'</div>');
-        widgetTemplate.push('<div>'+wclass.split("-")[0]+'</div>');
+        widgetTemplate.push('<div>'+info.name+'</div>');
+        widgetTemplate.push('<div>'+info.author+'</div>');
         widgetTemplate.push('</div>');
         widgetTemplate.push('<div class="pb-widget-panel">');
         widgetTemplate.push('<div class="pb-widget-body"></div>');

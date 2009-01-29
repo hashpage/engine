@@ -106,6 +106,15 @@
             PB.instances[guid] = instance;
         },
         /////////////////////////////////////////////////////////////////////////////////////////
+        parseWidgetName: function(name) {
+            var res = { version: 'master' };
+            var parts = name.split("/");
+            if (parts[parts.length-3]!="widgets") res.version = parts.pop(); // HACK for devel mode
+            res.name = parts.pop();
+            res.author = parts.pop();
+            return res;
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
         getWidgetInstance: function(guid_or_el) {
             if (typeof guid_or_el != "string") {
                 guid_or_el = PB.parseGuidFromId($(guid_or_el).attr("id"));
