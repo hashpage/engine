@@ -65,31 +65,12 @@
             if (el.find('.pb-container').length) { // closed container
                 if (!el.hasClass('pb-open-container')) return; // nothing to do
                 if (el.hasClass('pb-container-reordering-area')) return; // HACK
-                if (PB.destroySortable) PB.destroySortable(el); // TODO: cleanup
                 el.removeClass('pb-open-container');
                 el.removeOpenContainerMask();
             } else { // open container
                 if (el.hasClass('pb-open-container')) return; // nothing to do
                 el.addClass('pb-open-container');
                 el.applyOpenContainerMask();
-                if (PB.applySortable) PB.applySortable(el); // TODO: cleanup
-                el.bind("mouseover.pb", function(e) {
-                    var reltg = (e.relatedTarget) ? e.relatedTarget : e.toElement;
-                    if (!reltg) return;
-                    if (reltg.prefix=="xul") return; // firebug hack
-                    var rt = $(reltg);
-                    if (rt.parentsAndMe('.pb-widget').length==0 && rt.parentsAndMe('.pb-open-container-hovered').length>0) return;
-                    $(this).hoverContainer(e);
-                });
-                el.bind("mouseout.pb", function(e) {
-                    var reltg = (e.relatedTarget) ? e.relatedTarget : e.toElement;
-                    if (!reltg) return;
-                    try {
-                        if (reltg.prefix=="xul") return; // firebug hack
-                        if ($(reltg).parentsAndMe('.pb-open-container-hovered').length>0) return;
-                    } catch (e) {} // nekdy na FF odjedu kurzorem na firebug a hazi to divne hlasky o access denied k reltagu
-                    $(this).unhoverContainer(e);
-                });
             }
         });
     };

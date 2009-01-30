@@ -64,7 +64,7 @@
                 console.error('Missing template: %s', templateName);
                 return false;
             }
-            el.setTemplate(template, PB.stdlib.templates(), options);
+            el.setTemplate(template, PB.stdlib.getStdTemplates(), options);
             el.setParam('widget', this);
             el.setParam('self', "PB.getWidgetInstance('"+this.guid+"')");
         },
@@ -72,7 +72,7 @@
         renderTemplate: function(el, data) {
             el.processTemplate(data);
             el.unbind("onload.pb").bind("onload.pb", function() {
-                console.log("loadded", arguments);
+                console.log("Content loaded", arguments);
             });
             PB.possibleLayoutChange(el, true, "widget render");
         },

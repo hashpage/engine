@@ -2,8 +2,8 @@
 
     PB.stdlib = {
         /////////////////////////////////////////////////////////////////////////////////////////
-        templates: function() {
-            if (!this._templates) {
+        getStdTemplates: function() {
+            if (!PB._templates) {
                 var videoTemplate = $.createTemplate(PB.templates.video);
                 var pictureTemplate = $.createTemplate(PB.templates.picture);
                 var commentTemplate = $.createTemplate(PB.templates.comment);
@@ -18,7 +18,7 @@
                     comment: commentTemplate,
                     paginator: paginatorTemplate
                 });
-                this._templates = {
+                PB._templates = {
                     video: videoTemplate,
                     picture: pictureTemplate,
                     comment: commentTemplate,
@@ -28,7 +28,7 @@
                     blogpost: blogpostTemplate
                 };
             }
-            return this._templates;
+            return PB._templates;
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         activateInlineVideos: function(el) {

@@ -12,7 +12,6 @@
     $.extend(PB, {
         serverMode: 0,
         visibleWidgets: [],
-        templates: [],
         widgets: {},
         instances: {},
         services: {},
@@ -20,10 +19,53 @@
         dependencyManager: {},
         layoutChangesGuard: 0,
         dependenciesGuard: 0,
+        mode: 'view',
+        /////////////////////////////////////////////////////////////////////////////////////////
+        enterMode: function(mode) {
+            var body = $('body');
+            body.removeClass('pb-'+this.mode+'-mode');
+            body.addClass('pb-'+mode+'-mode');
+            this.mode = mode;
+            this.notifyWidgets("onMode", mode);
+        },
         /////////////////////////////////////////////////////////////////////////////////////////
         applyStyle: function() {
             var style = $('<style>'+PB.css+'</style>');
             $('head').append(style);
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        loadEditor: function(fn) {
+            if (PB.editorPresent) {
+                if (fn) fn();
+                return;
+            }
+            var head = $('head');
+            head.children('script').each(function() {
+                var s = $(this);
+                var url = s.attr('src');
+                if (url && url.match(/pagebout\.js/)) {
+                    PB.showNotification('Loading editor', 'pb-notification-loader');
+                    PB.callThisOnEditorLoad = function() {
+                        PB.hideNotification();
+                        if (fn) fn();
+                    };
+                    var editorUrl = url.replace('pagebout.js', 'editor.js').replace('/engine/', '/editor/');
+                    head.append('<script type="text/javascript" src="'+editorUrl+'"></script>');
+                    return;
+                }
+            });
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        showNotification: function(msg, klass) {
+            klass = klass || '';
+            var loader = '<img src="#{BASE_URL}/static/red-loader.gif" class="pb-loader"/>';
+            $('body').append($('<div class="pb-notification '+klass+'"></div>').html(msg).append(loader));
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        hideNotification: function(msg, klass) {
+            $('body').children('.pb-notification').fadeOut(2000, function() {
+                $(this).remove();
+            });
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         nakedDomain: function() {
@@ -85,6 +127,7 @@
             }
             var widgetClass = PB.getWidget(widgetName);
             if (!widgetClass) {
+                debugger;
                 console.error('Unable to resolve class specified for %s (%o)', widgetName, widgetElement);
                 return;
             }
@@ -322,6 +365,10 @@
             $.each(this.instances, function(i, o) {
                 o[method].apply(o, args);
             });
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        widgetAction: function() {
+            // no op
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         readyToGo: function() {
