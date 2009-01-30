@@ -127,7 +127,6 @@
             }
             var widgetClass = PB.getWidget(widgetName);
             if (!widgetClass) {
-                debugger;
                 console.error('Unable to resolve class specified for %s (%o)', widgetName, widgetElement);
                 return;
             }
