@@ -108,14 +108,10 @@
     };
     /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.updateLastWidgets = function() {
-        return this.each(function() {
-            var el = $(this);
-            if (el.nextAll('.pb-widget:solid').length) {
-                el.removeClass('pb-last-widget');
-            } else {
-                el.addClass('pb-last-widget');
-            }
-        });
+        var widgets = this.children('.pb-widget:solid');
+        if (!widgets.length) return;
+        widgets.removeClass('pb-last-widget');
+        widgets.eq(widgets.length-1).addClass('pb-last-widget');
     };
     /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.updateContainerState = function() {
@@ -124,7 +120,7 @@
             el.updateLastContainers();
             el.updateOpenContainers();
             if (el.addDragBars) el.addDragBars(); // TODO: cleanup
-            if (el.hasClass('pb-open-container')) el.children('.pb-widget').updateLastWidgets();
+            el.updateLastWidgets();
         });
     };
     /////////////////////////////////////////////////////////////////////////////////////////

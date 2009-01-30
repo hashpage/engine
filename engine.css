@@ -43,5 +43,9 @@ html {
 
 .pb-widget.pb-expanded.pb-last-widget,
 .pb-widget.pb-pinned.pb-last-widget {
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
+}
+
+.pb-widget.pb-collapsed.pb-last-widget {
+    margin-bottom: 10px !important;
 }
