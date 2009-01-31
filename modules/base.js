@@ -4,10 +4,10 @@
         frozenTimeCounter: 0,
         /////////////////////////////////////////////////////////////////////////////////////////
         // class-based inheritancy system taken from ExtJS
-        extend : function(){
+        extend: function(){
             var c = Object.prototype.constructor;
-            var inline = function(o){
-                for(var m in o){
+            var inline = function(o) {
+                for (var m in o) {
                     this[m] = o[m];
                 }
             };
@@ -43,7 +43,7 @@
         override: function(klass, o) {
             if (!o) return; 
             var p = klass.prototype;
-            for (var m in o){
+            for (var m in o) {
                 p[m] = o[m];
             }
         },

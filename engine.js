@@ -42,17 +42,14 @@
             PB.loader = new PB.Loader();
             PB.notifier = new PB.Notifier();
 
-            // add known services
-            PB.addService(new PB.ActivityService());
-            PB.addService(new PB.BookmarkService());
-            PB.addService(new PB.PhotoService());
-            PB.addService(new PB.BioService());
-            PB.addService(new PB.PresenceService());
-            PB.addService(new PB.TweetService());
-            PB.addService(new PB.BlogService());
-            PB.addService(new PB.AlbumService());
-            PB.addService(new PB.VideoService());
-
+            // create and run all known services
+            for (var item in PB) { // look for all <some>Service classes in PB namespace
+                if (PB.hasOwnProperty(item)) {
+                    if (item.match(/.+Service$/) && PB[item].superclass) {
+                        PB.addService(new PB[item]());
+                    }
+                }
+            }
             PB.runServices();
 
             // common parameters for all API calls
