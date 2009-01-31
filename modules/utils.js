@@ -3,6 +3,7 @@
 (function($) {
     
      $.extend(PB, {
+         crcTables: {},
          /////////////////////////////////////////////////////////////////////////////////////////
          capitalize: function(s) {
              return s.charAt(0).toUpperCase() + s.substring(1).toLowerCase();
@@ -22,6 +23,34 @@
          /////////////////////////////////////////////////////////////////////////////////////////
          safeId: function(s) {
              return s.replace(/[a-zA-Z0-9]/g, "_");
+         },
+         /////////////////////////////////////////////////////////////////////////////////////////
+         getCrc32Table: function(polynomial) {
+             if (PB.crcTables[polynomial]) return PB.crcTables[polynomial];
+             var term, table = [];
+             for (var i = 0; i < 256; i++) {
+                 term = i;
+                 for (var j = 0; j < 8; j++) {
+                     if (term & 1)
+                         term = (term >>> 1) ^ polynomial;
+                     else
+                         term = term >>> 1;
+                 }
+                 table[i] = term;
+             }
+             PB.crcTables[polynomial] = table;
+             return table;
+         },
+         /////////////////////////////////////////////////////////////////////////////////////////
+         // returns the crc32 hash for a string as an integer (credit: Kris Kowal <http://cixar.com/~kris.kowal>)
+         crc32: function(s, table) {
+             table = table || PB.getCrc32Table(0xEDB88320); // IEEE802.3
+             var crc = 0xFFFFFFFF;
+             for (var i=0; i<s.length; i++) {
+                 var x = s.charCodeAt(i);
+                 crc = (crc >>> 8) ^ table[x ^ (crc & 0xFF)];
+             }
+             return ~crc;
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          applyStyle: function() {

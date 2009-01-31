@@ -1,5 +1,4 @@
 // require('lib/firebugx')
-// require('lib/sha1')
 // require('lib/jquery/jquery')
 // require('lib/jquery/ui/ui.core')
 // require('lib/jquery/ui/ui.sortable')

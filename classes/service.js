@@ -72,9 +72,14 @@
                     }
                 }
                 scope.startLoadingIndicator();
-                $.ajaxSetup({cache: true, jsonpgen: function() {
-                    return "x"+hex_sha1(this.url);
-                }});
+                $.ajaxSetup({
+                    cache: true,
+                    jsonpgen: function() {
+                        var hash = "x"+Math.abs(PB.crc32(this.url)).toString(16); // CRC32 should be quite fast, we don't need cryptographic power of SHA-1 here
+                        while (window[hash]) hash += "$"; // prevents collision in window namespace (very unlikely)
+                        return hash;
+                    }
+                });
                 $.getJSON(url, function(data) {
                     scope.stopLoadingIndicator();
                     if (data.status=='ok') {
