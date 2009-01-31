@@ -1,5 +1,3 @@
-/* require('engine') */
-
 .activity .info {
     font-size: 8pt !important;
 }
@@ -7,64 +5,6 @@
 .activity .comments .comment, 
 .activity .body .summary {
     white-space: normal !important;
-}
-
-.logo {
-    display:none !important;
-}
-
-.header {
-    background: none !important;
-	display: none !important;
-}
-
-.header div.inner {
-    background: none !important;
-}
-
-a:link {
-  color: #1030cc;
-}
-
-a:visited {
-  color: #551a8b;
-}
-
-a:active {
-  color: #cc0000;
-}
-
-div {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-img {
-  border: 0px;
-}
-
-.header {
-  background-color: #a7c5ea;
-  position: relative;
-}
-
-.header div.inner {
-  padding: 3px;
-  padding-left: 4px;
-}
-
-.header img.logo {
-  width: 120px;
-  height: 26px;
-  vertical-align: middle;
-}
-
-.header .message {
-  position: absolute;
-  top: 8px;
-  left: 138px;
-  font-weight: bold;
 }
 
 .activity {
@@ -153,27 +93,4 @@ img {
 
 .more a:visited {
   color: #1030cc;
-}
-
-.playb {
-    position: absolute;
-    cursor: pointer;
-    background-image: url("#{BASE_URL}/static/playbutton.png");
-}
-
-.playing .playb {
-    background-image: url("#{BASE_URL}/static/stopbutton.png");
-}
-
-.media-container {
-    position: relative;
-}
-
-.blogpost h2 {
-    font-size: 20px;
-    margin-top: 30px;
-}
-
-.blogpost > div {
-    margin-top: 10px;
 }

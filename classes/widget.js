@@ -1,3 +1,5 @@
+// require('classes/observable')
+
 (function($) {
 
     PB.Widget = function(config) {

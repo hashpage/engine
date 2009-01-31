@@ -1,0 +1,9 @@
+.playb {
+    position: absolute;
+    cursor: pointer;
+    background-image: url("#{BASE_URL}/static/playbutton.png");
+}
+
+.playing .playb {
+    background-image: url("#{BASE_URL}/static/stopbutton.png");
+}

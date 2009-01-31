@@ -1,8 +1,10 @@
 // require('boot')
 
 (function($) {
+
     PB.logBuilder = false;
     
+    /////////////////////////////////////////////////////////////////////////////////////////
     $.extend($.expr[":"], { 
         solid: function(el) {
             var el = $(el);
@@ -11,7 +13,6 @@
             return el.is(':reallyvisible');
         }
     });
-    
     /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.parseSpan = function() {
         var container = $(this.get(0));

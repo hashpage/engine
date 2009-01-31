@@ -1,5 +1,5 @@
 // require('engine')
-// require('observable')
+// require('classes/observable')
 
 (function($) {
 

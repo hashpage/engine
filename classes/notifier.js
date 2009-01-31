@@ -1,4 +1,4 @@
-// require('observable')
+// require('classes/observable')
 
 (function($) {
 

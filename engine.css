@@ -1,5 +1,9 @@
 /* require('lib/blueprint/screen') */
-
+/* 
+    Essential engine styles, these are part of the system and expected by editor.
+    These are not considered to be skinnable.
+    If you are looking for default skin styles, see "skin" folder.
+*/
 /* -------------------------------------------------------------------------------------------
    persistent vertical scrollbar
 */

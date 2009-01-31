@@ -1,0 +1,27 @@
+/* require('engine') */
+
+/*
+    Generic standard library styles applicable to all snippets
+*/
+
+a:link {
+  color: #1030cc;
+}
+
+a:visited {
+  color: #551a8b;
+}
+
+a:active {
+  color: #cc0000;
+}
+
+div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+img {
+  border: 0px;
+}

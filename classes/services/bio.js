@@ -1,4 +1,4 @@
-// require('service')
+// require('classes/service')
 
 (function($) {
 

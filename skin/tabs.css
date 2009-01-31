@@ -8,9 +8,6 @@
     z-index: 10000;
 }
 
-.pb-widget {
-}
-
 .pb.text.small.date {
     color: gray;
     font-size: 10px;
@@ -87,7 +84,6 @@
     margin-top: 0;
     position: relative;
     top: 1px;
-    z-index: 2;
 }
 .pb-tabs-nav a span {
     height: 18px;
@@ -141,20 +137,4 @@
 }
 :first-child + html .pb-tabs-nav {
     display: inline-block;
-}
-
-div#fancy_wrap {
-    z-index: 10001;
-}
-
-div#fancy_overlay {
-    z-index: 10002;
-}
-
-div#fancy_loading {
-    z-index: 10003;
-}
-
-div#fancy_outer {
-    z-index: 10004;
 }
