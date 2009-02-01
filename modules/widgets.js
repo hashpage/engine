@@ -46,7 +46,6 @@
              var widget = PB.widgets[selector];
              if (!widget) {                                                                         //#chk
                  console.error('Unable to get widget', name);                                       //#chk
-                 debugger;
              }                                                                                      //#chk
              return widget;
          },
