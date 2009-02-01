@@ -12,10 +12,9 @@
          /////////////////////////////////////////////////////////////////////////////////////////
          resumeDependencyNotifications: function() {
              this.dependenciesGuard--;
-             if (this.layoutChangesGuard<0) {
-                 console.error("Inconsitent pause/resume on layout changes");
-                 console.trace();
-             }
+             if (this.layoutChangesGuard<0) {                                                       //#chk
+                 console.error("Inconsitent pause/resume on layout changes");                       //#chk
+             }                                                                                      //#chk
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          declareDependency: function(who, what) {
@@ -27,7 +26,7 @@
              if (!this.dependencyManager[what]) this.dependencyManager[what] = [];
              if ($.inArray(who, this.dependencyManager[what])==-1) {
                  this.dependencyManager[what].push(who);
-                 console.log("Declared dependency %o -> %s", who, what);
+                 console.log("Declared dependency %o -> %s", who, what);                            //#dbg
              }
              return true;
          },
@@ -49,7 +48,7 @@
              // TODO: tady to bude chtit nejake cachovani a odfiltrovani duplicit
              if (this.dependenciesGuard) return; // dependencies are paused
              var args = $.makeArray(arguments);
-             console.log("Notification: %s (%o)", kind, what, args.splice(2));
+             console.log("Notification: %s (%o)", kind, what, args.splice(2));                      //#dbg
              if (typeof what != "string") {
                  what = '#'+$(what).attr("id");
              }
@@ -58,7 +57,7 @@
              if (!records) return;
              for (var i=0; i < records.length; i++) {
                  var record = records[i];
-                 console.log("Notifying %o", record, arguments);
+                 console.log("Notifying %o", record, arguments);                                    //#dbg
                  record.onDependencyChanged.apply(record, arguments);
              }
          }

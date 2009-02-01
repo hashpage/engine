@@ -34,7 +34,7 @@
                  service.start();
              }
 
-             console.log("Started services %o", serviceNames);
+             console.log("Started services %o", serviceNames);                                      //#dbg
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          getService: function(serviceId) {

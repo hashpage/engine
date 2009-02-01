@@ -12,10 +12,9 @@
          /////////////////////////////////////////////////////////////////////////////////////////
          resumeLayoutChanges: function() {
              this.layoutChangesGuard--;
-             if (this.layoutChangesGuard<0) {
-                 console.error("Inconsitent pause/resume on layout changes");
-                 console.trace();
-             }
+             if (this.layoutChangesGuard<0) {                                                       //#chk
+                 console.error("Inconsitent pause/resume on layout changes");                       //#chk
+             }                                                                                      //#chk
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          possibleLayoutChange: function(id, noAnim, reason) {
@@ -49,9 +48,9 @@
                  el.normalize().enlarge(!noAnim);
                  PB.unfreezeTime();
              }
-             console.log('Layouting'+reason+(noAnim?"":" with animation"), el);
+             console.log('Layouting'+reason+(noAnim?"":" with animation"), el);                     //#dbg
              if (PB.layoutingInProgress) {
-                 console.log(" --- queued because previous layouting is in progress");
+                 console.log(" --- queued because previous layouting is in progress");              //#dbg  
                  PB.layoutQueued = layoutingWorker;
                  return;
              }

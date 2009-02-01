@@ -170,6 +170,7 @@ div.fancy_bg {
   position: absolute;
   display: block;
   z-index: 70;
+  opacity: 0.2;
 }
  
 div.fancy_bg_n {

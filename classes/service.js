@@ -65,7 +65,7 @@
                 if (PB.cachingService) {
                     var results = PB.cachingService.restore(cleanUrl);
                     if (!(results===undefined)) {
-                        console.log('Cache hit: %s', cleanUrl);
+                        console.log('Cache hit: %s', cleanUrl);                                     //#dbg
                         if (fn) fn.apply(scope||window, [results, params].concat(Array.prototype.slice.call(args, 3)));
                         that.complete(results);
                         return;
@@ -83,7 +83,7 @@
                 $.getJSON(url, function(data) {
                     scope.stopLoadingIndicator();
                     if (data.status=='ok') {
-                        console.log("Received %s: %o", url, data);
+                        console.log("Received %s: %o", url, data);                                  //#dbg
                         results = data.results || [];
                         results.more = data.more || false;
                         if (fn) fn.apply(scope||window, [results, params].concat(Array.prototype.slice.call(args, 3)));

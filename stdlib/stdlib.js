@@ -46,7 +46,14 @@
                     overlayShow: true,
                     overlayOpacity: 0.1,
                     random: false,
-                    content: '<div class="video-player"><object width="425" height="350"><param name="movie" value="'+movie+'&autoplay=1"></param><param name="wmode" value="transparent"></param><embed src="'+movie+'&autoplay=1" type="'+type+'" wmode="transparent" width="425" height="350"></embed></object></div>',
+                    content: '\
+                    <div class="video-player">\
+                        <object width="425" height="350">\
+                            <param name="movie" value="'+movie+'&autoplay=1"></param>\
+                            <param name="wmode" value="transparent"></param>\
+                            <embed src="'+movie+'&autoplay=1" type="'+type+'" wmode="transparent" width="425" height="350"></embed>\
+                        </object>\
+                    </div>',
                     closeCallback: function() {
                         $('.video-player').hide().empty();
                         el.find('.playing').removeClass('playing');

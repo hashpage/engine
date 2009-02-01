@@ -2,8 +2,6 @@
 
 (function($) {
 
-    PB.logBuilder = false;
-    
     /////////////////////////////////////////////////////////////////////////////////////////
     $.extend($.expr[":"], { 
         solid: function(el) {
@@ -155,7 +153,7 @@
                 }, 500);
             }
         }
-        if (PB.logBuilder) console.log("Loading widget: ", data.widget);
+        console.log("Loading widget: ", data.widget);                                               //#dbg
         PB.loader.loadWidget(data.widget, function() {
             PB.initWidgetInstance(widget);
             PB.widgetsVisibilityChanged();
@@ -233,7 +231,7 @@
     };
     /////////////////////////////////////////////////////////////////////////////////////////
     function serializeContainer(el) {
-        if (PB.logBuilder) console.log("Serializing container ", el.get(0));
+        console.log("Serializing container ", el.get(0));                                           //#dbg
         var result = $('<div></div>');
         var id = el.attr('id');
         var span = el.parseSpan();
@@ -245,13 +243,13 @@
     }
     /////////////////////////////////////////////////////////////////////////////////////////
     function serializeWidget(el) {
-        if (PB.logBuilder) console.log("Serializing widget ", el.get(0));
+        console.log("Serializing widget ", el.get(0));                                              //#dbg
         var result = $('<div></div>');
         var widget = PB.getWidgetInstance(el);
-        if (!widget) {
-            console.error('Unable to retrieve widget instance', el);
-            return result;
-        }
+        if (!widget) {                                                                              //#chk
+            console.error('Unable to retrieve widget instance', el);                                //#chk
+            return result;                                                                          //#chk
+        }                                                                                           //#chk
         var config = widget.getConfig();
         for (var v in config) {
             if (config.hasOwnProperty(v)) {

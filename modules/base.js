@@ -56,10 +56,10 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         stepTime: function() {
-            if (!this.nowValue) {
-                console.error("stepTime called before freezeTime");
-                return;
-            }
+            if (!this.nowValue) {                                                                   //#chk
+                console.error("stepTime called before freezeTime");                                 //#chk
+                return;                                                                             //#chk
+            }                                                                                       //#chk
             this.nowValue++;
         },
         /////////////////////////////////////////////////////////////////////////////////////////

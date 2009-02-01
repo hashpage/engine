@@ -16,18 +16,19 @@
         pendingRequests: 0,
         /////////////////////////////////////////////////////////////////////////////////////////
         loadWidget: function(name, callback) {
-            // already loaded?
-            if (PB.getWidget(name)) {
+            console.log('PB.loadWidget', arguments);                                                //#dbg
+            if (PB.hasWidget(name)) { // already loaded?
                 callback();
                 return; 
             }
-            // load widget code
+            // load widget
             var url = PB.widgetUrl(name);
             if (this.requestedWidgets[url]) return;
             this.requestedWidgets[url] = true;
             this.pendingRequests++;
             var that = this;
             var js_url = url+'/index.js?'+PB.cacheSeed;
+            console.log('PB Requesting widget', js_url);                                            //#dbg
             $.ajax({
                 type: 'GET',
                 url: js_url, 

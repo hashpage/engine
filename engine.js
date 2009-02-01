@@ -4,7 +4,6 @@
 // require('lib/jquery/ui/ui.sortable')
 // require('lib/jquery/ui/ui.draggable')
 // require('lib/jquery/ui/ui.droppable')
-
 // require('modules/base')
 // require('modules/utils')
 // require('modules/builder')
@@ -13,7 +12,6 @@
 // require('modules/services')
 // require('modules/widgets')
 // require('modules/dependencies')
-
 // require('classes/observable')
 // require('classes/loader')
 // require('classes/notifier')
@@ -111,7 +109,7 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         readyToGo: function() {
-            console.log("Starting page");
+            console.log("Starting page");                                                           //#dbg
             PB.ready = true;
             PB.widgetsVisibilityChanged();
         }

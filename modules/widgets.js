@@ -1,7 +1,7 @@
 // require('engine')
-
+                                                                                                                                //#dbg
 (function($) {
-    
+
      $.extend(PB, {
          visibleWidgets: [],
          widgets: {},
@@ -13,7 +13,7 @@
              if (!this.serverMode) return "http://widgets.pagebout.com/"+name; // relative url specified and in production
              if (this.serverMode==1) return "http://localhost:9876/widgets/"+name; // relative url specified and in development
              if (this.serverMode==2) return "http://widgets.pagebout.local/"+name; // relative url specified and in simulation
-             console.error("Unknown serverMode");
+             console.error("Unknown serverMode");                                                   //#chk
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          parseGuidFromId: function(id) {
@@ -21,10 +21,12 @@
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          registerWidgetClass: function(selector, widget) {
+             console.log('PB.registerWidgetClass', arguments);                                      //#dbg
              PB.widgets[selector] = widget;
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          registerWidget: function(selector, widgetDef) {
+             console.log('PB.registerWidget', arguments);                                           //#dbg
              var widget = function(config) {
                  widget.superclass.constructor.call(this);
              };
@@ -34,39 +36,49 @@
              PB.registerWidgetClass(selector, widget);
          },
          /////////////////////////////////////////////////////////////////////////////////////////
-         getWidget: function(name) {
+         hasWidget: function(name) {
              var selector = this.widgetUrl(name);
              return PB.widgets[selector];
+         },
+         /////////////////////////////////////////////////////////////////////////////////////////
+         getWidget: function(name) {
+             var selector = this.widgetUrl(name);
+             var widget = PB.widgets[selector];
+             if (!widget) {                                                                         //#chk
+                 console.error('Unable to get widget', name);                                       //#chk
+                 debugger;
+             }                                                                                      //#chk
+             return widget;
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          initWidgetInstance: function(el) {
              var widgetElement = $(el);
              var widgetName = widgetElement.attr("widget");
-             if (!widgetName) {
-                 console.error('No widget specified for ', widgetElement);
-                 return;
-             }
-             console.log("Initializing widget:", widgetName);
+             if (!widgetName) {                                                                                  //#chk
+                 console.error('No widget specified for ', widgetElement);                                       //#chk
+                 return;                                                                                         //#chk
+             }                                                                                                   //#chk
+             console.log("Initializing widget:", widgetName);                                                    //#dbg
              var guid = PB.parseGuidFromId(widgetElement.attr("id"));
-             if (!guid) {
-                 console.error('No guid specified for ', widgetElement);
-                 return;
-             }
+             if (!guid) {                                                                                        //#chk
+                 console.error('No guid specified for ', widgetElement);                                         //#chk
+                 return;                                                                                         //#chk
+             }                                                                                                   //#chk
              var widgetClass = PB.getWidget(widgetName);
-             if (!widgetClass) {
-                 console.error('Unable to resolve class specified for %s (%o)', widgetName, widgetElement);
-                 return;
-             }
+             if (!widgetClass) {                                                                                 //#chk
+                 console.error('Unable to resolve class specified for %s (%o)', widgetName, widgetElement);      //#chk
+                 return;                                                                                         //#chk
+             }                                                                                                   //#chk
              var instance = new widgetClass();
-             if (!instance) {
-                 console.error('Unable to instantiate widget specified for %s (%o)', widgetName, widgetElement);
-                 return;
-             }
+             if (!instance) {                                                                                    //#chk
+                 console.error('Unable to instantiate widget specified for %s (%o)', widgetName, widgetElement); //#chk
+                 return;                                                                                         //#chk
+             }                                                                                                   //#chk
              var contentElement = el.find('div.pb-widget-body');
-             if (contentElement.length!=1) {
-                 console.error('Bad widget markup structure for %s (%o)', widgetName, widgetElement);
-                 return;
-             }
+             if (contentElement.length!=1) {                                                                     //#chk
+                 console.error('Bad widget markup structure for %s (%o)', widgetName, widgetElement);            //#chk
+                 return;                                                                                         //#chk
+             }                                                                                                   //#chk
              var staticHtml = instance.staticHtml;
              if (staticHtml) {
                  contentElement.attr('innerHTML', staticHtml);
@@ -88,10 +100,10 @@
          getWidgetInstance: function(guid_or_el) {
              if (typeof guid_or_el != "string") {
                  guid_or_el = PB.parseGuidFromId($(guid_or_el).attr("id"));
-                 if (!guid_or_el) {
-                     console.error('No guid specified for ', guid_or_el);
-                     return;
-                 }
+                 if (!guid_or_el) {                                                                 //#chk
+                     console.error('No guid specified for ', guid_or_el);                           //#chk
+                     return;                                                                        //#chk
+                 }                                                                                  //#chk
              }
              return PB.instances[guid_or_el];
          },
@@ -124,7 +136,7 @@
          /////////////////////////////////////////////////////////////////////////////////////////
          getWidgetConfig: function(widgetId) {
              return this.instanceConfigs[widgetId] || {}; // TODO: config should exist always
-         }, 
+         },
          /////////////////////////////////////////////////////////////////////////////////////////
          setWidgetConfig: function(widgetId, config) {
              return this.instanceConfigs[widgetId] = config;
@@ -142,5 +154,5 @@
              // no op - re-implemented by editor
          }
      });
-    
+
 })(jQuery);
