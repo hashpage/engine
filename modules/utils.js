@@ -54,6 +54,7 @@
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          applyStyle: function() {
+             if (!PB.css) return;
              var style = $('<style>'+PB.css+'</style>');
              $('head').append(style);
          },

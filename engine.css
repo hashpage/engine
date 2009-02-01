@@ -95,3 +95,31 @@ html {
 .pb-notification-loader img.pb-loader {
     display: inline;
 }
+
+/* -------------------------------------------------------------------------------------------
+   redbug support
+*/
+
+.pb-border-inspector { 
+    position:absolute; 
+    top:0; 
+    left:0; 
+    padding:0; 
+    margin:0; 
+    background-color: #7798BE; 
+    opacity: 0.5;
+    filter:Alpha(Opacity=50); 
+    z-index:30000; 
+}
+
+.pb-background-inspector { 
+    position:absolute; 
+    top:0; 
+    left:0; 
+    background-color: #7798BE; 
+    opacity:0.5; 
+    filter:Alpha(Opacity=50); 
+    padding:0; 
+    margin:0; 
+    z-index:30000; 
+}
