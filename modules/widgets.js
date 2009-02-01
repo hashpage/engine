@@ -109,7 +109,7 @@
          /////////////////////////////////////////////////////////////////////////////////////////
          widgetsVisibilityChanged: function() {
              var previouslyVisible = this.visibleWidgets;
-             var visibleElements = $('.pb-widget:reallyvisible');
+             var visibleElements = $('.pb-widget:solid');
              var newlyVisible = [];
              for (var i=0; i<visibleElements.length; i++) {
                  var el = visibleElements.get(i);

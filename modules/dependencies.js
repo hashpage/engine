@@ -1,5 +1,5 @@
 // require('engine')
-
+//#dbg
 (function($) {
     
      $.extend(PB, {
@@ -21,13 +21,18 @@
              if (typeof what != "string") {
                  what = '#'+$(what).attr("id");
              }
-             if (!what) return;
-
+             if (!what) {                                                                           //#chk
+                 console.error("Attempt to declare dependency on non-existing object", arguments);  //#chk
+                 return;                                                                            //#chk
+             }                                                                                      //#chk
              if (!this.dependencyManager[what]) this.dependencyManager[what] = [];
-             if ($.inArray(who, this.dependencyManager[what])==-1) {
-                 this.dependencyManager[what].push(who);
-                 console.log("Declared dependency %o -> %s", who, what);                            //#dbg
-             }
+             if (!$.isArray(who)) who = [who];
+             $.each(who, function(i, dependencyMaker){
+                 if ($.inArray(dependencyMaker, PB.dependencyManager[what])==-1) {
+                     PB.dependencyManager[what].push(dependencyMaker);
+                     console.log("PB %o has declared dependency on %s", dependencyMaker, what);     //#dbg
+                 }
+             })
              return true;
          },
          /////////////////////////////////////////////////////////////////////////////////////////
@@ -57,7 +62,7 @@
              if (!records) return;
              for (var i=0; i < records.length; i++) {
                  var record = records[i];
-                 console.log("Notifying %o", record, arguments);                                    //#dbg
+                 console.log("Notifying", record, arguments);                                       //#dbg
                  record.onDependencyChanged.apply(record, arguments);
              }
          }

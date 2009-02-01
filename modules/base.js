@@ -55,12 +55,12 @@
             this.nowValue = +new Date;
         },
         /////////////////////////////////////////////////////////////////////////////////////////
-        stepTime: function() {
+        stepTime: function(delta) {
             if (!this.nowValue) {                                                                   //#chk
                 console.error("stepTime called before freezeTime");                                 //#chk
                 return;                                                                             //#chk
             }                                                                                       //#chk
-            this.nowValue++;
+            this.nowValue+=delta||1;
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         unfreezeTime: function() {

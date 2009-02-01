@@ -8,6 +8,7 @@
             var el = $(el);
             if (el.hasClass("ui-sortable-helper")) return false;
             if (el.hasClass("pb-hidden")) return false;
+            if (el.hasClass("pb-widget-reordering-placeholder")) return false;
             return el.is(':reallyvisible');
         }
     });
@@ -44,7 +45,7 @@
         return this.each(function() {
             var el = $(this);
             var applied = el.children('.pb-open-container-mask');
-            if (applied.length) return;
+            if (applied.length || el.hasClass('pb-unselectable-container')) return;
             var mask = $('<div class="pb-open-container-mask"></div>');
             el.prepend(mask);
         });
@@ -60,13 +61,15 @@
     $.fn.updateOpenContainers = function() {
         return this.each(function() {
             var el = $(this);
-            if (el.children('.pb-widget:solid').length || el.children('.pb-widget-reordering-placeholder').length) el.removeClass("pb-empty"); else el.addClass("pb-empty");
+            if (el.children('.pb-widget:solid').length || el.children('.pb-widget-reordering-placeholder').length || el.children('.pb-container:solid').length) el.removeClass("pb-empty"); else el.addClass("pb-empty");
             if (el.find('.pb-container').length) { // closed container
                 if (!el.hasClass('pb-open-container')) return; // nothing to do
                 if (el.hasClass('pb-container-reordering-area')) return; // HACK
+                if (PB.destroySortable && el.hasClass('ui-sortable')) PB.destroySortable(el);
                 el.removeClass('pb-open-container');
                 el.removeOpenContainerMask();
             } else { // open container
+                if (PB.applySortable && !el.hasClass('ui-sortable')) PB.applySortable(el);
                 if (el.hasClass('pb-open-container')) return; // nothing to do
                 el.addClass('pb-open-container');
                 el.applyOpenContainerMask();
@@ -144,12 +147,12 @@
         if (data.state) {
             if (data.state=="expanded") {
                 setTimeout(function() { // widget jeste neni v DOMu a nezafungovalo by memoize
-                    widget.widgetAction("expand");
+                    widget.action("expand");
                 }, 500);
             }
             if (data.state=="collapsed") {
                 setTimeout(function() {
-                    widget.widgetAction("collapse");
+                    widget.action("collapse");
                 }, 500);
             }
         }

@@ -76,7 +76,7 @@
             el.unbind("onload.pb").bind("onload.pb", function() {
                 console.log("Content loaded", arguments);
             });
-            PB.possibleLayoutChange(el, true, "widget render");
+            PB.possibleLayoutChange(el, "widget render", false);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         startLoadingIndicator: function() {

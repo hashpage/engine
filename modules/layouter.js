@@ -1,5 +1,5 @@
 // require('engine')
-
+//#dbg
 (function($) {
     
      $.extend(PB, {
@@ -17,7 +17,7 @@
              }                                                                                      //#chk
          },
          /////////////////////////////////////////////////////////////////////////////////////////
-         possibleLayoutChange: function(id, noAnim, reason) {
+         possibleLayoutChange: function(id, reason, anim) {
              if (this.disableLayouting) return;
              if (this.layoutChangesGuard) {
                  this.layoutChangesDirty = true;
@@ -31,9 +31,10 @@
                  if (typeof el == "string") el = $(el);
                  el = el.parentsAndMe('.pagebout');
              }
+             if (anim!==false) anim = true;
              if (!reason) reason = ""; else reason = " ("+reason+")";
              var layoutingWorker = function() {
-                 if (noAnim) return el.normalize().enlarge(!noAnim);
+                 if (!anim) return el.normalize().enlarge(anim);
                  // case with animation
                  PB.layoutingInProgress = true;
                  PB.freezeTime();
@@ -45,10 +46,10 @@
                          worker();
                      }
                  }, 500);
-                 el.normalize().enlarge(!noAnim);
+                 el.normalize().enlarge(anim);
                  PB.unfreezeTime();
-             }
-             console.log('Layouting'+reason+(noAnim?"":" with animation"), el);                     //#dbg
+             };
+             console.log('Layouting'+(anim?"+anim":"")+reason, el);                                //#dbg
              if (PB.layoutingInProgress) {
                  console.log(" --- queued because previous layouting is in progress");              //#dbg  
                  PB.layoutQueued = layoutingWorker;
