@@ -6,7 +6,8 @@
         $.extend(this, config);
         this.addEvents(
             'widgets-enter-mixed',
-            'show-widget-properties'
+            'show-widget-properties',
+            'edit-action'
         );
         PB.Notifier.superclass.constructor.call(this);
     };
