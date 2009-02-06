@@ -10,6 +10,7 @@
     PB.extend(PB.Widget, PB.Observable, {
         /////////////////////////////////////////////////////////////////////////////////////////
         init: function(guid, el, info) {
+            console.log('PB.Widget.init', arguments);                                               //#dbg
             this.guid = guid;
             this.el = $(el);
             this.info = info;
@@ -24,11 +25,13 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         applyCSS: function(css) {
+            console.log('PB.Widget.applyCSS', arguments);                                           //#dbg
             var style = $('<style>'+css+'</style>');
             $('head').append(style);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         applyHTML: function(html) {
+            console.log('PB.Widget.applyHTML', arguments);                                          //#dbg
             this.el.html(html);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
@@ -37,6 +40,7 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         updateConfig: function(newConfig) {
+            console.log('PB.Widget.updateConfig', arguments);                                       //#dbg
             this.onConfigUpdate(newConfig);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
@@ -61,6 +65,7 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         applyTemplate: function(el, templateName, options) {
+            console.log('PB.Widget.applyTemplate', arguments);                                      //#dbg
             var template = this.templates[templateName];
             if (!template) {
                 console.error('Missing template: %s', templateName);
@@ -72,9 +77,10 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         renderTemplate: function(el, data) {
+            console.log('PB.Widget.renderTemplate', arguments);                                     //#dbg
             el.processTemplate(data);
-            el.unbind("onload.pb").bind("onload.pb", function() {
-                console.log("Content loaded", arguments);
+            el.find('img').unbind("load.pb").bind("load.pb", function() { // TODO: add more element with load event?
+                PB.possibleLayoutChange(el, "widget content loaded", false);
             });
             PB.possibleLayoutChange(el, "widget render", false);
         },

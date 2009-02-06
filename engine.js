@@ -54,7 +54,10 @@
                 pid: options.pid
             };
             PB.deserialize();
-            PB.readyToGo();
+            PB.ready = true;
+            if (!(parent && parent.PBS)) {
+                PB.readyToGo();
+            }
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         enterMode: function(mode) {
@@ -110,8 +113,8 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         readyToGo: function() {
             console.log("Starting page");                                                           //#dbg
-            PB.ready = true;
             PB.widgetsVisibilityChanged();
+            PB.visibleWidgetElements.loadWidgets();
         }
     });
 

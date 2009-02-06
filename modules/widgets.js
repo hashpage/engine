@@ -3,7 +3,7 @@
 (function($) {
 
      $.extend(PB, {
-         visibleWidgets: [],
+         visibleWidgetInstances: [],
          widgets: {},
          instances: {},
          instanceConfigs: {},
@@ -108,7 +108,7 @@
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          widgetsVisibilityChanged: function() {
-             var previouslyVisible = this.visibleWidgets;
+             var previouslyVisible = this.visibleWidgetInstances;
              var visibleElements = $('.pb-widget:solid');
              var newlyVisible = [];
              for (var i=0; i<visibleElements.length; i++) {
@@ -130,7 +130,8 @@
                      instance.show();
                  }
              };
-             this.visibleWidgets = newlyVisible;
+             this.visibleWidgetInstances = newlyVisible;
+             this.visibleWidgetElements = visibleElements;
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          getWidgetConfig: function(widgetId) {

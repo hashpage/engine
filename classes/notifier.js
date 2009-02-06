@@ -7,7 +7,8 @@
         this.addEvents(
             'widgets-enter-mixed',
             'show-widget-properties',
-            'edit-action'
+            'edit-action',
+            'layouting-finished'
         );
         PB.Notifier.superclass.constructor.call(this);
     };

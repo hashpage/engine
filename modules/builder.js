@@ -1,5 +1,5 @@
 // require('boot')
-
+//#dbg
 (function($) {
 
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -118,32 +118,28 @@
         return container;
     };
     /////////////////////////////////////////////////////////////////////////////////////////
+    PB.widgetTemplate = function(title, thumbnail, name, author) {
+        return '\
+        <div class="pb-widget-thumbnail">\
+          <img width="64" height="48" src="'+thumbnail+'" title="'+title+'">\
+          <div class="pb-widget-thumbnail-ident">\
+            <div class="pb-widget-thumbnail-name">'+name+'</div>\
+            <div class="pb-widget-thumbnail-author">'+author+'</div>\
+          </div>\
+        </div>\
+        <div class="pb-widget-panel">\
+          <div class="pb-widget-body"></div>\
+        </div>';
+    };
+    /////////////////////////////////////////////////////////////////////////////////////////
     PB.createWidget = function(data) {
         var id = data.id || PB.pickUniqueName();
         PB.setWidgetConfig(id, data.config||{});
         var info = PB.parseWidgetName(data.widget);
         var wclass = info.author+"-"+info.name;
-        var widget = $('<div id="'+id+'" class="pb-widget pb-pinned '+wclass+'" widget="'+data.widget+'"></div>');
-        var iconUrl = PB.widgetUrl(data.widget) + "/icon.png";
+        var widget = $('<div id="'+id+'" class="pb-widget pb-mock pb-pinned '+wclass+'" widget="'+data.widget+'"></div>');
         var thumbUrl = PB.widgetUrl(data.widget) + "/thumbnail.png";
-        var widgetTemplate = [];
-        widgetTemplate.push('<div class="pb-widget-thumbnail">');
-        widgetTemplate.push('<img width="64" height="48" src="'+thumbUrl+'" title="'+data.widget+'">');
-        widgetTemplate.push('<div class="pb-widget-thumbnail-ident">');
-        widgetTemplate.push('<div class="pb-widget-thumbnail-name">'+info.name+'</div>');
-        widgetTemplate.push('<div class="pb-widget-thumbnail-author">'+info.author+'</div>');
-        widgetTemplate.push('</div>');
-        widgetTemplate.push('</div>');
-        widgetTemplate.push('<div class="pb-widget-panel">');
-        widgetTemplate.push('<div class="pb-widget-body"></div>');
-        widgetTemplate.push('</div>');
-        widget.html(widgetTemplate.join(''));
-        widget.children('.pb-widget-thumbnail').dblclick(function(){
-            PB.widgetAction(widget, 'expand');
-        });
-        widget.children('.pb-widget-panel').dblclick(function(){
-            PB.widgetAction(widget, 'collapse');
-        });
+        widget.html(PB.widgetTemplate(data.widget, thumbUrl, info.name, info.author));
         if (data.state) {
             if (data.state=="expanded") {
                 setTimeout(function() { // widget jeste neni v DOMu a nezafungovalo by memoize
@@ -156,17 +152,28 @@
                 }, 500);
             }
         }
-        console.log("Loading widget: ", data.widget);                                               //#dbg
-        PB.loader.loadWidget(data.widget, function() {
-            PB.initWidgetInstance(widget);
-            PB.widgetsVisibilityChanged();
-        });
         return widget;
     }; 
+    /////////////////////////////////////////////////////////////////////////////////////////
+    $.fn.loadWidgets = function(fn) {
+        return this.each(function(){
+            var widget = $(this);
+            if (widget.hasClass('pb-loaded')) return;
+            var address = widget.attr('widget');
+            console.log("Loading widget: ", address);                                               //#dbg
+            PB.loader.loadWidget(address, function() {
+                widget.removeClass('pb-mock').addClass('pb-loaded');
+                PB.initWidgetInstance(widget);
+                PB.widgetsVisibilityChanged();
+                if (fn) fn();
+            });
+        });
+    };
     /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.buildStructure = function() {
         function extractWidgetData(schema) {
             var data = {};
+            var internal = ['widget', 'id', 'state'];
             data.widget = schema.attr('data-widget');
             data.id = schema.attr('data-id');
             data.state = schema.attr('data-state');
@@ -174,7 +181,9 @@
             var attrs = schema.dataAttrs();
             for (a in attrs) {
                 if (attrs.hasOwnProperty(a)) {
-                    data.config[a] = attrs[a]; 
+                    if (internal.indexOf(a)==-1) {
+                        data.config[a] = attrs[a]; 
+                    }
                 }
             }
             return data;
@@ -251,32 +260,41 @@
         var widget = PB.getWidgetInstance(el);
         if (!widget) {                                                                              //#chk
             console.error('Unable to retrieve widget instance', el);                                //#chk
-            return result;                                                                          //#chk
+            return;                                                                                 //#chk
         }                                                                                           //#chk
+        // serialize common params
+        var id = el.attr('id');                                                                     //#chk
+        if (!id) {                                                                                  //#chk
+            console.error('Unable to retrieve widget id');                                          //#chk
+        }                                                                                           //#chk
+        result.attr('data-id', id);
+        var address = el.attr('widget');
+        if (!address) {                                                                             //#chk
+            console.error('Unable to retrieve widget address');                                     //#chk
+        }                                                                                           //#chk
+        result.attr('data-widget', address);
+        var state = el.attr('state');
+        if (state) result.attr('data-state', state);
+        // serialize config params
         var config = widget.getConfig();
-        for (var v in config) {
-            if (config.hasOwnProperty(v)) {
-                var value = config[v];
-                var name = v;
-                result.attr('data-'+name, value);
-            }
+        for (var param in config) {
+            if (!config.hasOwnProperty(param)) continue;
+            result.attr('data-'+param, config[param]);
         }
         return result;
     }
     /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.serializeStructure = function() {
         var result = serializeContainer(this);
-        if (this.hasClass('pb-open-container')) {
-            this.children('.pb-widget').each(function() {
-                var widget = serializeWidget($(this));
-                widget.appendTo(result);
-            });
-        } else {
-            this.children('.pb-container').each(function() {
-                var container = $(this).serializeStructure();
-                container.appendTo(result);
-            });
-        }
+        // widgets should exits only in open containers
+        this.children('.pb-widget').each(function() {
+            var widget = serializeWidget($(this));
+            if (widget) widget.appendTo(result);
+        });
+        this.children('.pb-container').each(function() {
+            var container = $(this).serializeStructure();
+            if (container) container.appendTo(result);
+        });
         return result;
     };
 

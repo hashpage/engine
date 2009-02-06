@@ -1,6 +1,6 @@
 // require('engine')
 // require('classes/observable')
-
+//#dbg
 (function($) {
 
     PB.Service = function(config) {
@@ -61,13 +61,19 @@
             if (this.fireEvent('read')!==false) {
                 var cleanUrl = this.baseUrl + this.paramsToUrl(params, true);
                 var url = this.decorateCallbackUrl(this.baseUrl + this.paramsToUrl(params));
-            
+                var completer = function(results) {
+                    if (fn) fn.apply(scope||window, [results, params].concat(Array.prototype.slice.call(args, 3)));
+                    that.complete(results);
+                };
                 if (PB.cachingService) {
                     var results = PB.cachingService.restore(cleanUrl);
                     if (!(results===undefined)) {
                         console.log('Cache hit: %s', cleanUrl);                                     //#dbg
-                        if (fn) fn.apply(scope||window, [results, params].concat(Array.prototype.slice.call(args, 3)));
-                        that.complete(results);
+                        completer(results);
+                        return;
+                    }
+                    if (!PB.cachingService.start(cleanUrl, completer)) {
+                        console.log('  ... read request joined pending request: %s', cleanUrl);     //#dbg
                         return;
                     }
                 }
@@ -76,7 +82,7 @@
                     cache: true,
                     jsonpgen: function() {
                         var hash = "x"+Math.abs(PB.crc32(this.url)).toString(16); // CRC32 should be quite fast, we don't need cryptographic power of SHA-1 here
-                        while (window[hash]) hash += "$"; // prevents collision in window namespace (very unlikely)
+                        while (window[hash]) hash += "x"; // prevents collision in window namespace (very unlikely)
                         return hash;
                     }
                 });
@@ -86,14 +92,17 @@
                         console.log("Received %s: %o", url, data);                                  //#dbg
                         results = data.results || [];
                         results.more = data.more || false;
-                        if (fn) fn.apply(scope||window, [results, params].concat(Array.prototype.slice.call(args, 3)));
                         if (PB.cachingService) {
-                            PB.cachingService.store(cleanUrl, results);
+                            PB.cachingService.finish(cleanUrl, results);
+                        } else {
+                            completer(results);
                         }
-                        that.complete(results);
                     }
                 });
-                $.ajaxSetup({cache: false, jsonpgen: null});
+                $.ajaxSetup({
+                    cache: false, 
+                    jsonpgen: null
+                });
             }
         },
         /////////////////////////////////////////////////////////////////////////////////////////
