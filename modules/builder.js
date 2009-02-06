@@ -263,7 +263,7 @@
             return;                                                                                 //#chk
         }                                                                                           //#chk
         // serialize common params
-        var id = el.attr('id');                                                                     //#chk
+        var id = el.attr('id');
         if (!id) {                                                                                  //#chk
             console.error('Unable to retrieve widget id');                                          //#chk
         }                                                                                           //#chk
