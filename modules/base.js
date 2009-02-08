@@ -69,7 +69,7 @@
                 return;
             }
             delete this.nowValue;
-        },
+        }
     });
 
 })(jQuery);

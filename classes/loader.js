@@ -1,5 +1,5 @@
 // require('classes/observable')
-//#dbg
+
 (function($) {
 
     PB.Loader = function(config) {
