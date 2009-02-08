@@ -61,10 +61,13 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         enterMode: function(mode) {
+            if (this.mode==mode) return;
             var body = $('body');
             body.removeClass('pb-'+this.mode+'-mode');
             body.addClass('pb-'+mode+'-mode');
+            if (this.mode=='edit') this.leaveEditMode();
             this.mode = mode;
+            if (this.mode=='edit') this.enterEditMode();
             this.notifyWidgets("onMode", mode);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
