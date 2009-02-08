@@ -67,36 +67,6 @@ html {
 }
 
 /* -------------------------------------------------------------------------------------------
-   notification
-*/
-
-.pb-notification {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: red;
-    height: 20px;
-    line-height: 20px;
-    color: white;
-    font-weight: bold;
-    padding: 2px 6px;
-}
-
-.pb-notification img.pb-loader {
-    display: none;
-    margin: 2px 8px;
-    position: absolute;
-}
-
-.pb-notification.pb-notification-loader {
-    padding-right: 30px;
-}
-
-.pb-notification-loader img.pb-loader {
-    display: inline;
-}
-
-/* -------------------------------------------------------------------------------------------
    redbug support
 */
 

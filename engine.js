@@ -78,9 +78,9 @@
                 var script = $(this);
                 var url = script.attr('src');
                 if (url && url.match(/pagebout\.js/)) {
-                    PB.showNotification('Loading editor', 'pb-notification-loader');
+                    var notification = PB.showNotification('Loading editor', 'pb-notification-loader');
                     PB.callThisOnEditorLoad = function() {
-                        PB.hideNotification();
+                        PB.hideNotification(notification);
                         if (fn) fn();
                     };
                     var editorUrl = url.replace('pagebout.js', 'editor.js').replace('/engine/', '/editor/');
@@ -90,16 +90,13 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         showNotification: function(msg, klass) {
-            klass = klass || '';
-            var loader = '<img src="#{BASE_URL}/static/red-loader.gif" class="pb-loader"/>';
-            $('body')
-                .append($('<div class="pb-notification '+klass+'"></div>').html(msg).append(loader));
+            if (!parent && !parent.PBS) return;
+            return parent.PBS.showNotification(msg, klass);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
-        hideNotification: function(msg, klass) {
-            $('body').children('.pb-notification').fadeOut(2000, function() {
-                $(this).remove();
-            });
+        hideNotification: function(notification) {
+            if (!parent && !parent.PBS) return;
+            return parent.PBS.hideNotification(notification);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         deserialize: function() {
