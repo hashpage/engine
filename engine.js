@@ -17,6 +17,7 @@
 // require('classes/notifier')
 // require('classes/service')
 // require('classes/widget')
+// require('debug')
 
 (function($) {
 
@@ -61,7 +62,9 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         enterMode: function(mode) {
+            console.log('PB.enterMode', arguments);                                                 //#dbg
             if (this.mode==mode) return;
+            console.log('  -- changing mode to ', mode);                                            //#dbg
             var body = $('body');
             body.removeClass('pb-'+this.mode+'-mode');
             body.addClass('pb-'+mode+'-mode');
@@ -72,20 +75,28 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         loadEditor: function(fn) {
+            console.log('PB.loadEditor', arguments);                                                //#dbg
             if (PB.editorPresent) {
+                console.log('  -- editor already present');                                         //#dbg
                 if (fn) fn();
                 return;
             }
+            var notification = PB.showNotification('Loading editor', 'pb-notification-loader');
+            if (!PB.callThisOnEditorLoad) PB.callThisOnEditorLoad=[];
+            PB.callThisOnEditorLoad.push(function() {
+                PB.hideNotification(notification);
+                if (fn) fn();
+            });
+            if (PB.editorBeingLoaded) {
+                console.log('  -- editor being loaded');                                            //#dbg
+                return;
+            }
+            PB.editorBeingLoaded = true;
             var head = $('head');
             head.children('script').each(function() {
                 var script = $(this);
                 var url = script.attr('src');
                 if (url && url.match(/pagebout\.js/)) {
-                    var notification = PB.showNotification('Loading editor', 'pb-notification-loader');
-                    PB.callThisOnEditorLoad = function() {
-                        PB.hideNotification(notification);
-                        if (fn) fn();
-                    };
                     var editorUrl = url.replace('pagebout.js', 'editor.js').replace('/engine/', '/editor/');
                     head.append('<script type="text/javascript" src="'+editorUrl+'"></script>');
                 }
@@ -109,6 +120,10 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         containerAction: function() {
             // no op - re-implemented by editor
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        getEngineId: function() {
+            return $('html').attr('pagebout-engine');
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         readyToGo: function() {

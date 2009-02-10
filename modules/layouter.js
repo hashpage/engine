@@ -43,11 +43,11 @@
                          PB.layoutQueued = undefined;
                          worker();
                      } else {
-                         console.log('Layouting finished', el);                                     //#dbg
+                         console.log('Layouting finished', el);                                         //#dbg
                          PB.notifier.fireEvent('layouting-finished', el, reason);
                      }
                  }, 500);
-                 console.log('Performing layout'+(anim?"+anim":"")+reason, el);                         //#dbg
+                 console.log('Performing layout engine['+PB.getEngineId()+']'+(anim?"+anim":"")+reason, el); //#dbg
                  el.normalize().enlarge(anim);
                  PB.unfreezeTime();
              };
