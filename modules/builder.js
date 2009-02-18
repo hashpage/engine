@@ -61,7 +61,12 @@
     $.fn.updateOpenContainers = function() {
         return this.each(function() {
             var el = $(this);
-            if (el.children('.pb-widget:solid').length || el.children('.pb-widget-reordering-placeholder').length || el.children('.pb-container:solid').length) el.removeClass("pb-empty"); else el.addClass("pb-empty");
+            if (el.children('.pb-widget:solid').length || 
+                el.children('.pb-widget-reordering-placeholder').length || 
+                el.children('.pb-container:solid').length) 
+                el.removeClass("pb-empty"); 
+            else 
+                el.addClass("pb-empty");
             if (el.find('.pb-container').length) { // closed container
                 if (!el.hasClass('pb-open-container')) return; // nothing to do
                 if (el.hasClass('pb-container-reordering-area')) return; // HACK

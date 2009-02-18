@@ -18,7 +18,7 @@
 // require('classes/service')
 // require('classes/widget')
 // require('debug')
-//#dbg
+
 (function($) {
 
     $.extend(PB, {
