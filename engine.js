@@ -18,7 +18,7 @@
 // require('classes/service')
 // require('classes/widget')
 // require('debug')
-
+//#dbg
 (function($) {
 
     $.extend(PB, {
@@ -127,7 +127,11 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         readyToGo: function() {
-            console.log("Starting page");                                                           //#dbg
+            console.log("PB.readyToGo");                                                            //#dbg
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        activate: function() {
+            console.log("PB.activate");                                                             //#dbg
             PB.widgetsVisibilityChanged();
             PB.visibleWidgetElements.loadWidgets();
         }

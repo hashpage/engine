@@ -19,6 +19,9 @@ html {
 
 .pb-container {
     position: relative;
+    /* http://github.com/jeresig/sizzle/commit/6a91f29bbb979caebe875f28bf3e11cfdbd1cda2#comments */
+    min-width: 1px;
+    min-height: 1px;
 }
 
 .pb-open-container {
