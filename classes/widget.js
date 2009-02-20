@@ -6,7 +6,7 @@
         $.extend(this, config);
         PB.Widget.superclass.constructor.call(this);
     };
-
+    
     PB.extend(PB.Widget, PB.Observable, {
         /////////////////////////////////////////////////////////////////////////////////////////
         init: function(guid, el, info) {
@@ -16,32 +16,52 @@
             this.info = info;
             this.root = this.el.parents('.pb-widget').eq(0);
             this.defaultConfig = this.defaultConfig || {};
+            this.defaultState = this.defaultState || {};
             this.config = $.extend({}, this.defaultConfig, PB.getWidgetConfig(this.guid));
-            if (this.css)
-                this.applyCSS(this.css);
-            if (this.html)
-                this.applyHTML(this.html);
+            this.state = $.extend({}, this.defaultState, PB.getWidgetState(this.guid));
+            this.applyCSS(this.css);
+            this.applyHTML(this.html);
             this.onInit();
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         applyCSS: function(css) {
+            if (!css) return;
             console.log('PB.Widget.applyCSS', arguments);                                           //#dbg
             var style = $('<style>'+css+'</style>');
             $('head').append(style);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         applyHTML: function(html) {
+            if (!html) return;
             console.log('PB.Widget.applyHTML', arguments);                                          //#dbg
             this.el.html(html);
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        getState: function() {
+            return this.state || this.defaultState;
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        resetState: function(state) {
+            this.state = $.extend({}, this.defaultState, state);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         getConfig: function() {
             return this.config || this.defaultConfig;
         },
         /////////////////////////////////////////////////////////////////////////////////////////
+        getConfigSchema: function() {
+            return this.configSchema;
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
         updateConfig: function(newConfig) {
             console.log('PB.Widget.updateConfig', arguments);                                       //#dbg
-            this.onConfigUpdate(newConfig);
+            var oldConfig = $.extend({}, this.config);
+            $.extend(this.config, newConfig);
+            this.onConfigUpdate(this.config, oldConfig);
+            var that = this;
+            PB.editAction("Widget config changed", function(){
+                that.updateConfig(oldConfig);
+            });
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         pause: function() {
@@ -102,7 +122,8 @@
         onAfterRemove: function() {},
         onMode: function(newMode) {},
         onPause: function() {},
-        onResume: function() {}
+        onResume: function() {},
+        onConfigUpdate: function() {}
     });
 
 })(jQuery);

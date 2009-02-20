@@ -1,6 +1,6 @@
 // require('engine')
 // require('classes/observable')
-
+//#dbg
 (function($) {
 
     PB.Service = function(config) {
@@ -56,11 +56,13 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         read: function(params, fn, scope) {
+            console.log('PB.Service.read', arguments);                                              //#dbg
             var that = this;
             var args = arguments;
             if (this.fireEvent('read')!==false) {
                 var cleanUrl = this.baseUrl + this.paramsToUrl(params, true);
                 var url = this.decorateCallbackUrl(this.baseUrl + this.paramsToUrl(params));
+                console.log('  url: ', url);                                                        //#dbg
                 var completer = function(results) {
                     if (fn) fn.apply(scope||window, [results, params].concat(Array.prototype.slice.call(args, 3)));
                     that.complete(results);

@@ -142,6 +142,10 @@
              return this.instanceConfigs[widgetId] = config;
          },
          /////////////////////////////////////////////////////////////////////////////////////////
+         getWidgetState: function(widgetId) {
+             return {};
+         },
+         /////////////////////////////////////////////////////////////////////////////////////////
          notifyWidgets: function() {
              var args = $.makeArray(arguments);
              var method = args.shift();

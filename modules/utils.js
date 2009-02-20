@@ -78,7 +78,7 @@
              }
              var params = [];
              for(var key in o){
-                 if (o.hasOwnProperty(key) && o[key]) params.push([key, o[key]]);
+                 if (o.hasOwnProperty(key) && o[key]!=null) params.push([key, o[key]]);
              }
              params.sort(function(a,b) {
                  return b[0]<a[0]?1:-1;
