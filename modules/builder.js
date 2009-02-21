@@ -143,7 +143,7 @@
         var info = PB.parseWidgetName(data.widget);
         var wclass = info.author+"-"+info.name;
         var widget = $('<div id="'+id+'" class="pb-widget pb-mock pb-pinned '+wclass+'" widget="'+data.widget+'"></div>');
-        var thumbUrl = PB.widgetUrl(data.widget) + "/thumbnail.png";
+        var thumbUrl = PB.widgetUrl(data.widget) + "/icon.png";
         widget.html(PB.widgetTemplate(data.widget, thumbUrl, info.name, info.author));
         if (data.state) {
             if (data.state=="expanded") {

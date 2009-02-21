@@ -37,6 +37,10 @@ html {
     margin-right: 0px !important;
 }
 
+.pb-remove-scrollbars {
+    overflow: hidden !important;
+}
+
 /* -------------------------------------------------------------------------------------------
    widget
 */
