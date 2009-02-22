@@ -41,8 +41,11 @@
             return this.state || this.defaultState;
         },
         /////////////////////////////////////////////////////////////////////////////////////////
-        resetState: function(state) {
-            this.state = $.extend({}, this.defaultState, state);
+        updateState: function(newState) {
+            console.log('PB.Widget.updateState', arguments);                                       //#dbg
+            var oldState = $.extend({}, this.state);
+            $.extend(this.state, newState);
+            this.onStateUpdate(this.state, oldState);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         getConfig: function() {

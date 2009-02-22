@@ -7,6 +7,7 @@
          widgets: {},
          instances: {},
          instanceConfigs: {},
+         instanceStates: {},
          /////////////////////////////////////////////////////////////////////////////////////////
          widgetUrl: function(name) {
              if (name.substring(0,4)=="http") return name; // absolute url specified
@@ -96,13 +97,18 @@
              return res;
          },
          /////////////////////////////////////////////////////////////////////////////////////////
+         getWidgetGuid: function(el) {
+             var guid = PB.parseGuidFromId($(el).attr("id"));
+             if (!guid) {                                                                           //#chk
+                 console.error('No guid specified for ', el);                                       //#chk
+                 return;                                                                            //#chk
+             }                                                                                      //#chk
+             return guid;
+         },
+         /////////////////////////////////////////////////////////////////////////////////////////
          getWidgetInstance: function(guid_or_el) {
              if (typeof guid_or_el != "string") {
-                 guid_or_el = PB.parseGuidFromId($(guid_or_el).attr("id"));
-                 if (!guid_or_el) {                                                                 //#chk
-                     console.error('No guid specified for ', guid_or_el);                           //#chk
-                     return;                                                                        //#chk
-                 }                                                                                  //#chk
+                 guid_or_el = this.getWidgetGuid(guid_or_el);
              }
              return PB.instances[guid_or_el];
          },
@@ -143,8 +149,35 @@
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          getWidgetState: function(widgetId) {
-             return {};
+             return this.instanceStates[widgetId];
          },
+         /////////////////////////////////////////////////////////////////////////////////////////
+         setWidgetState: function(widgetId, state) {
+             return this.instanceStates[widgetId] = state;
+         },
+         /////////////////////////////////////////////////////////////////////////////////////////
+         serializeWidgetStates: function() {
+             console.log('PB.serializeWidgetStates', arguments);                                    //#dbg
+             var data = {};
+             var widgets = $('.pb-widget');
+             widgets.each(function() {
+                 var guid = PB.getWidgetGuid(this);
+                 var instance = PB.getWidgetInstance(guid);
+                 if (!instance) {                                                                   //#chk
+                     console.error('Unable to retrieve widget instance for guid=%o', guid);         //#chk
+                     return;                                                                        //#chk
+                 }                                                                                  //#chk
+                 var state = instance.getState();
+                 data[guid] = state;
+             });
+             console.log('  result:', data);                                                        //#dbg
+             return data;
+         },    
+         /////////////////////////////////////////////////////////////////////////////////////////
+         unserializeWidgetStates: function(data) {
+             console.log('PB.unserializeWidgetStates', arguments);                                  //#dbg
+             this.instanceStates = data;
+         },    
          /////////////////////////////////////////////////////////////////////////////////////////
          notifyWidgets: function() {
              var args = $.makeArray(arguments);
