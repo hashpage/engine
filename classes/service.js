@@ -1,6 +1,6 @@
 // require('engine')
 // require('classes/observable')
-//#dbg
+
 (function($) {
 
     PB.Service = function(config) {
