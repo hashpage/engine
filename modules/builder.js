@@ -9,7 +9,7 @@
             if (el.hasClass("ui-sortable-helper")) return false;
             if (el.hasClass("pb-hidden")) return false;
             if (el.hasClass("pb-widget-reordering-placeholder")) return false;
-            return el.is(':reallyvisible');
+            return true;
         }
     });
     /////////////////////////////////////////////////////////////////////////////////////////
