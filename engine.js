@@ -18,7 +18,7 @@
 // require('classes/service')
 // require('classes/widget')
 // require('debug')
-
+//#dbg
 (function($) {
 
     $.extend(PB, {
@@ -52,7 +52,8 @@
 
             // common parameters for all API calls
             PB.commonParams = {
-                pid: options.pid
+                pid: options.pid,
+                seed: options.apiSeed
             };
             PB.deserialize();
             PB.ready = true;
