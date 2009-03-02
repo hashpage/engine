@@ -1,0 +1,24 @@
+.pb-no-data {
+    text-align: center;
+    border: 2px solid red;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    display: none;
+}
+
+.pb-edit-mode .pb-no-data {
+    display: block;
+}
+
+.pb-no-data-explain {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    padding: 4px 4px;
+}
+
+.pb-no-data-explain a,
+.pb-no-data-explain a:hover,
+.pb-no-data-explain a:visited {
+    color: #fff !important;
+}

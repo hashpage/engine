@@ -4,28 +4,36 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         getStdTemplates: function() {
             if (!PB._templates) {
-                var videoTemplate = $.createTemplate(PB.templates.video);
-                var pictureTemplate = $.createTemplate(PB.templates.picture);
-                var commentTemplate = $.createTemplate(PB.templates.comment);
-                var paginatorTemplate = $.createTemplate(PB.templates.paginator);
-                var blogpostTemplate = $.createTemplate(PB.templates.blogpost);
-                var mediumTemplate = $.createTemplate(PB.templates.medium, {
-                    video: videoTemplate, 
-                    picture: pictureTemplate
+                var videoTemplate = $.createTemplate(PB.templates['video']);
+                var pictureTemplate = $.createTemplate(PB.templates['picture']);
+                var pictureSmallTemplate = $.createTemplate(PB.templates['picture-small']);
+                var commentTemplate = $.createTemplate(PB.templates['comment']);
+                var bioTemplate = $.createTemplate(PB.templates['bio']);
+                var bioSmallTemplate = $.createTemplate(PB.templates['bio-small']);
+                var feedItemTemplate = $.createTemplate(PB.templates['feed-item']);
+                var feedItemSmallTemplate = $.createTemplate(PB.templates['feed-item-small']);
+                var paginatorTemplate = $.createTemplate(PB.templates['paginator']);
+                var mediumTemplate = $.createTemplate(PB.templates['medium'], {
+                    'video': videoTemplate, 
+                    'picture': pictureTemplate
                 });
                 var activityTemplate = $.createTemplate(PB.templates.activity, {
-                    medium: mediumTemplate, 
-                    comment: commentTemplate,
-                    paginator: paginatorTemplate
+                    'medium': mediumTemplate, 
+                    'comment': commentTemplate,
+                    'paginator': paginatorTemplate
                 });
                 PB._templates = {
-                    video: videoTemplate,
-                    picture: pictureTemplate,
-                    comment: commentTemplate,
-                    medium: mediumTemplate,
-                    paginator: paginatorTemplate,
-                    activity: activityTemplate,
-                    blogpost: blogpostTemplate
+                    'video': videoTemplate,
+                    'picture': pictureTemplate,
+                    'picture-small': pictureSmallTemplate,
+                    'bio': bioTemplate,
+                    'bio-small': bioSmallTemplate,
+                    'feed-item': feedItemTemplate,
+                    'feed-item-small': feedItemSmallTemplate,
+                    'comment': commentTemplate,
+                    'medium': mediumTemplate,
+                    'paginator': paginatorTemplate,
+                    'activity': activityTemplate
                 };
             }
             return PB._templates;

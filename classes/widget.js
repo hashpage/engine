@@ -99,6 +99,11 @@
             el.setParam('self', "PB.getWidgetInstance('"+this.guid+"')");
         },
         /////////////////////////////////////////////////////////////////////////////////////////
+        handleNoData: function() {
+            this.el.setTemplate(PB.templates['no-data']);
+            this.el.processTemplate();
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
         renderTemplate: function(el, data) {
             console.log('PB.Widget.renderTemplate', arguments);                                     //#dbg
             el.processTemplate(data);

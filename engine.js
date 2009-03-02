@@ -119,6 +119,10 @@
             roots.buildStructure();
         },
         /////////////////////////////////////////////////////////////////////////////////////////
+        parentNavigate: function() {
+            this.notifier.fireEvent.apply(this.notifier, ['navigate'].concat($.makeArray(arguments)));
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
         containerAction: function() {
             // no op - re-implemented by editor
         },

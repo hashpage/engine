@@ -8,6 +8,7 @@
             'widgets-enter-mixed',
             'show-widget-properties',
             'edit-action',
+            'navigate',
             'layouting-finished'
         );
         PB.Notifier.superclass.constructor.call(this);
