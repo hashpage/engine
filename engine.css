@@ -51,7 +51,7 @@ html {
     margin-bottom: 4px;
 }
 
-.pb-edit-mode .pb-widget-panel {
+.pb-widget-panel {
     min-height: 26px;
     min-width: 26px;
 }

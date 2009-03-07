@@ -62,7 +62,7 @@
             $.extend(this.config, newConfig);
             this.onConfigUpdate(this.config, oldConfig);
             var that = this;
-            PB.editAction("Widget config changed", function(){
+            PB.editAction("changed configuration of widget #"+this.root.attr('id'), function(){
                 that.updateConfig(oldConfig);
             });
         },
@@ -100,7 +100,7 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         handleNoData: function() {
-            this.el.setTemplate(PB.templates['no-data']);
+            this.el.setTemplate(PB.templates['std-no-data']);
             this.el.processTemplate();
         },
         /////////////////////////////////////////////////////////////////////////////////////////
