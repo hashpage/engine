@@ -6,7 +6,7 @@
     display: none;
 }
 
-.pb-edit-mode .pb-no-data {
+.pb-design-mode .pb-no-data {
     display: block;
 }
 

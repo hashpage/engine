@@ -22,7 +22,7 @@
 (function($) {
 
     $.extend(PB, {
-        mode: 'view',
+        mode: 'preview',
         serverMode: 0,
         /////////////////////////////////////////////////////////////////////////////////////////
         run: function(options) {
@@ -69,9 +69,9 @@
             var body = $('body');
             body.removeClass('pb-'+this.mode+'-mode');
             body.addClass('pb-'+mode+'-mode');
-            if (this.mode=='edit') this.leaveEditMode();
+            if (this.mode=='design') this.leaveDesignMode();
             this.mode = mode;
-            if (this.mode=='edit') this.enterEditMode();
+            if (this.mode=='design') this.enterDesignMode();
             this.notifyWidgets("onMode", mode);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
