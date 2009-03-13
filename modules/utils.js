@@ -60,9 +60,8 @@
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          nakedDomain: function() {
-             var domain = document.domain;
-             var a = domain.split(".");
-             return "pagebout."+a[a.length-1];
+             if (!this.serverMode) return "pagebout.com"; // in production
+             return "pagebout.local";
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          url: function(name, path) {
