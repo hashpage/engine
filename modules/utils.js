@@ -62,9 +62,7 @@
          nakedDomain: function() {
              var domain = document.domain;
              var a = domain.split(".");
-             var naked = domain;
-             if (a.length>2) naked = a[a.length-2]+"."+a[a.length-1];
-             return naked;
+             return "pagebout."+a[a.length-1];
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          url: function(name, path) {
