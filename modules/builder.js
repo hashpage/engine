@@ -105,6 +105,7 @@
     $.fn.updateContainerState = function() {
         return this.each(function() {
             var el = $(this);
+            console.log("uds", el);
             el.updateLastContainers();
             el.updateOpenContainers();
             if (el.addDragBars) el.addDragBars(); // TODO: cleanup
@@ -169,13 +170,15 @@
             PB.loader.loadWidget(address, function() {
                 widget.removeClass('pb-mock').addClass('pb-loaded');
                 PB.initWidgetInstance(widget);
-                PB.widgetsVisibilityChanged();
+                // PB.widgetsVisibilityChanged();
                 if (fn) fn();
             });
         });
     };
     /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.buildStructure = function() {
+        var boundContainers = [];
+        
         function extractWidgetData(schema) {
             var data = {};
             var internal = ['widget', 'id', 'state'];
@@ -188,6 +191,9 @@
                 if (attrs.hasOwnProperty(a)) {
                     if (internal.indexOf(a)==-1) {
                         data.config[a] = attrs[a]; 
+                        if (a=='bindto') {
+                            boundContainers.push(attrs[a]);
+                        }
                     }
                 }
             }
@@ -240,6 +246,12 @@
             schema.empty();
             
             sanitize(result);
+            
+            // hide children in bound containers
+            for (var i=0; i < boundContainers.length; i++) {
+                var sel = '#'+boundContainers[i];
+                $(sel).children().hide();
+            }
             
             el.addClass('pb-container');
             el.append(result.children());

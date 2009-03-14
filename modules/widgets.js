@@ -52,6 +52,7 @@
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          initWidgetInstance: function(el) {
+             console.log('PB.initWidgetInstance', arguments);                                       //#dbg
              var widgetElement = $(el);
              var widgetName = widgetElement.attr("widget");
              if (!widgetName) {                                                                                  //#chk
@@ -114,8 +115,12 @@
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          widgetsVisibilityChanged: function() {
+             //if (PB.inWidgetsVisibilityChanged) return;
+             PB.inWidgetsVisibilityChanged = true;
+             console.log('PB.widgetsVisibilityChanged', arguments);                                 //#dbg
              var previouslyVisible = this.visibleWidgetInstances;
-             var visibleElements = $('.pb-widget:solid');
+             var visibleElements = $('.pb-widget:reallyvisible');
+             console.log('  visible:', visibleElements);                                            //#dbg
              var newlyVisible = [];
              for (var i=0; i<visibleElements.length; i++) {
                  var el = visibleElements.get(i);
@@ -133,15 +138,17 @@
              for (var i=0; i < newlyVisible.length; i++) {
                  var instance = newlyVisible[i];
                  if ($.inArray(instance, previouslyVisible)==-1) {
+                     console.log('show -> ', instance);
                      instance.show();
                  }
              };
              this.visibleWidgetInstances = newlyVisible;
              this.visibleWidgetElements = visibleElements;
+             PB.inWidgetsVisibilityChanged = false;
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          getWidgetConfig: function(widgetId) {
-             return this.instanceConfigs[widgetId] || {}; // TODO: config should exist always
+             return this.instanceConfigs[widgetId];
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          setWidgetConfig: function(widgetId, config) {

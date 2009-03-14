@@ -50,7 +50,6 @@
                  PB.unfreezeTime();
              };
 
-             if (anim!==false) anim = true;
              this.layoutId++;
              var layoutId = this.layoutId;
              var requestInfo = "#"+layoutId+(reason?" ("+reason+")":"")+(anim?" anim":"")+(instant?" instant":"");

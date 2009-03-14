@@ -18,7 +18,7 @@
 // require('classes/service')
 // require('classes/widget')
 // require('debug')
-//#dbg
+
 (function($) {
 
     $.extend(PB, {
@@ -138,8 +138,14 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         activate: function() {
             console.log("PB.activate");                                                             //#dbg
-            PB.widgetsVisibilityChanged();
-            PB.visibleWidgetElements.loadWidgets();
+            var widgets = $('.pb-widget:solid');
+            var counter = 0;
+            widgets.loadWidgets(function() {
+                counter++;
+                if (counter==widgets.length) {
+                    PB.widgetsVisibilityChanged();
+                }
+            });
         }
     });
 

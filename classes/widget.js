@@ -108,9 +108,9 @@
             console.log('PB.Widget.renderTemplate', arguments);                                     //#dbg
             el.processTemplate(data);
             el.find('img').unbind("load.pb").bind("load.pb", function() { // TODO: add more element with load event?
-                PB.possibleLayoutChange(el, "widget content loaded", false);
+                PB.possibleLayoutChange(el, "widget content loaded");
             });
-            PB.possibleLayoutChange(el, "widget render", false);
+            PB.possibleLayoutChange(el, "widget render");
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         startLoadingIndicator: function() {
