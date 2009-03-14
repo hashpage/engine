@@ -61,9 +61,7 @@
     $.fn.updateOpenContainers = function() {
         return this.each(function() {
             var el = $(this);
-            if (el.children('.pb-widget:solid').length || 
-                el.children('.pb-widget-reordering-placeholder').length || 
-                el.children('.pb-container:solid').length) 
+            if (el.children('.pb-widget:solid').length || el.children('.pb-container:solid').length) 
                 el.removeClass("pb-empty"); 
             else 
                 el.addClass("pb-empty");
@@ -105,7 +103,6 @@
     $.fn.updateContainerState = function() {
         return this.each(function() {
             var el = $(this);
-            console.log("uds", el);
             el.updateLastContainers();
             el.updateOpenContainers();
             if (el.addDragBars) el.addDragBars(); // TODO: cleanup
@@ -127,7 +124,7 @@
     PB.widgetTemplate = function(title, thumbnail, name, author) {
         return '\
         <div class="pb-widget-thumbnail">\
-          <img width="64" height="48" src="'+thumbnail+'" title="'+title+'">\
+          <div class="pb-widget-thumbnail-icon" style="background-image:url('+thumbnail+')" title="'+title+'"></div>\
           <div class="pb-widget-thumbnail-ident">\
             <div class="pb-widget-thumbnail-name">'+name+'</div>\
             <div class="pb-widget-thumbnail-author">'+author+'</div>\

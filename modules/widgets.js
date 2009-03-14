@@ -138,7 +138,6 @@
              for (var i=0; i < newlyVisible.length; i++) {
                  var instance = newlyVisible[i];
                  if ($.inArray(instance, previouslyVisible)==-1) {
-                     console.log('show -> ', instance);
                      instance.show();
                  }
              };
