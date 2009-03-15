@@ -36,8 +36,6 @@
                     frameWidth: 425, 
                     frameHeight: 350,
                     overlayShow: true,
-                    overlayOpacity: 0.1,
-                    random: false,
                     content: '\
                     <div class="video-player">\
                         <object width="425" height="350">\
@@ -66,9 +64,7 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         applyFancyBoxes: function(el) {
             el.find("a.picture-link").fancybox({
-                overlayShow: true,
-                overlayOpacity: 0.1,
-                random: false
+                overlayShow: true
             });
         },
         /////////////////////////////////////////////////////////////////////////////////////////
