@@ -18,7 +18,7 @@
 // require('classes/service')
 // require('classes/widget')
 // require('debug')
-
+//#dbg
 (function($) {
 
     $.extend(PB, {
@@ -70,7 +70,7 @@
             var body = $('body');
             body.removeClass('pb-'+this.mode+'-mode');
             body.addClass('pb-'+mode+'-mode');
-            if (this.mode=='design') this.leaveDesignMode();
+            if (this.mode=='design' && this.leaveDesignMode) this.leaveDesignMode();
             this.mode = mode;
             if (this.mode=='design') this.enterDesignMode();
             this.notifyWidgets("onMode", mode);
@@ -146,6 +146,7 @@
                     PB.widgetsVisibilityChanged();
                 }
             });
+            PB.possibleLayoutChange(null, 'activate');
         }
     });
 
