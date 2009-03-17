@@ -18,7 +18,7 @@
 // require('classes/service')
 // require('classes/widget')
 // require('debug')
-//#dbg
+
 (function($) {
 
     $.extend(PB, {
@@ -30,7 +30,7 @@
             $.extend(PB, options);
 
             $.now = function() {
-                if (PB.nowValue) return PB.nowValue;
+                if (PB && PB.nowValue) return PB.nowValue;
                 return +new Date;
             };
 
@@ -100,7 +100,7 @@
                 var url = script.attr('src');
                 if (url && url.match(/pagebout\.js/)) {
                     var editorUrl = url.replace('pagebout.js', 'editor.js').replace('/engine/', '/editor/');
-                    head.append('<script type="text/javascript" src="'+editorUrl+'"></script>');
+                    head.append($('<script type="text/javascript" src="'+editorUrl+'"/>'));
                 }
             });
         },
