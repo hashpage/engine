@@ -12,6 +12,7 @@
 // require('modules/services')
 // require('modules/widgets')
 // require('modules/dependencies')
+// require('modules/panels')
 // require('classes/observable')
 // require('classes/loader')
 // require('classes/notifier')
@@ -28,6 +29,7 @@
         run: function(options) {
             options = options || {}; // TODO: check and sanitize options
             $.extend(PB, options);
+            PB.urlParams = PB.parseUri(location).queryKey;
 
             $.now = function() {
                 if (PB && PB.nowValue) return PB.nowValue;
@@ -147,6 +149,10 @@
                 }
             });
             PB.possibleLayoutChange(null, 'activate');
+            
+            if (PB.urlParams['gift']) {
+                PB.presentGiftPanel(PB.urlParams['gift']);
+            }
         }
     });
 

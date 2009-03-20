@@ -102,6 +102,7 @@
         handleNoData: function() {
             this.el.setTemplate(PB.templates['std-no-data']);
             this.el.processTemplate();
+            PB.possibleLayoutChange(this.el, "widget render (no data)");
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         renderTemplate: function(el, data) {

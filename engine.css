@@ -100,3 +100,57 @@ html {
     margin:0; 
     z-index:30000; 
 }
+
+/* -------------------------------------------------------------------------------------------
+   gift panel
+*/
+
+.pb-gift-panel {
+    background-color: #ccc;
+    width: 300px;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border: 2px solid #fff;
+    padding: 10px;
+    opacity: 0.9;
+}
+
+.pb-gift-panel .pb-gift-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #bbb;
+}
+
+.pb-gift-panel .pb-gift-controls {
+    text-align: center;
+    font-size: 26px;
+}
+
+.pb-gift-panel .pb-gift-controls a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 4px 10px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    cursor: pointer;
+}
+
+.pb-gift-panel .pb-gift-controls .pb-gift-accept {
+    margin-right: 15px;
+    background-color: red;
+}
+
+.pb-gift-panel .pb-gift-controls .pb-gift-decline {
+    margin-left: 15px;
+    background-color: black;
+}
+
+.pb-gift-panel .pb-gift-explanation {
+    border-top: 1px solid #bbb;
+    font-size: 11px;
+    margin-top: 10px;
+}
