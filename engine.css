@@ -17,27 +17,27 @@ html {
    container
 */
 
-.pb-container {
+.hp-container {
     position: relative;
     /* http://github.com/jeresig/sizzle/commit/6a91f29bbb979caebe875f28bf3e11cfdbd1cda2#comments */
     min-width: 1px;
     min-height: 1px;
 }
 
-.pb-open-container {
+.hp-open-container {
     margin-top: 5px !important;
     margin-bottom: 5px !important;
 }
 
-.pb-schema {
+.hp-schema {
     display: none;
 }
 
-.pb-last-container {
+.hp-last-container {
     margin-right: 0px !important;
 }
 
-.pb-remove-scrollbars {
+.hp-remove-scrollbars {
     overflow: hidden !important;
 }
 
@@ -45,31 +45,31 @@ html {
    widget
 */
 
-.pb-widget {
+.hp-widget {
     position: relative;
     margin-top: 0; 
     margin-bottom: 4px;
 }
 
-.pb-widget-panel {
+.hp-widget-panel {
     min-height: 26px;
     min-width: 26px;
 }
 
-.pb-widget .pb-widget-panel {
+.hp-widget .hp-widget-panel {
     overflow: hidden;
 }
 
-.pb-widget .pb-widget-thumbnail { 
+.hp-widget .hp-widget-thumbnail { 
     display: none;
 }
 
-.pb-widget.pb-expanded.pb-last-widget,
-.pb-widget.pb-pinned.pb-last-widget {
+.hp-widget.hp-expanded.hp-last-widget,
+.hp-widget.hp-pinned.hp-last-widget {
     margin-bottom: 0px !important;
 }
 
-.pb-widget.pb-collapsed.pb-last-widget {
+.hp-widget.hp-collapsed.hp-last-widget {
     margin-bottom: 10px !important;
 }
 
@@ -77,7 +77,7 @@ html {
    redbug support
 */
 
-.pb-border-inspector { 
+.hp-border-inspector { 
     position:absolute; 
     top:0; 
     left:0; 
@@ -89,7 +89,7 @@ html {
     z-index:30000; 
 }
 
-.pb-background-inspector { 
+.hp-background-inspector { 
     position:absolute; 
     top:0; 
     left:0; 
@@ -105,7 +105,7 @@ html {
    gift panel
 */
 
-.pb-gift-panel {
+.hp-gift-panel {
     background-color: #ccc;
     width: 300px;
     position: fixed;
@@ -118,18 +118,18 @@ html {
     opacity: 0.9;
 }
 
-.pb-gift-panel .pb-gift-title {
+.hp-gift-panel .hp-gift-title {
     font-size: 20px;
     margin-bottom: 10px;
     border-bottom: 1px solid #bbb;
 }
 
-.pb-gift-panel .pb-gift-controls {
+.hp-gift-panel .hp-gift-controls {
     text-align: center;
     font-size: 26px;
 }
 
-.pb-gift-panel .pb-gift-controls a {
+.hp-gift-panel .hp-gift-controls a {
     color: white;
     font-weight: bold;
     text-decoration: none;
@@ -139,17 +139,17 @@ html {
     cursor: pointer;
 }
 
-.pb-gift-panel .pb-gift-controls .pb-gift-accept {
+.hp-gift-panel .hp-gift-controls .hp-gift-accept {
     margin-right: 15px;
     background-color: red;
 }
 
-.pb-gift-panel .pb-gift-controls .pb-gift-decline {
+.hp-gift-panel .hp-gift-controls .hp-gift-decline {
     margin-left: 15px;
     background-color: black;
 }
 
-.pb-gift-panel .pb-gift-explanation {
+.hp-gift-panel .hp-gift-explanation {
     border-top: 1px solid #bbb;
     font-size: 11px;
     margin-top: 10px;

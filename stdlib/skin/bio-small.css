@@ -1,13 +1,13 @@
-.pb-bio-small {
+.hp-bio-small {
     line-height: 1px;
 }
 
-.pb-bio-small .pb-avatar {
+.hp-bio-small .hp-avatar {
     margin-right: 6px;
     min-height: 30px;
 }
 
-.pb-bio-small .pb-name {
+.hp-bio-small .hp-name {
     font-size: 16px;
     margin: 0px;
     position: relative;

@@ -27,10 +27,10 @@
              if (this.mode!="design") return; // perform layouting in edit mode only
              var el = id;
              if (!el) {
-                 el = $('.pagebout');
+                 el = $('.hashpage');
              } else {
                  if (typeof el == "string") el = $(el);
-                 el = el.parentsAndMe('.pagebout');
+                 el = el.parentsAndMe('.hashpage');
              }
 
              var layoutingWorker = function(anim, info) {

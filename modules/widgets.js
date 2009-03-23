@@ -11,9 +11,9 @@
          /////////////////////////////////////////////////////////////////////////////////////////
          widgetUrl: function(name) {
              if (name.substring(0,4)=="http") return name; // absolute url specified
-             if (!this.serverMode) return "http://widgets.pagebout.com/"+name; // relative url specified and in production
+             if (!this.serverMode) return "http://widgets.hashpage.com/"+name; // relative url specified and in production
              if (this.serverMode==1) return "http://localhost:9876/widgets/"+name; // relative url specified and in development
-             if (this.serverMode==2) return "http://widgets.pagebout.local/"+name; // relative url specified and in simulation
+             if (this.serverMode==2) return "http://widgets.hashpage.local/"+name; // relative url specified and in simulation
              console.error("Unknown serverMode");                                                   //#chk
          },
          /////////////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@
                  console.error('Unable to instantiate widget specified for %s (%o)', widgetName, widgetElement); //#chk
                  return;                                                                                         //#chk
              }                                                                                                   //#chk
-             var contentElement = el.find('div.pb-widget-body');
+             var contentElement = el.find('div.hp-widget-body');
              if (contentElement.length!=1) {                                                                     //#chk
                  console.error('Bad widget markup structure for %s (%o)', widgetName, widgetElement);            //#chk
                  return;                                                                                         //#chk
@@ -119,7 +119,7 @@
              PB.inWidgetsVisibilityChanged = true;
              console.log('PB.widgetsVisibilityChanged', arguments);                                 //#dbg
              var previouslyVisible = this.visibleWidgetInstances;
-             var visibleElements = $('.pb-widget:reallyvisible');
+             var visibleElements = $('.hp-widget:reallyvisible');
              console.log('  visible:', visibleElements);                                            //#dbg
              var newlyVisible = [];
              for (var i=0; i<visibleElements.length; i++) {
@@ -165,7 +165,7 @@
          serializeWidgetStates: function() {
              console.log('PB.serializeWidgetStates', arguments);                                    //#dbg
              var data = {};
-             var widgets = $('.pb-widget');
+             var widgets = $('.hp-widget');
              widgets.each(function() {
                  var guid = PB.getWidgetGuid(this);
                  var instance = PB.getWidgetInstance(guid);

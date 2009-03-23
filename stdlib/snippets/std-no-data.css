@@ -1,4 +1,4 @@
-.pb-no-data {
+.hp-no-data {
     text-align: center;
     border: 2px solid red;
     -moz-border-radius: 2px;
@@ -6,19 +6,19 @@
     display: none;
 }
 
-.pb-design-mode .pb-no-data {
+.hp-design-mode .hp-no-data {
     display: block;
 }
 
-.pb-no-data-explain {
+.hp-no-data-explain {
     background-color: red;
     color: white;
     font-weight: bold;
     padding: 4px 4px;
 }
 
-.pb-no-data-explain a,
-.pb-no-data-explain a:hover,
-.pb-no-data-explain a:visited {
+.hp-no-data-explain a,
+.hp-no-data-explain a:hover,
+.hp-no-data-explain a:visited {
     color: #fff !important;
 }

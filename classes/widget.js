@@ -14,7 +14,7 @@
             this.guid = guid;
             this.el = $(el);
             this.info = info;
-            this.root = this.el.parents('.pb-widget').eq(0);
+            this.root = this.el.parents('.hp-widget').eq(0);
             this.defaultConfig = this.defaultConfig || {};
             this.defaultState = this.defaultState || {};
             this.config = $.extend({}, this.defaultConfig, PB.getWidgetConfig(this.guid));
@@ -115,11 +115,11 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         startLoadingIndicator: function() {
-            this.el.prepend($('<div class="pb-loading-indicator">&nbsp;</div>'));
+            this.el.prepend($('<div class="hp-loading-indicator">&nbsp;</div>'));
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         stopLoadingIndicator: function() {
-            this.el.children('.pb-loading-indicator').remove();
+            this.el.children('.hp-loading-indicator').remove();
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         // override these hooks if needed, TODO: more hooks to come

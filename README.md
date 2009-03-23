@@ -1,6 +1,6 @@
-# PageBout Engine
+# HashPage Engine
 
-PageBout is going to be ultimate system for social homepages ... or just my javascript masturbation.
+HashPage is going to be ultimate system for social homepages ... or just my javascript masturbation.
 
 # License
 
@@ -11,4 +11,4 @@ MIT-style
 * v0.1 (to be released)
   * initial public preview
 
-[pagebout]:http://pagebout.com
+[hashpage]:http://hashpage.com

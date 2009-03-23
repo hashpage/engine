@@ -7,8 +7,8 @@
         solid: function(el) {
             var el = $(el);
             if (el.hasClass("ui-sortable-helper")) return false;
-            if (el.hasClass("pb-hidden")) return false;
-            if (el.hasClass("pb-widget-reordering-placeholder")) return false;
+            if (el.hasClass("hp-hidden")) return false;
+            if (el.hasClass("hp-widget-reordering-placeholder")) return false;
             return true;
         }
     });
@@ -44,9 +44,9 @@
     $.fn.applyOpenContainerMask = function() {
         return this.each(function() {
             var el = $(this);
-            var applied = el.children('.pb-open-container-mask');
-            if (applied.length || el.hasClass('pb-unselectable-container')) return;
-            var mask = $('<div class="pb-open-container-mask"></div>');
+            var applied = el.children('.hp-open-container-mask');
+            if (applied.length || el.hasClass('hp-unselectable-container')) return;
+            var mask = $('<div class="hp-open-container-mask"></div>');
             el.prepend(mask);
         });
     };
@@ -54,27 +54,27 @@
     $.fn.removeOpenContainerMask = function() {
         return this.each(function() {
             var el = $(this);
-            el.children('.pb-open-container-mask').remove();
+            el.children('.hp-open-container-mask').remove();
         });
     };
     /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.updateOpenContainers = function() {
         return this.each(function() {
             var el = $(this);
-            if (el.children('.pb-widget:solid').length || el.children('.pb-container:solid').length) 
-                el.removeClass("pb-empty"); 
+            if (el.children('.hp-widget:solid').length || el.children('.hp-container:solid').length) 
+                el.removeClass("hp-empty"); 
             else 
-                el.addClass("pb-empty");
-            if (el.find('.pb-container').length) { // closed container
-                if (!el.hasClass('pb-open-container')) return; // nothing to do
-                if (el.hasClass('pb-container-reordering-area')) return; // HACK
+                el.addClass("hp-empty");
+            if (el.find('.hp-container').length) { // closed container
+                if (!el.hasClass('hp-open-container')) return; // nothing to do
+                if (el.hasClass('hp-container-reordering-area')) return; // HACK
                 if (PB.destroySortable && el.hasClass('ui-sortable')) PB.destroySortable(el);
-                el.removeClass('pb-open-container');
+                el.removeClass('hp-open-container');
                 el.removeOpenContainerMask();
             } else { // open container
                 if (PB.applySortable && !el.hasClass('ui-sortable')) PB.applySortable(el);
-                if (el.hasClass('pb-open-container')) return; // nothing to do
-                el.addClass('pb-open-container');
+                if (el.hasClass('hp-open-container')) return; // nothing to do
+                el.addClass('hp-open-container');
                 el.applyOpenContainerMask();
             }
         });
@@ -84,20 +84,20 @@
         return this.each(function() {
             var el = $(this);
             var parent = $(this.parentNode);
-            if (!this.parentNode || el.parseSpan() == parent.parseSpan() || el.nextAll('.pb-container:solid').length==0) {
-                el.addClass('pb-last-container');
+            if (!this.parentNode || el.parseSpan() == parent.parseSpan() || el.nextAll('.hp-container:solid').length==0) {
+                el.addClass('hp-last-container');
             } else {
-                el.removeClass('pb-last-container');
+                el.removeClass('hp-last-container');
             }
-            el.children('.pb-container').updateLastContainers();
+            el.children('.hp-container').updateLastContainers();
         });
     };
     /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.updateLastWidgets = function() {
-        var widgets = this.children('.pb-widget:solid');
+        var widgets = this.children('.hp-widget:solid');
         if (!widgets.length) return;
-        widgets.removeClass('pb-last-widget');
-        widgets.eq(widgets.length-1).addClass('pb-last-widget');
+        widgets.removeClass('hp-last-widget');
+        widgets.eq(widgets.length-1).addClass('hp-last-widget');
     };
     /////////////////////////////////////////////////////////////////////////////////////////
     $.fn.updateContainerState = function() {
@@ -114,7 +114,7 @@
         var id = data.id || PB.pickUniqueName();
         var span = " ";
         if (data.span) span += "span-"+data.span;
-        var container = $('<div id="'+id+'" class="pb-container'+span+'"></div>');
+        var container = $('<div id="'+id+'" class="hp-container'+span+'"></div>');
         if (data.title) {
             container.attr('title', data.title);
         }
@@ -123,15 +123,15 @@
     /////////////////////////////////////////////////////////////////////////////////////////
     PB.widgetTemplate = function(title, thumbnail, name, author) {
         return '\
-        <div class="pb-widget-thumbnail">\
-          <div class="pb-widget-thumbnail-icon" style="background-image:url('+thumbnail+')" title="'+title+'"></div>\
-          <div class="pb-widget-thumbnail-ident">\
-            <div class="pb-widget-thumbnail-name">'+name+'</div>\
-            <div class="pb-widget-thumbnail-author">'+author+'</div>\
+        <div class="hp-widget-thumbnail">\
+          <div class="hp-widget-thumbnail-icon" style="background-image:url('+thumbnail+')" title="'+title+'"></div>\
+          <div class="hp-widget-thumbnail-ident">\
+            <div class="hp-widget-thumbnail-name">'+name+'</div>\
+            <div class="hp-widget-thumbnail-author">'+author+'</div>\
           </div>\
         </div>\
-        <div class="pb-widget-panel">\
-          <div class="pb-widget-body"></div>\
+        <div class="hp-widget-panel">\
+          <div class="hp-widget-body"></div>\
         </div>';
     };
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -140,7 +140,7 @@
         PB.setWidgetConfig(id, data.config||{});
         var info = PB.parseWidgetName(data.widget);
         var wclass = info.author+"-"+info.name;
-        var widget = $('<div id="'+id+'" class="pb-widget pb-mock pb-pinned '+wclass+'" widget="'+data.widget+'"></div>');
+        var widget = $('<div id="'+id+'" class="hp-widget hp-mock hp-pinned '+wclass+'" widget="'+data.widget+'"></div>');
         var thumbUrl = PB.widgetUrl(data.widget) + "/icon.png";
         widget.html(PB.widgetTemplate(data.widget, thumbUrl, info.name, info.author));
         if (data.state) {
@@ -161,11 +161,11 @@
     $.fn.loadWidgets = function(fn) {
         return this.each(function(){
             var widget = $(this);
-            if (widget.hasClass('pb-loaded')) return;
+            if (widget.hasClass('hp-loaded')) return;
             var address = widget.attr('widget');
             console.log("Loading widget: ", address);                                               //#dbg
             PB.loader.loadWidget(address, function() {
-                widget.removeClass('pb-mock').addClass('pb-loaded');
+                widget.removeClass('hp-mock').addClass('hp-loaded');
                 PB.initWidgetInstance(widget);
                 // PB.widgetsVisibilityChanged();
                 if (fn) fn();
@@ -225,8 +225,8 @@
         }
         /////////////////////////////////////////////////////////////////////////////////////////
         function sanitize(result) {
-            result.children('.pb-widget').remove(); // kdyby dal nekdo widgety na root uroven
-            if (result.children('.pb-container').length==0) {
+            result.children('.hp-widget').remove(); // kdyby dal nekdo widgety na root uroven
+            if (result.children('.hp-container').length==0) {
                 // musime mit alespon jeden container na root urovni
                 var container = PB.createContainer({
                     id: "content"
@@ -250,9 +250,9 @@
                 $(sel).children().hide();
             }
             
-            el.addClass('pb-container');
+            el.addClass('hp-container');
             el.append(result.children());
-            el.find('.pb-container').updateContainerState();
+            el.find('.hp-container').updateContainerState();
         });
     };
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -301,11 +301,11 @@
     $.fn.serializeStructure = function() {
         var result = serializeContainer(this);
         // widgets should exits only in open containers
-        this.children('.pb-widget').each(function() {
+        this.children('.hp-widget').each(function() {
             var widget = serializeWidget($(this));
             if (widget) widget.appendTo(result);
         });
-        this.children('.pb-container').each(function() {
+        this.children('.hp-container').each(function() {
             var container = $(this).serializeStructure();
             if (container) container.appendTo(result);
         });

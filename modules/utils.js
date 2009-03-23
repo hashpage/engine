@@ -141,8 +141,8 @@
         },                                                                                                                       
         /////////////////////////////////////////////////////////////////////////////////////////                                
         nakedDomain: function() {                                                                                                
-            if (!this.serverMode) return "pagebout.com"; // in production                                                        
-            return "pagebout.local";                                                                                             
+            if (!this.serverMode) return "hashpage.com"; // in production                                                        
+            return "hashpage.local";                                                                                             
         },           
         /////////////////////////////////////////////////////////////////////////////////////////                                
         parseUri: function(url) {

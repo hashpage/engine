@@ -36,7 +36,7 @@
                 return +new Date;
             };
 
-            $('body').addClass('pb-view-mode');
+            $('body').addClass('hp-view-mode');
             PB.applyStyle();
 
             PB.loader = new PB.Loader();
@@ -70,8 +70,8 @@
             if (this.mode==mode) return;
             console.log('  -- changing mode to ', mode);                                            //#dbg
             var body = $('body');
-            body.removeClass('pb-'+this.mode+'-mode');
-            body.addClass('pb-'+mode+'-mode');
+            body.removeClass('hp-'+this.mode+'-mode');
+            body.addClass('hp-'+mode+'-mode');
             if (this.mode=='design' && this.leaveDesignMode) this.leaveDesignMode();
             this.mode = mode;
             if (this.mode=='design') this.enterDesignMode();
@@ -85,7 +85,7 @@
                 if (fn) fn();
                 return;
             }
-            var notification = PB.showNotification('Loading editor', 'pb-notification-loader');
+            var notification = PB.showNotification('Loading editor', 'hp-notification-loader');
             if (!PB.callThisOnEditorLoad) PB.callThisOnEditorLoad=[];
             PB.callThisOnEditorLoad.push(function() {
                 PB.hideNotification(notification);
@@ -100,8 +100,8 @@
             head.children('script').each(function() {
                 var script = $(this);
                 var url = script.attr('src');
-                if (url && url.match(/pagebout\.js/)) {
-                    var editorUrl = url.replace('pagebout.js', 'editor.js').replace('/engine/', '/editor/');
+                if (url && url.match(/hashpage\.js/)) {
+                    var editorUrl = url.replace('hashpage.js', 'editor.js').replace('/engine/', '/editor/');
                     head.append($('<script type="text/javascript" src="'+editorUrl+'"/>'));
                 }
             });
@@ -118,7 +118,7 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         deserialize: function() {
-            var roots = $('.pagebout');
+            var roots = $('.hashpage');
             roots.buildStructure();
         },
         /////////////////////////////////////////////////////////////////////////////////////////
@@ -131,7 +131,7 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         getEngineId: function() {
-            return $('html').attr('pagebout-engine');
+            return $('html').attr('hashpage-engine');
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         readyToGo: function() {
@@ -140,7 +140,7 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         activate: function() {
             console.log("PB.activate");                                                             //#dbg
-            var widgets = $('.pb-widget:solid');
+            var widgets = $('.hp-widget:solid');
             var counter = 0;
             widgets.loadWidgets(function() {
                 counter++;
