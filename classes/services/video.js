@@ -2,12 +2,12 @@
 
 (function($) {
 
-    PB.VideoService = function(config) {
+    HP.VideoService = function(config) {
         $.extend(this, config);
-        PB.VideoService.superclass.constructor.call(this);
+        HP.VideoService.superclass.constructor.call(this);
     };
 
-    PB.extend(PB.VideoService, PB.Service, {
+    HP.extend(HP.VideoService, HP.Service, {
         id: 'video'
     });
     

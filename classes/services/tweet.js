@@ -2,12 +2,12 @@
 
 (function($) {
 
-    PB.TweetService = function(config) {
+    HP.TweetService = function(config) {
         $.extend(this, config);
-        PB.TweetService.superclass.constructor.call(this);
+        HP.TweetService.superclass.constructor.call(this);
     };
 
-    PB.extend(PB.TweetService, PB.Service, {
+    HP.extend(HP.TweetService, HP.Service, {
         id: 'tweet'
     });
     

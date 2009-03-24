@@ -2,12 +2,12 @@
 
 (function($) {
 
-    PB.BookmarkService = function(config) {
+    HP.BookmarkService = function(config) {
         $.extend(this, config);
-        PB.BookmarkService.superclass.constructor.call(this);
+        HP.BookmarkService.superclass.constructor.call(this);
     };
 
-    PB.extend(PB.BookmarkService, PB.Service, {
+    HP.extend(HP.BookmarkService, HP.Service, {
         id: 'bookmark'
     });
     

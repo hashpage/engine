@@ -2,12 +2,12 @@
 
 (function($) {
 
-    PB.BioService = function(config) {
+    HP.BioService = function(config) {
         $.extend(this, config);
-        PB.BioService.superclass.constructor.call(this);
+        HP.BioService.superclass.constructor.call(this);
     };
 
-    PB.extend(PB.BioService, PB.Service, {
+    HP.extend(HP.BioService, HP.Service, {
         id: 'bio'
     });
     

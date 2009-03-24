@@ -2,7 +2,7 @@
 
 (function($) {
 
-     $.extend(PB, {
+     $.extend(HP, {
          layoutChangesGuard: 0,
          layoutId: 0,
          /////////////////////////////////////////////////////////////////////////////////////////
@@ -34,20 +34,20 @@
              }
 
              var layoutingWorker = function(anim, info) {
-                 PB.freezeTime();
+                 HP.freezeTime();
                  if (anim) {
-                     PB.layoutingInProgress = true;
+                     HP.layoutingInProgress = true;
                      setTimeout(function() {
-                         PB.layoutingInProgress = false;
-                         if (!PB.nextLayoutRequest) {
+                         HP.layoutingInProgress = false;
+                         if (!HP.nextLayoutRequest) {
                              console.log('Layouting finished', el);                                                //#dbg
-                             PB.notifier.fireEvent('layouting-finished', el, info);
+                             HP.notifier.fireEvent('layouting-finished', el, info);
                          }
                      }, 500);
                  }
-                 console.log('Performing layout '+info+' engine['+PB.getEngineId()+']', el);                       //#dbg
+                 console.log('Performing layout '+info+' engine['+HP.getEngineId()+']', el);                       //#dbg
                  el.layout(anim);
-                 PB.unfreezeTime();
+                 HP.unfreezeTime();
              };
 
              this.layoutId++;
@@ -60,28 +60,28 @@
                  return;
              }
 
-             if (!PB.nextLayoutRequest || anim || PB.nextLayoutRequest[0]==false) {
-                 PB.nextLayoutRequest = [anim, requestInfo];
+             if (!HP.nextLayoutRequest || anim || HP.nextLayoutRequest[0]==false) {
+                 HP.nextLayoutRequest = [anim, requestInfo];
              } else {
                  console.log('  -- not accepted because animated requests have precence');                         //#dbg
              }
 
              var fn = function() {
-                  if (layoutId!=PB.layoutId) { // layout expired
+                  if (layoutId!=HP.layoutId) { // layout expired
                       console.log(" --- expired layout request #"+layoutId);                                       //#dbg
                       return;
                   }
-                  if (!PB.nextLayoutRequest) {                                                                     //#chk
-                      console.error('missing PB.nextLayoutRequest');                                               //#chk
+                  if (!HP.nextLayoutRequest) {                                                                     //#chk
+                      console.error('missing HP.nextLayoutRequest');                                               //#chk
                       return;                                                                                      //#chk
                   }                                                                                                //#chk
-                  if (PB.layoutingInProgress) {
+                  if (HP.layoutingInProgress) {
                       console.log(" --- waiting because previous layouting is in progress");                       //#dbg
                       setTimeout(fn, 200);
                       return;
                   }
-                  layoutingWorker(PB.nextLayoutRequest[0], PB.nextLayoutRequest[1]);
-                  delete PB.nextLayoutRequest;
+                  layoutingWorker(HP.nextLayoutRequest[0], HP.nextLayoutRequest[1]);
+                  delete HP.nextLayoutRequest;
               };
              setTimeout(fn, 200);
          }

@@ -2,7 +2,7 @@
 
 (function($) {
     
-     $.extend(PB, {
+     $.extend(HP, {
          dependencyManager: {},
          dependenciesGuard: 0,
          /////////////////////////////////////////////////////////////////////////////////////////
@@ -28,9 +28,9 @@
              if (!this.dependencyManager[what]) this.dependencyManager[what] = [];
              if (!$.isArray(who)) who = [who];
              $.each(who, function(i, dependencyMaker){
-                 if ($.inArray(dependencyMaker, PB.dependencyManager[what])==-1) {
-                     PB.dependencyManager[what].push(dependencyMaker);
-                     console.log("PB %o has declared dependency on %s", dependencyMaker, what);     //#dbg
+                 if ($.inArray(dependencyMaker, HP.dependencyManager[what])==-1) {
+                     HP.dependencyManager[what].push(dependencyMaker);
+                     console.log("HP %o has declared dependency on %s", dependencyMaker, what);     //#dbg
                  }
              })
              return true;

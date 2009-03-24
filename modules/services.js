@@ -2,7 +2,7 @@
 
 (function($) {
     
-     $.extend(PB, {
+     $.extend(HP, {
          services: {},
          /////////////////////////////////////////////////////////////////////////////////////////
          addService: function(service) {

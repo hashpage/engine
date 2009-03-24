@@ -11,7 +11,7 @@
                  "marilyn","andrea","kathryn","louise","sara","anne","jacqueline","wanda","bonnie","julia","ruby","lois","tina","phyllis",
                  "norma","emily","paula"];
     
-     $.extend(PB, {
+     $.extend(HP, {
          namerSeed: -1,
          
          /////////////////////////////////////////////////////////////////////////////////////////

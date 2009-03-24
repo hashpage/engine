@@ -1,13 +1,13 @@
 // stripped down ExtJS Observable class, TODO: give them credit
 (function($) {
 
-    PB.Observable = function(){
+    HP.Observable = function(){
         if(this.listeners){
             this.on(this.listeners);
             delete this.listeners;
         }
     };
-    PB.Observable.prototype = {
+    HP.Observable.prototype = {
         fireEvent : function(){
             if(this.eventsSuspended !== true){
                 var ce = this.events[arguments[0].toLowerCase()];
@@ -42,7 +42,7 @@
             eventName = eventName.toLowerCase();
             var ce = this.events[eventName] || true;
             if(typeof ce == "boolean"){
-                ce = new PB.Event(this, eventName);
+                ce = new HP.Event(this, eventName);
                 this.events[eventName] = ce;
             }
             ce.addListener(fn, scope, o);
@@ -182,13 +182,13 @@
             }
         }
     };
-    PB.Observable.prototype.on = PB.Observable.prototype.addListener;
-    PB.Observable.prototype.un = PB.Observable.prototype.removeListener;
+    HP.Observable.prototype.on = HP.Observable.prototype.addListener;
+    HP.Observable.prototype.un = HP.Observable.prototype.removeListener;
 
     (function(){
 
         // var createBuffered = function(h, o, scope){
-        //     var task = new PB.util.DelayedTask();
+        //     var task = new HP.util.DelayedTask();
         //     return function(){
         //         task.delay(o.buffer, h, scope, Array.prototype.slice.call(arguments, 0));
         //     };
@@ -210,13 +210,13 @@
             };
         };
 
-        PB.Event = function(obj, name){
+        HP.Event = function(obj, name){
             this.name = name;
             this.obj = obj;
             this.listeners = [];
         };
 
-        PB.Event.prototype = {
+        HP.Event.prototype = {
             addListener : function(fn, scope, options){
                 scope = scope || this.obj;
                 if(!this.isListening(fn, scope)){

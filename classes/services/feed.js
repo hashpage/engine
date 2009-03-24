@@ -2,12 +2,12 @@
 
 (function($) {
 
-    PB.FeedService = function(config) {
+    HP.FeedService = function(config) {
         $.extend(this, config);
-        PB.FeedService.superclass.constructor.call(this);
+        HP.FeedService.superclass.constructor.call(this);
     };
 
-    PB.extend(PB.FeedService, PB.Service, {
+    HP.extend(HP.FeedService, HP.Service, {
         id: 'feed'
     });
     

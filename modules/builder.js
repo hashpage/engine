@@ -68,11 +68,11 @@
             if (el.find('.hp-container').length) { // closed container
                 if (!el.hasClass('hp-open-container')) return; // nothing to do
                 if (el.hasClass('hp-container-reordering-area')) return; // HACK
-                if (PB.destroySortable && el.hasClass('ui-sortable')) PB.destroySortable(el);
+                if (HP.destroySortable && el.hasClass('ui-sortable')) HP.destroySortable(el);
                 el.removeClass('hp-open-container');
                 el.removeOpenContainerMask();
             } else { // open container
-                if (PB.applySortable && !el.hasClass('ui-sortable')) PB.applySortable(el);
+                if (HP.applySortable && !el.hasClass('ui-sortable')) HP.applySortable(el);
                 if (el.hasClass('hp-open-container')) return; // nothing to do
                 el.addClass('hp-open-container');
                 el.applyOpenContainerMask();
@@ -110,8 +110,8 @@
         });
     };
     /////////////////////////////////////////////////////////////////////////////////////////
-    PB.createContainer = function(data) {
-        var id = data.id || PB.pickUniqueName();
+    HP.createContainer = function(data) {
+        var id = data.id || HP.pickUniqueName();
         var span = " ";
         if (data.span) span += "span-"+data.span;
         var container = $('<div id="'+id+'" class="hp-container'+span+'"></div>');
@@ -121,7 +121,7 @@
         return container;
     };
     /////////////////////////////////////////////////////////////////////////////////////////
-    PB.widgetTemplate = function(title, thumbnail, name, author) {
+    HP.widgetTemplate = function(title, thumbnail, name, author) {
         return '\
         <div class="hp-widget-thumbnail">\
           <div class="hp-widget-thumbnail-icon" style="background-image:url('+thumbnail+')" title="'+title+'"></div>\
@@ -135,14 +135,14 @@
         </div>';
     };
     /////////////////////////////////////////////////////////////////////////////////////////
-    PB.createWidget = function(data) {
-        var id = data.id || PB.pickUniqueName();
-        PB.setWidgetConfig(id, data.config||{});
-        var info = PB.parseWidgetName(data.widget);
+    HP.createWidget = function(data) {
+        var id = data.id || HP.pickUniqueName();
+        HP.setWidgetConfig(id, data.config||{});
+        var info = HP.parseWidgetName(data.widget);
         var wclass = info.author+"-"+info.name;
         var widget = $('<div id="'+id+'" class="hp-widget hp-mock hp-pinned '+wclass+'" widget="'+data.widget+'"></div>');
-        var thumbUrl = PB.widgetUrl(data.widget) + "/icon.png";
-        widget.html(PB.widgetTemplate(data.widget, thumbUrl, info.name, info.author));
+        var thumbUrl = HP.widgetUrl(data.widget) + "/icon.png";
+        widget.html(HP.widgetTemplate(data.widget, thumbUrl, info.name, info.author));
         if (data.state) {
             if (data.state=="expanded") {
                 setTimeout(function() { // widget jeste neni v DOMu a nezafungovalo by memoize
@@ -164,10 +164,10 @@
             if (widget.hasClass('hp-loaded')) return;
             var address = widget.attr('widget');
             console.log("Loading widget: ", address);                                               //#dbg
-            PB.loader.loadWidget(address, function() {
+            HP.loader.loadWidget(address, function() {
                 widget.removeClass('hp-mock').addClass('hp-loaded');
-                PB.initWidgetInstance(widget);
-                // PB.widgetsVisibilityChanged();
+                HP.initWidgetInstance(widget);
+                // HP.widgetsVisibilityChanged();
                 if (fn) fn();
             });
         });
@@ -208,12 +208,12 @@
             var widget = schema.attr('data-widget');
             if (widget) {
                 var data = extractWidgetData(schema);
-                return PB.createWidget(data);
+                return HP.createWidget(data);
             } 
             
             // container
             var data = extractContainerData(schema, span);
-            var container = PB.createContainer(data);
+            var container = HP.createContainer(data);
             
             schema.children().each(function() {
                 var sub = $(this);
@@ -228,7 +228,7 @@
             result.children('.hp-widget').remove(); // kdyby dal nekdo widgety na root uroven
             if (result.children('.hp-container').length==0) {
                 // musime mit alespon jeden container na root urovni
-                var container = PB.createContainer({
+                var container = HP.createContainer({
                     id: "content"
                 });
                 container.appendTo(result);
@@ -271,7 +271,7 @@
     function serializeWidget(el) {
         console.log("Serializing widget ", el.get(0));                                              //#dbg
         var result = $('<div></div>');
-        var widget = PB.getWidgetInstance(el);
+        var widget = HP.getWidgetInstance(el);
         if (!widget) {                                                                              //#chk
             console.error('Unable to retrieve widget instance', el);                                //#chk
             return;                                                                                 //#chk

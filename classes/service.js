@@ -3,7 +3,7 @@
 
 (function($) {
 
-    PB.Service = function(config) {
+    HP.Service = function(config) {
         $.extend(this, config);
         this.addEvents(
             'finish',
@@ -12,11 +12,11 @@
             'complete',
             'failure'
         );
-        this.baseUrl = PB.url("api", this.id);
-        PB.Service.superclass.constructor.call(this);
+        this.baseUrl = HP.url("api", this.id);
+        HP.Service.superclass.constructor.call(this);
     };
 
-    PB.extend(PB.Service, PB.Observable, {
+    HP.extend(HP.Service, HP.Observable, {
         id: 'unknown',
         data: [],
         /////////////////////////////////////////////////////////////////////////////////////////
@@ -39,13 +39,13 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         paramsToUrl: function(params, clean) {
             var url = "";
-            var p = $.extend({}, params, PB.commonParams);
+            var p = $.extend({}, params, HP.commonParams);
             if (clean) {
                 if (p["pid"]) {
                     delete p.pid;
                 }
             }
-            var ep = PB.urlEncode(p);
+            var ep = HP.urlEncode(p);
             if (ep) url += "?"+ep;
             return url;
         },
@@ -56,7 +56,7 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         read: function(params, fn, scope) {
-            console.log('PB.Service.read', arguments);                                              //#dbg
+            console.log('HP.Service.read', arguments);                                              //#dbg
             var that = this;
             var args = arguments;
             if (this.fireEvent('read')!==false) {
@@ -67,14 +67,14 @@
                     if (fn) fn.apply(scope||window, [results, params].concat(Array.prototype.slice.call(args, 3)));
                     that.complete(results);
                 };
-                if (PB.cachingService) {
-                    var results = PB.cachingService.restore(cleanUrl);
+                if (HP.cachingService) {
+                    var results = HP.cachingService.restore(cleanUrl);
                     if (!(results===undefined)) {
                         console.log('Cache hit: %s', cleanUrl);                                     //#dbg
                         completer(results);
                         return;
                     }
-                    if (!PB.cachingService.start(cleanUrl, completer)) {
+                    if (!HP.cachingService.start(cleanUrl, completer)) {
                         console.log('  ... read request joined pending request: %s', cleanUrl);     //#dbg
                         return;
                     }
@@ -83,7 +83,7 @@
                 $.ajaxSetup({
                     cache: true,
                     jsonpgen: function() {
-                        var hash = "x"+Math.abs(PB.crc32(this.url)).toString(16); // CRC32 should be quite fast, we don't need cryptographic power of SHA-1 here
+                        var hash = "x"+Math.abs(HP.crc32(this.url)).toString(16); // CRC32 should be quite fast, we don't need cryptographic power of SHA-1 here
                         while (window[hash]) hash += "x"; // prevents collision in window namespace (very unlikely)
                         return hash;
                     }
@@ -94,8 +94,8 @@
                         console.log("Received %s: %o", url, data);                                  //#dbg
                         results = data.results || [];
                         results.more = data.more || false;
-                        if (PB.cachingService) {
-                            PB.cachingService.finish(cleanUrl, results);
+                        if (HP.cachingService) {
+                            HP.cachingService.finish(cleanUrl, results);
                         } else {
                             completer(results);
                         }

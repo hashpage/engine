@@ -2,7 +2,7 @@
 
 (function($) {
 
-     $.extend(PB, {
+     $.extend(HP, {
          visibleWidgetInstances: [],
          widgets: {},
          instances: {},
@@ -22,29 +22,29 @@
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          registerWidgetClass: function(selector, widget) {
-             console.log('PB.registerWidgetClass', arguments);                                      //#dbg
-             PB.widgets[selector] = widget;
+             console.log('HP.registerWidgetClass', arguments);                                      //#dbg
+             HP.widgets[selector] = widget;
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          registerWidget: function(selector, widgetDef) {
-             console.log('PB.registerWidget', arguments);                                           //#dbg
+             console.log('HP.registerWidget', arguments);                                           //#dbg
              var widget = function(config) {
                  widget.superclass.constructor.call(this);
              };
-             PB.extend(widget, PB.Widget, widgetDef);
+             HP.extend(widget, HP.Widget, widgetDef);
              widget.prototype.templates = {};
              widget.prototype.css = "";
-             PB.registerWidgetClass(selector, widget);
+             HP.registerWidgetClass(selector, widget);
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          hasWidget: function(name) {
              var selector = this.widgetUrl(name);
-             return PB.widgets[selector];
+             return HP.widgets[selector];
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          getWidget: function(name) {
              var selector = this.widgetUrl(name);
-             var widget = PB.widgets[selector];
+             var widget = HP.widgets[selector];
              if (!widget) {                                                                         //#chk
                  console.error('Unable to get widget', name);                                       //#chk
              }                                                                                      //#chk
@@ -52,7 +52,7 @@
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          initWidgetInstance: function(el) {
-             console.log('PB.initWidgetInstance', arguments);                                       //#dbg
+             console.log('HP.initWidgetInstance', arguments);                                       //#dbg
              var widgetElement = $(el);
              var widgetName = widgetElement.attr("widget");
              if (!widgetName) {                                                                                  //#chk
@@ -60,12 +60,12 @@
                  return;                                                                                         //#chk
              }                                                                                                   //#chk
              console.log("Initializing widget:", widgetName);                                                    //#dbg
-             var guid = PB.parseGuidFromId(widgetElement.attr("id"));
+             var guid = HP.parseGuidFromId(widgetElement.attr("id"));
              if (!guid) {                                                                                        //#chk
                  console.error('No guid specified for ', widgetElement);                                         //#chk
                  return;                                                                                         //#chk
              }                                                                                                   //#chk
-             var widgetClass = PB.getWidget(widgetName);
+             var widgetClass = HP.getWidget(widgetName);
              if (!widgetClass) {                                                                                 //#chk
                  console.error('Unable to resolve class specified for %s (%o)', widgetName, widgetElement);      //#chk
                  return;                                                                                         //#chk
@@ -86,7 +86,7 @@
              }
              var info = this.parseWidgetName(widgetName);
              instance.init(guid, contentElement, info);
-             PB.instances[guid] = instance;
+             HP.instances[guid] = instance;
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          parseWidgetName: function(name) {
@@ -99,7 +99,7 @@
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          getWidgetGuid: function(el) {
-             var guid = PB.parseGuidFromId($(el).attr("id"));
+             var guid = HP.parseGuidFromId($(el).attr("id"));
              if (!guid) {                                                                           //#chk
                  console.error('No guid specified for ', el);                                       //#chk
                  return;                                                                            //#chk
@@ -111,13 +111,13 @@
              if (typeof guid_or_el != "string") {
                  guid_or_el = this.getWidgetGuid(guid_or_el);
              }
-             return PB.instances[guid_or_el];
+             return HP.instances[guid_or_el];
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          widgetsVisibilityChanged: function() {
-             //if (PB.inWidgetsVisibilityChanged) return;
-             PB.inWidgetsVisibilityChanged = true;
-             console.log('PB.widgetsVisibilityChanged', arguments);                                 //#dbg
+             //if (HP.inWidgetsVisibilityChanged) return;
+             HP.inWidgetsVisibilityChanged = true;
+             console.log('HP.widgetsVisibilityChanged', arguments);                                 //#dbg
              var previouslyVisible = this.visibleWidgetInstances;
              var visibleElements = $('.hp-widget:reallyvisible');
              console.log('  visible:', visibleElements);                                            //#dbg
@@ -143,7 +143,7 @@
              };
              this.visibleWidgetInstances = newlyVisible;
              this.visibleWidgetElements = visibleElements;
-             PB.inWidgetsVisibilityChanged = false;
+             HP.inWidgetsVisibilityChanged = false;
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          getWidgetConfig: function(widgetId) {
@@ -163,12 +163,12 @@
          },
          /////////////////////////////////////////////////////////////////////////////////////////
          serializeWidgetStates: function() {
-             console.log('PB.serializeWidgetStates', arguments);                                    //#dbg
+             console.log('HP.serializeWidgetStates', arguments);                                    //#dbg
              var data = {};
              var widgets = $('.hp-widget');
              widgets.each(function() {
-                 var guid = PB.getWidgetGuid(this);
-                 var instance = PB.getWidgetInstance(guid);
+                 var guid = HP.getWidgetGuid(this);
+                 var instance = HP.getWidgetInstance(guid);
                  if (!instance) {                                                                   //#chk
                      console.error('Unable to retrieve widget instance for guid=%o', guid);         //#chk
                      return;                                                                        //#chk
@@ -181,7 +181,7 @@
          },    
          /////////////////////////////////////////////////////////////////////////////////////////
          unserializeWidgetStates: function(data) {
-             console.log('PB.unserializeWidgetStates', arguments);                                  //#dbg
+             console.log('HP.unserializeWidgetStates', arguments);                                  //#dbg
              this.instanceStates = data;
          },    
          /////////////////////////////////////////////////////////////////////////////////////////

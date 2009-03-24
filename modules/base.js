@@ -1,6 +1,6 @@
 (function($) {
 
-    $.extend(PB, {
+    $.extend(HP, {
         frozenTimeCounter: 0,
         /////////////////////////////////////////////////////////////////////////////////////////
         // class-based inheritancy system taken from ExtJS
@@ -29,12 +29,12 @@
                     pp.constructor = p;
                 }
                 b.override = function(o) {
-                    PB.override(b, o);
+                    HP.override(b, o);
                 };
                 bp.override = inline;
-                PB.override(b, o);
+                HP.override(b, o);
                 b.extend = function(o) { 
-                    PB.extend(b, o);
+                    HP.extend(b, o);
                 };
                 return b;
             };

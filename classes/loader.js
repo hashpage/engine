@@ -2,29 +2,29 @@
 
 (function($) {
 
-    PB.Loader = function(config) {
+    HP.Loader = function(config) {
         $.extend(this, config);
         this.addEvents(
             'success',
             'completed'
         );
-        PB.Loader.superclass.constructor.call(this);
+        HP.Loader.superclass.constructor.call(this);
     };
 
-    PB.extend(PB.Loader, PB.Observable, {
+    HP.extend(HP.Loader, HP.Observable, {
         requestedWidgets: {},
         pendingRequests: 0,
         /////////////////////////////////////////////////////////////////////////////////////////
         loadWidget: function(name, callback) {
-            console.log('PB.loadWidget', arguments);                                                //#dbg
+            console.log('HP.loadWidget', arguments);                                                //#dbg
             // already loaded?
-            if (PB.hasWidget(name)) { 
+            if (HP.hasWidget(name)) { 
                 console.log('  ... widget already loaded', arguments);                              //#dbg
                 if (callback) callback();
                 return; 
             }
             // load widget
-            var url = PB.widgetUrl(name);
+            var url = HP.widgetUrl(name);
             if (this.requestedWidgets[url]) {
                 console.log('  ... widget is already being loaded, callback queued', arguments);    //#dbg
                 this.requestedWidgets[url].push(callback);
@@ -32,8 +32,8 @@
             }
             this.requestedWidgets[url] = [callback];
             this.pendingRequests++;
-            var indexUrl = url+'/index.js?'+PB.cacheSeed;
-            console.log('PB Requesting widget', indexUrl);                                          //#dbg
+            var indexUrl = url+'/index.js?'+HP.cacheSeed;
+            console.log('HP Requesting widget', indexUrl);                                          //#dbg
             var that = this;
             $.ajax({
                 type: 'GET',

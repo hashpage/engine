@@ -1,26 +1,26 @@
 (function($) {
 
-    PB.stdlib = {
+    HP.stdlib = {
         /////////////////////////////////////////////////////////////////////////////////////////
         getStdTemplates: function() {
-            if (!PB._std_templates) {
-                console.log('PB.getStdTemplates -- generating');                                    //#dbg
+            if (!HP._std_templates) {
+                console.log('HP.getStdTemplates -- generating');                                    //#dbg
                 var cache = {};
                 var dynamicTemplates = {
                     '~': function(name) {
                         console.log('Template lookup', name, cache);                                //#dbg
                         var cached = cache[name];
                         if (cached) return cached;
-                        var template = PB.templates['std-'+name];
+                        var template = HP.templates['std-'+name];
                         if (!template) return;
                         var compiled = $.createTemplate(template, dynamicTemplates);
                         cache[name] = compiled;
                         return compiled;
                     }
                 };
-                PB._std_templates = dynamicTemplates;
+                HP._std_templates = dynamicTemplates;
             }
-            return PB._std_templates;
+            return HP._std_templates;
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         activateInlineVideos: function(el) {

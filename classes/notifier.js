@@ -2,7 +2,7 @@
 
 (function($) {
 
-    PB.Notifier = function(config) {
+    HP.Notifier = function(config) {
         $.extend(this, config);
         this.addEvents(
             'widgets-enter-mixed',
@@ -11,10 +11,10 @@
             'navigate',
             'layouting-finished'
         );
-        PB.Notifier.superclass.constructor.call(this);
+        HP.Notifier.superclass.constructor.call(this);
     };
 
-    PB.extend(PB.Notifier, PB.Observable, {
+    HP.extend(HP.Notifier, HP.Observable, {
     });
 
 })(jQuery);

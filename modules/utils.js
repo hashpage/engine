@@ -83,7 +83,7 @@
         }
     };
     
-    $.extend(PB, {                                                                                                               
+    $.extend(HP, {                                                                                                               
         crcTables: {},                                                                                                           
         /////////////////////////////////////////////////////////////////////////////////////////                                
         capitalize: function(s) {                                                                                                
@@ -107,7 +107,7 @@
         },                                                                                                                       
         /////////////////////////////////////////////////////////////////////////////////////////                                
         getCrc32Table: function(polynomial) {                                                                                    
-            if (PB.crcTables[polynomial]) return PB.crcTables[polynomial];                                                       
+            if (HP.crcTables[polynomial]) return HP.crcTables[polynomial];                                                       
             var term, table = [];                                                                                                
             for (var i = 0; i < 256; i++) {                                                                                      
                 term = i;                                                                                                        
@@ -119,13 +119,13 @@
                 }                                                                                                                
                 table[i] = term;                                                                                                 
             }                                                                                                                    
-            PB.crcTables[polynomial] = table;                                                                                    
+            HP.crcTables[polynomial] = table;                                                                                    
             return table;                                                                                                        
         },                                                                                                                       
         /////////////////////////////////////////////////////////////////////////////////////////                                
         // returns the crc32 hash for a string as an integer (credit: Kris Kowal <http://cixar.com/~kris.kowal>)                 
         crc32: function(s, table) {                                                                                              
-            table = table || PB.getCrc32Table(0xEDB88320); // IEEE802.3                                                          
+            table = table || HP.getCrc32Table(0xEDB88320); // IEEE802.3                                                          
             var crc = 0xFFFFFFFF;                                                                                                
             for (var i=0; i<s.length; i++) {                                                                                     
                 var x = s.charCodeAt(i);                                                                                         
@@ -135,8 +135,8 @@
         },                                                                                                                       
         /////////////////////////////////////////////////////////////////////////////////////////                                
         applyStyle: function() {                                                                                                 
-            if (!PB.css) return;                                                                                                 
-            var style = $('<style>'+PB.css+'</style>');                                                                          
+            if (!HP.css) return;                                                                                                 
+            var style = $('<style>'+HP.css+'</style>');                                                                          
             $('head').append(style);                                                                                             
         },                                                                                                                       
         /////////////////////////////////////////////////////////////////////////////////////////                                

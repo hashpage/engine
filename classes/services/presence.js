@@ -2,12 +2,12 @@
 
 (function($) {
 
-    PB.PresenceService = function(config) {
+    HP.PresenceService = function(config) {
         $.extend(this, config);
-        PB.PresenceService.superclass.constructor.call(this);
+        HP.PresenceService.superclass.constructor.call(this);
     };
 
-    PB.extend(PB.PresenceService, PB.Service, {
+    HP.extend(HP.PresenceService, HP.Service, {
         id: 'presence'
     });
     

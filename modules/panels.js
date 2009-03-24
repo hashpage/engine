@@ -2,19 +2,19 @@
 
 (function($) {
     
-    $.extend(PB, {
+    $.extend(HP, {
         /////////////////////////////////////////////////////////////////////////////////////////
         acceptGift: function() {
-            location = PB.url(null, 'gift/accept/'+PB.pid+'?token='+PB.giftToken);
+            location = HP.url(null, 'gift/accept/'+HP.pid+'?token='+HP.giftToken);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         declineGift: function() {
-            location = PB.url(null, 'gift/decline/'+PB.pid+'?token='+PB.giftToken);
+            location = HP.url(null, 'gift/decline/'+HP.pid+'?token='+HP.giftToken);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         presentGiftPanel: function(giftToken) {
-            PB.giftToken = giftToken;
-            var panel = $(PB.templates['panels-gift']);
+            HP.giftToken = giftToken;
+            var panel = $(HP.templates['panels-gift']);
             $('body').append(panel);
         }
      });

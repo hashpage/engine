@@ -2,12 +2,12 @@
 
 (function($) {
 
-    PB.PhotoService = function(config) {
+    HP.PhotoService = function(config) {
         $.extend(this, config);
-        PB.PhotoService.superclass.constructor.call(this);
+        HP.PhotoService.superclass.constructor.call(this);
     };
 
-    PB.extend(PB.PhotoService, PB.Service, {
+    HP.extend(HP.PhotoService, HP.Service, {
         id: 'photo'
     });
     

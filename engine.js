@@ -19,54 +19,55 @@
 // require('classes/service')
 // require('classes/widget')
 // require('debug')
-
+//#dbg
 (function($) {
 
-    $.extend(PB, {
+    $.extend(HP, {
         mode: 'preview',
         serverMode: 0,
         /////////////////////////////////////////////////////////////////////////////////////////
         run: function(options) {
+            console.log('HP.run', arguments);                                                          //#dbg
             options = options || {}; // TODO: check and sanitize options
-            $.extend(PB, options);
-            PB.urlParams = PB.parseUri(location).queryKey;
+            $.extend(HP, options);
+            HP.urlParams = HP.parseUri(location).queryKey;
 
             $.now = function() {
-                if (PB && PB.nowValue) return PB.nowValue;
+                if (HP && HP.nowValue) return HP.nowValue;
                 return +new Date;
             };
 
             $('body').addClass('hp-view-mode');
-            PB.applyStyle();
+            HP.applyStyle();
 
-            PB.loader = new PB.Loader();
-            PB.notifier = new PB.Notifier();
+            HP.loader = new HP.Loader();
+            HP.notifier = new HP.Notifier();
 
             // create and run all known services
-            for (var item in PB) { // look for all <some>Service classes in PB namespace
-                if (PB.hasOwnProperty(item)) {
-                    if (item.match(/.+Service$/) && PB[item].superclass) {
-                        PB.addService(new PB[item]());
+            for (var item in HP) { // look for all <some>Service classes in HP namespace
+                if (HP.hasOwnProperty(item)) {
+                    if (item.match(/.+Service$/) && HP[item].superclass) {
+                        HP.addService(new HP[item]());
                     }
                 }
             }
-            PB.runServices();
+            HP.runServices();
 
             // common parameters for all API calls
-            PB.commonParams = {
+            HP.commonParams = {
                 pid: options.pid,
                 seed: options.apiSeed
             };
-            PB.deserialize();
-            PB.ready = true;
-            if (!(parent && parent.PBS)) {
-                PB.readyToGo();
-                PB.activate();
+            HP.deserialize();
+            HP.ready = true;
+            if (!(parent && parent.HPS)) {
+                HP.readyToGo();
+                HP.activate();
             }
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         enterMode: function(mode) {
-            console.log('PB.enterMode', arguments);                                                 //#dbg
+            console.log('HP.enterMode', arguments);                                                 //#dbg
             if (this.mode==mode) return;
             console.log('  -- changing mode to ', mode);                                            //#dbg
             var body = $('body');
@@ -79,23 +80,23 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         loadEditor: function(fn) {
-            console.log('PB.loadEditor', arguments);                                                //#dbg
-            if (PB.editorPresent) {
+            console.log('HP.loadEditor', arguments);                                                //#dbg
+            if (HP.editorPresent) {
                 console.log('  -- editor already present');                                         //#dbg
                 if (fn) fn();
                 return;
             }
-            var notification = PB.showNotification('Loading editor', 'hp-notification-loader');
-            if (!PB.callThisOnEditorLoad) PB.callThisOnEditorLoad=[];
-            PB.callThisOnEditorLoad.push(function() {
-                PB.hideNotification(notification);
+            var notification = HP.showNotification('Loading editor', 'hp-notification-loader');
+            if (!HP.callThisOnEditorLoad) HP.callThisOnEditorLoad=[];
+            HP.callThisOnEditorLoad.push(function() {
+                HP.hideNotification(notification);
                 if (fn) fn();
             });
-            if (PB.editorBeingLoaded) {
+            if (HP.editorBeingLoaded) {
                 console.log('  -- editor being loaded');                                            //#dbg
                 return;
             }
-            PB.editorBeingLoaded = true;
+            HP.editorBeingLoaded = true;
             var head = $('head');
             head.children('script').each(function() {
                 var script = $(this);
@@ -108,13 +109,13 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         showNotification: function(msg, klass) {
-            if (!parent && !parent.PBS) return;
-            return parent.PBS.showNotification(msg, klass);
+            if (!parent && !parent.HPS) return;
+            return parent.HPS.showNotification(msg, klass);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         hideNotification: function(notification) {
-            if (!parent && !parent.PBS) return;
-            return parent.PBS.hideNotification(notification);
+            if (!parent && !parent.HPS) return;
+            return parent.HPS.hideNotification(notification);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         deserialize: function() {
@@ -135,23 +136,23 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         readyToGo: function() {
-            console.log("PB.readyToGo");                                                            //#dbg
+            console.log("HP.readyToGo");                                                            //#dbg
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         activate: function() {
-            console.log("PB.activate");                                                             //#dbg
+            console.log("HP.activate");                                                             //#dbg
             var widgets = $('.hp-widget:solid');
             var counter = 0;
             widgets.loadWidgets(function() {
                 counter++;
                 if (counter==widgets.length) {
-                    PB.widgetsVisibilityChanged();
+                    HP.widgetsVisibilityChanged();
                 }
             });
-            PB.possibleLayoutChange(null, 'activate');
+            HP.possibleLayoutChange(null, 'activate');
             
-            if (PB.urlParams['gift']) {
-                PB.presentGiftPanel(PB.urlParams['gift']);
+            if (HP.urlParams['gift']) {
+                HP.presentGiftPanel(HP.urlParams['gift']);
             }
         }
     });
