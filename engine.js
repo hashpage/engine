@@ -28,6 +28,7 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         run: function(options) {
             console.log('HP.run', arguments);                                                          //#dbg
+            HP.raw = !(parent && parent.HPS);
             options = options || {}; // TODO: check and sanitize options
             $.extend(HP, options);
             HP.urlParams = HP.parseUri(location).queryKey;
@@ -60,7 +61,7 @@
             };
             HP.deserialize();
             HP.ready = true;
-            if (!(parent && parent.HPS)) {
+            if (HP.raw) {
                 HP.readyToGo();
                 HP.activate();
             }
@@ -153,6 +154,8 @@
             
             if (HP.urlParams['gift']) {
                 HP.presentGiftPanel(HP.urlParams['gift']);
+            } else {
+                if (HP.raw) HP.presentHashPagePanel();
             }
         }
     });

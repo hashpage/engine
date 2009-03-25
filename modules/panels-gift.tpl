@@ -5,7 +5,7 @@
     <a class="hp-gift-decline" href="javascript:HP.declineGift()">Decline</a>
   </div>
   <div class="hp-gift-explanation">
-    Don't worry. <b>It is free!</b> By clicking on accept you can later modify this page and publish it on your own address.<br/>
+    Don't worry. <b>It is free!</b> By clicking on accept you can modify this page and later publish it on your own address.<br/>
     It will become your very own web site.
   </div>
 </div>

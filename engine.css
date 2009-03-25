@@ -109,13 +109,15 @@ html {
     background-color: #ccc;
     width: 300px;
     position: fixed;
-    right: 20px;
-    top: 20px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border: 2px solid #fff;
+    right: 0px;
+    bottom: 0px;
+    -moz-border-radius-topleft: 10px;
+    -webkit-top-left-border-radius: 10px;
+    border-left: 2px solid #fff;
+    border-top: 2px solid #fff;
     padding: 10px;
     opacity: 0.9;
+    z-index: 32000;
 }
 
 .hp-gift-panel .hp-gift-title {
@@ -153,4 +155,73 @@ html {
     border-top: 1px solid #bbb;
     font-size: 11px;
     margin-top: 10px;
+}
+
+/* -------------------------------------------------------------------------------------------
+   hash panel
+*/
+
+.hp-hash-corner {
+    background: transparent url(#{FRONT_URL}/master/static/hash-corner.png) no-repeat bottom right;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    opacity: 0.9;
+    z-index: 32000;
+    padding: 10px;
+    opacity: 0.9;
+}
+
+.hp-hash-panel {
+    display: none;
+}
+
+.hp-hash-corner:hover .hp-hash-panel {
+    display: block;
+}
+
+.hp-hash-corner:hover {
+    width: 200px;
+    height: 180px;
+    -moz-border-radius-topleft: 10px;
+    -webkit-top-left-border-radius: 10px;
+    border-left: 2px solid #fff;
+    border-top: 2px solid #fff;
+    background-color: #ccc;
+}
+
+.hp-hash-panel .hp-hash-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #bbb;
+    text-align: center;
+}
+
+.hp-hash-panel .hp-hash-explanation {
+    border-top: 1px solid #bbb;
+    font-size: 11px;
+    margin-top: 10px;
+}
+
+.hp-hash-panel .hp-hash-controls {
+    text-align: center;
+    font-size: 26px;
+}
+
+.hp-hash-panel .hp-hash-controls a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 4px 10px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    cursor: pointer;
+}
+
+.hp-hash-panel .hp-hash-controls .hp-hash-fork {
+    margin-right: 15px;
+    background-color: red;
 }
