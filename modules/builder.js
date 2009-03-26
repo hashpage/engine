@@ -9,7 +9,7 @@
             if (el.hasClass("ui-sortable-helper")) return false;
             if (el.hasClass("hp-hidden")) return false;
             if (el.hasClass("hp-widget-reordering-placeholder")) return false;
-            return true;
+            return true; // don't put is(':reallyvisible') here! some editor parts expets to match invisible solid containers
         }
     });
     /////////////////////////////////////////////////////////////////////////////////////////
