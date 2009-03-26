@@ -13,7 +13,7 @@
             console.log('HP.Widget.init', arguments);                                               //#dbg
             this.guid = guid;
             this.el = $(el);
-            this.info = info;
+            this.info = $.extend(this.info, info);
             this.root = this.el.parents('.hp-widget').eq(0);
             this.defaultConfig = this.defaultConfig || {};
             this.defaultState = this.defaultState || {};

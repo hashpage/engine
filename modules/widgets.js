@@ -28,6 +28,12 @@
          /////////////////////////////////////////////////////////////////////////////////////////
          registerWidget: function(selector, widgetDef) {
              console.log('HP.registerWidget', arguments);                                           //#dbg
+             if (!widgetDef.info) {
+                 widgetDef.info = {
+                     description: 'Here will be description available in baked production version',
+                     home: 'http://github.com/hashpage/index'
+                 };
+             }
              var widget = function(config) {
                  widget.superclass.constructor.call(this);
              };
