@@ -64,6 +64,10 @@
             if (HP.raw) {
                 HP.readyToGo();
                 HP.activate();
+            } else {
+                window.onbeforeunload = function() {
+                    HP.notifier.fireEvent('leave', location+'');
+                }
             }
         },
         /////////////////////////////////////////////////////////////////////////////////////////
@@ -124,8 +128,8 @@
             roots.buildStructure();
         },
         /////////////////////////////////////////////////////////////////////////////////////////
-        parentNavigate: function() {
-            this.notifier.fireEvent.apply(this.notifier, ['navigate'].concat($.makeArray(arguments)));
+        route: function() {
+            this.notifier.fireEvent.apply(this.notifier, ['route'].concat($.makeArray(arguments)));
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         containerAction: function() {
@@ -138,6 +142,12 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         readyToGo: function() {
             console.log("HP.readyToGo");                                                            //#dbg
+            this.notifier.fireEvent('enter', location+'', HP.pid, HP.pageId);
+            if (HP.urlParams['gift']) {
+                HP.presentGiftPanel(HP.urlParams['gift']);
+            } else {
+                if (HP.raw) HP.presentHashPagePanel();
+            }
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         activate: function() {
@@ -151,12 +161,6 @@
                 }
             });
             HP.possibleLayoutChange(null, 'activate');
-            
-            if (HP.urlParams['gift']) {
-                HP.presentGiftPanel(HP.urlParams['gift']);
-            } else {
-                if (HP.raw) HP.presentHashPagePanel();
-            }
         }
     });
 
