@@ -19,7 +19,7 @@
 // require('classes/service')
 // require('classes/widget')
 // require('debug')
-//#dbg
+
 (function($) {
 
     $.extend(HP, {
@@ -67,6 +67,9 @@
             } else {
                 window.onbeforeunload = function() {
                     HP.notifier.fireEvent('leave', location+'');
+                };
+                if (parent.HPS.reportForDuty) {
+                    parent.HPS.reportForDuty(location+'', HP.pid, HP.pageId);
                 }
             }
         },
@@ -86,21 +89,22 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         loadEditor: function(fn) {
             console.log('HP.loadEditor', arguments);                                                //#dbg
+            var notification;
             if (HP.editorPresent) {
                 console.log('  -- editor already present');                                         //#dbg
                 if (fn) fn();
                 return;
             }
-            var notification = HP.showNotification('Loading editor', 'hp-notification-loader');
             if (!HP.callThisOnEditorLoad) HP.callThisOnEditorLoad=[];
             HP.callThisOnEditorLoad.push(function() {
-                HP.hideNotification(notification);
+                if (notification) HP.hideNotification(notification);
                 if (fn) fn();
             });
             if (HP.editorBeingLoaded) {
                 console.log('  -- editor being loaded');                                            //#dbg
                 return;
             }
+            notification = HP.showNotification('Loading editor', 'hp-notification-loader');
             HP.editorBeingLoaded = true;
             var head = $('head');
             head.children('script').each(function() {
@@ -142,7 +146,6 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         readyToGo: function() {
             console.log("HP.readyToGo");                                                            //#dbg
-            this.notifier.fireEvent('enter', location+'', HP.pid, HP.pageId);
             if (HP.urlParams['gift']) {
                 HP.presentGiftPanel(HP.urlParams['gift']);
             } else {
