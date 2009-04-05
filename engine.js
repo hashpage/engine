@@ -28,6 +28,7 @@
         /////////////////////////////////////////////////////////////////////////////////////////
         run: function(options) {
             console.log('HP.run', arguments);                                                          //#dbg
+            HP.patchDocument();
             HP.raw = !(parent && parent.HPS);
             options = options || {}; // TODO: check and sanitize options
             $.extend(HP, options);
@@ -72,6 +73,20 @@
                     parent.HPS.reportForDuty(location+'', HP.pid, HP.pageId);
                 }
             }
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        setActiveWritePosition: function(el) {
+            HP.activeWritePosition = $(el);
+        },
+        /////////////////////////////////////////////////////////////////////////////////////////
+        patchDocument: function() {
+            // many badges expect to be included staticaly into HTML and use document.write to emit theirs code
+            // this is not working when badge script tag is inserted dynamicaly into already loaded page
+            HP.oldDocumentWrite = document.write;
+            var body = $('body');
+            document.write = function(content) {
+                (HP.activeWritePosition || body).append(content);
+            };
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         enterMode: function(mode) {

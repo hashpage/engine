@@ -34,6 +34,7 @@
         applyHTML: function(html) {
             if (!html) return;
             console.log('HP.Widget.applyHTML', arguments);                                          //#dbg
+            HP.setActiveWritePosition(this.el);
             this.el.html(html);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
