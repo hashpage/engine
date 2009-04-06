@@ -1,3 +1,4 @@
+// require('compatibility')
 // require('lib/firebugx')
 // require('lib/jquery/jquery')
 // require('lib/jquery/ui/ui.core')
