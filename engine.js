@@ -68,10 +68,10 @@
                 HP.activate();
             } else {
                 window.onbeforeunload = function() {
-                    HP.notifier.fireEvent('leave', location+'');
+                    HP.notifier.fireEvent('leave', location+'', HP.getEngineId());
                 };
                 if (parent.HPS.reportForDuty) {
-                    parent.HPS.reportForDuty(location+'', HP.pid, HP.pageId);
+                    parent.HPS.reportForDuty(location+'', HP.pid, HP.pageId, HP.getEngineId());
                 }
             }
         },
