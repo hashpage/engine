@@ -35,7 +35,10 @@
             if (!html) return;
             console.log('HP.Widget.applyHTML', arguments);                                          //#dbg
             HP.setActiveWritePosition(this.el);
-            this.el.html(html);
+            if (typeof html == 'string')
+                this.el.html(html);
+            else
+                this.el.append(html);
         },
         /////////////////////////////////////////////////////////////////////////////////////////
         getState: function() {

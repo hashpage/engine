@@ -5,6 +5,27 @@
      $.extend(HP, {
          services: {},
          /////////////////////////////////////////////////////////////////////////////////////////
+         fetchUrl: function(params, success) {
+             $.ajaxSetup({
+                 cache: true,
+                 jsonpgen: function() {
+                     var hash = "x"+Math.abs(HP.crc32(params.url)).toString(16); // CRC32 should be quite fast, we don't need cryptographic power of SHA-1 here
+                     while (window[hash]) hash += "x"; // prevents collision in window namespace (very unlikely)
+                     return hash;
+                 }
+             });
+             $.getJSON(HP.url("api", 'proxy?callback=?'), params, function(data) {
+                 if (data.status==0) {
+                     success(data.content);
+                 }
+                 // TODO: failing path
+             });
+             $.ajaxSetup({
+                 cache: false, 
+                 jsonpgen: null
+             });
+         },
+         /////////////////////////////////////////////////////////////////////////////////////////
          addService: function(service) {
              this.services[service.id] = service;
          },
